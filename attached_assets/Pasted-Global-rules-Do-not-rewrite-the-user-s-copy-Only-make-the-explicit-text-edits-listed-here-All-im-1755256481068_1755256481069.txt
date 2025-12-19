@@ -1,0 +1,267 @@
+Global rules
+
+Do not rewrite the user’s copy. Only make the explicit text edits listed here.
+
+All images are decorative: set alt="" on every <img> across the site (including existing ones) and add loading="lazy" where missing.
+
+Only use images from /assets/images/. For new/changed slots, pick the first image alphabetically (deterministic placeholder; Jordan will swap later).
+
+Keep routes as they are unless explicitly told to remove/move.
+
+0) Inventory reference (top-level pages we’ll touch)
+
+Top-level html files present:
+bio.html, blog.html, bylines.html, contact.html, gypsy-jazz.html, index.html, kicks.html, lemonbird.html, music.html, now.html, photos.html, podcasts.html, solo.html, subscribe.html, wall.html, writing.html
+Header partial: partials/header.html
+Header injector: assets/js/inject-header.js
+Styles: assets/css/styles.css
+
+1) Home page (index.html) — text fixes + list sizing
+
+Microedits (literal find/replace, keep punctuation/quotes as in source):
+
+Replace the sentence containing “I’m not not interested in those things” with the same sentence but with the second “not” in italics:
+
+If the page currently uses straight quotes:
+
+Find: I'm not not interested in those things
+
+Replace: I'm not <em>not</em> interested in those things
+
+If the page uses curly quotes:
+
+Find: I’m not not interested in those things
+
+Replace: I’m not <em>not</em> interested in those things
+
+Replace the substring “I’m also interested in doing interesting things” with:
+
+I’m also interested in doing interesting things myself.
+
+Remove the KICKS line entirely (delete the whole <li> that contains):
+
+Here, you can read about previous KICKS, my term for my obsessions du jour.
+
+Replace the blog sentence exactly:
+
+Find (full sentence):
+Here, you can access my BLOG, though I like to think of them as essays because then in my mind I look more like this than like this.
+
+Replace with:
+Here, you can access my BLOG, The Fare Well Files, where I regularly write essays.
+
+Make the bullet list equal in size to body text
+In CSS (see §6), ensure any selector that inflates the list items on the index page (e.g., .navigation-list li, .feature-list li, or equivalent) does not set a larger font-size than body.
+
+If you find a rule like .navigation-list li { font-size: ... }, remove the font-size or set font-size: inherit;
+
+2) Header navigation (partials/header.html)
+
+Relabel Blog → Essays (keep the same href /blog.html):
+
+Find anchor that links to /blog.html with visible text “Blog”.
+
+Change its visible text only to “Essays”.
+
+Rename first submenu items to “Overview”:
+
+In the Writing dropdown, the item that links to /writing.html should have visible text “Overview” (not “Writing”).
+
+In the Music dropdown, the item that links to /music.html should have visible text “Overview” (not “Music”).
+
+Add a primary nav item “Subscribe” linking to /subscribe.html (top level, same style as other top-level items).
+
+Remove any “Contact” link from the nav (e.g., under Other → Contact). Delete that <li><a href="/contact.html">Contact</a></li> from the partial.
+
+(No other copy changes.)
+
+3) Footer simplification (all pages listed in §0)
+
+Replace the entire <footer>…</footer> on every page with this minimal version:
+
+<footer>
+  <div class="container">
+    <p>&copy; <span id="current-year"></span> Jordan Call · <a href="https://farewellfiles.substack.com/" target="_blank" rel="noopener">Substack</a></p>
+  </div>
+</footer>
+
+
+Keep the existing assets/js/inject-header.js behavior that sets the year.
+
+4) Remove “Write on my Wall” (guestbook) from the site
+
+Do not expose it online. Preserve code for later:
+
+Create /unused/ if it doesn’t exist.
+
+Move wall.html → /unused/wall.html.
+
+Remove any link to /wall.html anywhere (header partial already handled in §2; also remove from any page content lists if present).
+
+5) Contact page (hide, don’t delete)
+
+Do not expose it online. Preserve for later:
+
+Move contact.html → /unused/contact.html.
+
+Remove any remaining links to /contact.html (footer is gone; header handled in §2).
+
+6) Styles — H2 and list sizing (assets/css/styles.css)
+
+Unify H2 rhythm (single definition in assets/css/styles.css):
+
+Ensure there’s one global h2 { … } rule.
+
+Remove/neutralize any inline or page-specific h2 overrides in individual HTML files (<style> tags).
+
+Keep the existing font family/size scale the project already uses; just ensure margins are consistent site-wide (e.g., margin-top and margin-bottom uniform). Do not change heading text.
+
+Index list sizing (from §1.4): confirm that any list on the index page uses font-size: inherit; and does not appear larger than body copy.
+
+Center the button groups on Writing and Music
+In assets/css/styles.css, add or adjust the .button-group rule to ensure centered layout on all breakpoints:
+
+.button-group {
+  display: flex;
+  gap: 0.75rem;          /* keep existing scale if present */
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;    /* safe fallback for inline-block links */
+}
+
+7) Decorative images — placements & adjustments
+
+General: for all images site-wide, ensure alt="" and loading="lazy". If any <img> lacks alt or has descriptive alt, set it to alt="".
+
+Insert/move specific page images:
+
+Bio (bio.html) — after main text:
+Inside <main> in the primary content container, insert after the last paragraph (but before <footer>) a block:
+
+<figure class="page-image bottom">
+  <img src="assets/images/{FIRST-ALPHABETICAL}.jpg" alt="" loading="lazy">
+</figure>
+
+
+Choose the first alphabetical file from /assets/images/ and use its exact filename and extension.
+
+Now (now.html) — after main text: same block as Bio.
+
+Blog/Essays (blog.html) — between H1 and text:
+There is already a TOP IMAGE PLACEHOLDER. Replace the src with the first alphabetical image path as above and ensure alt="" and loading="lazy".
+
+Gypsy Jazz (gypsy-jazz.html) — between H1 and text:
+If a top figure exists, swap src; otherwise, insert the same top <figure class="page-image top">…</figure> block right after the <h1>.
+
+Lemonbird (lemonbird.html) — between H1 and text: same as above.
+
+Solo Project (solo.html) — between H1 and text: same as above.
+
+(Do not add captions or any other text.)
+
+8) Bylines page intro (bylines.html)
+
+Replace the existing intro blurb with exactly this copy (no changes, no additional lines), placed in the page’s main content area where the intro paragraph currently sits:
+
+For a while, I put effort into doing freelance writing for established publications. This was a lot of fun, but it meant that my creative time became ninety-nine parts pitching to editors for every one part writing, which didn't feel aligned with what I wanted to be doing. I haven't pitched anything in a long time, and I might return to it someday, but for now I'm happy writing my blog, where I spend zero parts pitching for every hundred parts writing thanks to my blog.
+Here are the pieces that I published when I was in my pitching mode.
+
+(Keep the existing bylines list beneath.)
+
+9) Subscribe page (subscribe.html)
+
+Rework the main content block to only include:
+
+A prominent link to https://farewellfiles.substack.com/ (button or link), no extra copy beyond the URL label is required.
+
+The exact contact line (verbatim):
+“To contact me, reply to a post or DM me on Substack.”
+
+Keep one image between the heading and text (top image) using the first alphabetical image from /assets/images/, with alt="" and loading="lazy".
+
+(Do not add any other explanatory text.)
+
+10) Essays list driven by Substack RSS (blog.html)
+
+Goal: A simple vertical list of links to every Fare Well Files post. Link text should be Title (YYYY-MM-DD). No thumbnails, no arrows, no excerpts.
+
+10a) Create a tiny build utility (no external packages)
+
+Create scripts/fetch-substack-rss.js with Node built-ins only (https):
+
+GET https://farewellfiles.substack.com/feed
+
+Parse with minimal regex to extract each <item> block and then:
+
+title (support <![CDATA[...]]> as well as plain <title>…</title>)
+
+link
+
+pubDate → format to YYYY-MM-DD (UTC is fine)
+
+Save JSON to assets/data/farewellfiles.json with an array of:
+{ "title": "...", "link": "...", "date": "YYYY-MM-DD" }
+
+Run this script once now in the Replit shell after edits:
+node scripts/fetch-substack-rss.js
+(This generates/updates assets/data/farewellfiles.json in the repo.)
+
+(Optional, for future automation) If a package.json exists or is added later, set "prebuild": "node scripts/fetch-substack-rss.js".
+
+10b) Render the list on blog.html
+
+In blog.html, in the main content area, add an empty container:
+
+<ul id="essays-list" class="essay-list"></ul>
+
+
+Add a tiny inline script (no frameworks) at the end of blog.html (before </body>), that fetches /assets/data/farewellfiles.json, sorts newest first (ISO string works lexicographically), and renders:
+
+<li><a href="LINK" target="_blank" rel="noopener">TITLE (YYYY-MM-DD)</a></li>
+
+
+If the JSON file is missing, render nothing (no fallback copy).
+
+(No other words; just the list items.)
+
+11) Sweep: images → alt="", loading="lazy"
+
+In every HTML file listed in §0, ensure all <img> tags have alt="" and loading="lazy". If any have descriptive alt, replace with empty alt per user request. Do not change filenames besides the spots listed.
+
+12) Final link hygiene
+
+Header now contains “Essays” (→ /blog.html) and “Subscribe” (→ /subscribe.html); no “Contact”.
+
+Ensure the removed “wall” and “contact” routes are not linked anywhere (header/footers/content).
+
+Ensure the new simple footer appears on all pages in §0.
+
+13) Sanity checks before handoff
+
+Load index.html, confirm:
+
+The two microedits are present (italicized second not; “myself” added).
+
+The KICKS line is gone.
+
+The “Blog…” sentence replaced exactly as given.
+
+Bullet list now matches body size.
+
+Load blog.html, confirm:
+
+Top image displays (decorative).
+
+The list of essays renders as Title (YYYY-MM-DD); links open to Substack.
+
+Load bio.html and now.html, confirm bottom images appear (decorative).
+
+Load gypsy-jazz.html, lemonbird.html, solo.html, confirm top images appear (decorative).
+
+Check any page for footer: minimal copyright + Substack link.
+
+Confirm /unused/contact.html and /unused/wall.html exist in the repo and are not routed/linked.
+
+Notes on images
+
+For each page needing a new/changed image, choose the first alphabetical filename in /assets/images/ (deterministic). Apply the same file to all the new slots unless you prefer to pick different firsts per page (either is fine—Jordan will replace later). All with alt="" and loading="lazy".

@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube — Jordan Call</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="YouTube — Jordan Call">
+    <meta property="og:description" content="Jordan Call's YouTube channel.">
+    <meta property="og:image" content="https://jordancall.com/assets/images/web/top-photo.webp">
+    <meta property="og:url" content="https://jordancall.com/youtube.html">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jordancall.com/youtube.html">
+    <meta property="twitter:title" content="YouTube — Jordan Call">
+    <meta property="twitter:description" content="Jordan Call's YouTube channel.">
+    <meta property="twitter:image" content="https://jordancall.com/assets/images/web/top-photo.webp">
+
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/styles.css?v=2025-08-16T15%3A13%3A33.166Z">
+</head>
+<body>
+    <main id="main">
+        <div class="container">
+            <h1>YouTube</h1>
+            
+            <div class="content">
+                <p>My first big creative project after leaving the law was starting a YouTube channel. I spent about a year doing everything I could think of: video essays, sketches and memes, song covers, original music, interviews, and so on.</p>
+                
+                <p>Then, I tried to narrow down my focus (never a good idea) to one concept: "Learning to Grammy," where I would see if I could go from being an unknown musician to a Grammy winner. I made some very cool progress on this goal, getting accepted to Berklee's Music Production Master's program, learning to record and mix and release my own music, making lots of connections with musicians and even Grammy winners. But ultimately I wasn't able to keep up with (1) trying to establish a music career and (2) trying to create YouTube videos about trying to establish a music career.</p>
+                
+                <p>I hope to pick the series up again someday because I've learned so much about the industry. Even more than that, I'd like to go back to just making random videos with zero connection. It was a good time. But right now I'm happiest writing Substack essays, where the focus is on writing instead of video editing.</p>
+                
+                <p><a href="https://www.youtube.com/@JordanCall" target="_blank" rel="noopener">https://www.youtube.com/@JordanCall</a></p>
+
+              
+                <ul id="youtube-list" class="essay-list"></ul>
+            </div>
+          <!-- ===== BOTTOM IMAGE PLACEHOLDER (remove or replace) ===== -->
+          <figure class="page-image bottom">
+            <img src="assets/images/web/photo45.webp" alt="" loading="lazy" />
+        </div>
+    </main>
+
+<footer>
+  <div class="container">
+    <p>&copy; <span id="current-year"></span> Jordan Call · <a href="https://farewellfiles.substack.com/" target="_blank" rel="noopener">Substack</a></p>
+  </div>
+</footer>
+
+    <script src="/assets/js/version.js?v=inline" defer></script>
+        <script src="/assets/js/inject-header.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+    <script src="/assets/js/nav.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+    <script>
+      (async () => {
+        try {
+          const v = await window.__getBuildVersion;
+          const res = await fetch(`/assets/data/youtube.json?v=${encodeURIComponent(v)}`, { cache: 'no-store' });
+          const items = await res.json();
+          const ul = document.getElementById('youtube-list');
+          items.forEach(item => {
+            const d = new Date(item.date || item.publishedAt);
+            const mm = d.getMonth() + 1, dd = d.getDate(), yy = String(d.getFullYear()).slice(-2);
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = item.link || `https://www.youtube.com/watch?v=${item.videoId}`;
+            a.target = '_blank'; a.rel = 'noopener';
+            a.textContent = `${item.title}  –  ${mm}/${dd}/${yy}`;
+            li.appendChild(a); ul.appendChild(li);
+          });
+        } catch {}
+      })();
+    </script>
+<script src="/assets/js/kill-sw.js?v=sw-off" defer></script>
+</body>
+</html>

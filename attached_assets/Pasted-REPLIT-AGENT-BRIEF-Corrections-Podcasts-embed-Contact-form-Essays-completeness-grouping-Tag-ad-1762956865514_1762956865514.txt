@@ -1,0 +1,190 @@
+REPLIT AGENT BRIEF — Corrections (Podcasts embed, Contact form, Essays completeness/grouping, Tag add)
+
+Do not rewrite any page copy.
+Do not change image placement rules or cache-busting/versioning.
+Keep the minimalist styling and existing class names unless explicitly asked to add.
+
+A) Podcasts — Make Allie Canton block a true embed matching Kaschuta
+
+Files to inspect/edit:
+
+podcasts.html (primary)
+
+assets/css/styles.css (only if the Kaschuta embed uses dedicated classes that need re-use)
+
+Steps:
+
+In podcasts.html, locate the existing Alex Kaschuta embedded player block. Identify the exact markup wrapper, classes, and structure used for the embed (iframe or script-based embed).
+
+Find the Allie Canton / Practically on Purpose entry you added. Replace its current simple link block with a matching embed block using the same wrapper/classes/DOM structure as Kaschuta.
+
+The episode to embed: “The Statusless Life: Jordan Call on Fatherhood, Faith and Life Beyond Gold Stars.”
+
+Canonical episode URL: https://alliecanton.substack.com/p/the-statusless-life-jordan-call-on
+
+If this platform provides an iframe/embed code, use that; if not, use Substack’s embed player for this episode.
+
+Ensure title/ARIA labeling on the iframe mirrors Kaschuta’s accessibility attributes.
+
+Keep a fallback beneath the embed: a standard <a> link to the episode (open in new tab), hidden from sighted users via .visually-hidden but available for screen readers (match how Kaschuta block does fallback, if any).
+
+Do not change any surrounding text/copy; only replace the media container.
+
+Verify visual parity: both podcast blocks should present as the same “card/embedded player” UI.
+
+Validation:
+
+Both players render, play, and are keyboard-accessible.
+
+Tab order sensible; focus trap not required.
+
+On mobile, embeds are responsive and not cut off.
+
+B) Contact Form — Re-enable with Formspree (honeypot, no copy changes)
+
+Files to inspect/edit:
+
+subscribe-contact.html (or the page containing the contact form)
+
+assets/js/main.js (only if prior JS validation/honeypot toggles existed)
+
+assets/css/styles.css (ensure any .hidden/.sr-only classes exist)
+
+Steps:
+
+Search for the previously working Formspree form markup:
+
+If it exists but is commented or disabled, unhide it exactly as before. Do not change field labels or placeholder text.
+
+If the old form is missing, create a minimal, static-friendly form that mirrors the earlier one’s structure:
+
+<form method="POST" action="https://formspree.io/f/XXXXYYYY">
+
+Replace https://formspree.io/f/XXXXYYYY with the owner’s endpoint if it’s in project notes/env.
+
+If unknown, insert a TODO comment: <!-- OWNER: replace with your Formspree endpoint --> and leave the current placeholder intact.
+
+Fields (names must be exactly these for Formspree’s default parsing):
+
+name="name" (text)
+
+name="email" (email)
+
+name="message" (textarea)
+
+Add an invisible honeypot input:
+
+name="website"; hide via .sr-only or .hidden.
+
+If non-empty on submit, prevent submission via a 2–3 line inline JS check or server-side (Formspree will ignore extra fields; client-side check is fine).
+
+Add a success message area that displays on 200 OK, and a failure message area on non-200 responses. Use progressive enhancement; if no JS, let Formspree’s redirect confirmation page handle it.
+
+If there is a Content Security Policy meta tag or headers in the project, ensure it allows posting to https://formspree.io/.
+
+Do not add 3rd-party analytics or scripts. No copy changes.
+
+Validation:
+
+Submit a test (with a real email). Confirm Formspree accepts it and returns success.
+
+Confirm the honeypot blocks obvious bot fills (manually test by filling the hidden website field).
+
+C) Essays — Restore all posts, group by year, and prevent future truncation
+
+Files to inspect/edit:
+
+scripts/fetch-substack-rss.js (or whichever script generates assets/data/farewellfiles.json)
+
+assets/data/farewellfiles.json (output of the script; do not hand-edit)
+
+assets/data/essay-tags.json (do not change existing mappings; see §D)
+
+writing.html or blog.html (whichever renders the Fare Well Files list)
+
+assets/js/essays-filter.js (if grouping affects selector logic)
+
+Goals:
+
+Never lose older posts again.
+
+Render all essays, grouped by year (most recent year first, posts reverse-chron within each year).
+
+Keep the lightweight tag filter working.
+
+Fix the data fetch layer:
+
+Update scripts/fetch-substack-rss.js so the generated assets/data/farewellfiles.json includes every post to date. Because Substack RSS is limited, implement one of the following (choose 1, but document in code comments):
+
+Archive crawler: Fetch https://farewellfiles.substack.com/archive, parse entries (title, date, URL/slug). If the archive paginates, follow “next” links until exhausted.
+
+Incremental merge: Keep prior farewellfiles.json, fetch latest RSS items, merge (union by slug) with the existing set, and write the full set back—never overwrite with only the last N items.
+
+(Preferred: archive crawler → single source of truth, deterministic full rebuild.)
+
+Ensure the script normalizes slugs consistently (e.g., strip trailing / and query params).
+
+After building the full array, merge tags from assets/data/essay-tags.json (if slug matches) into each post as a tags array (do not mutate title/URL/excerpt).
+
+Sort descending by date in the output file.
+
+Render layer (group by year):
+5) In writing.html or blog.html (the listing page), render the full set with year headings. Example structure:
+
+<h2 class="year-header">2025</h2>
+
+list of posts for 2025 (reverse-chron)
+
+<h2 class="year-header">2024</h2>
+
+list of posts for 2024, etc.
+
+Add a progressive enhancement control to collapse older years if there are >2 years of content:
+
+Show the most recent two years expanded by default. Older years are collapsed with a “Show {Year}” toggle.
+
+No JS → all years simply stack.
+
+Ensure the tag filter continues to filter across all years (hide/show posts; auto-hide a year section if all posts within it are filtered out; bring it back if the filter changes). Do not re-sort; keep chronological order inside each year.
+
+Validation:
+
+Running the fetch script yields a farewellfiles.json that contains all ~36+ posts.
+
+The page shows them grouped by year, most recent on top; tag filtering works across groups.
+
+No copy changes; only structure and data-driven rendering.
+
+D) Essays — Add “freewrite” tag option
+
+Files to edit:
+
+assets/js/essays-filter.js (UI list of selectable tags)
+
+assets/data/essay-tags.json (Jordan will assign; do not add mappings yourself)
+
+Steps:
+
+Add “freewrite” to the visible tag filter options in assets/js/essays-filter.js.
+
+Do not add or change any tag assignments in essay-tags.json. Leave that to the owner.
+
+Ensure the filter logic handles posts that have multiple tags (AND logic within a tag? Keep existing behavior; do not change semantics unless current logic is broken).
+
+Validation:
+
+“freewrite” appears as a tag filter control and correctly filters posts tagged freewrite once the owner assigns them.
+
+E) Post-Fix Validation & No-Regression Checks
+
+Podcasts: Both Alex Kaschuta and Allie Canton blocks are full embeds with identical visual structure; both play and are responsive.
+
+Contact form: Submits successfully to Formspree endpoint (or shows TODO if endpoint unknown). Honeypot works. No CSP errors.
+
+Essays: farewellfiles.json includes all historic posts; UI shows them grouped by year with recent years expanded by default; tag filters work across groups.
+
+Tag option: “freewrite” present and functional in the filter UI.
+
+No collateral: Cache-busting/versioning intact; no new libraries; no copy altered; image policy unchanged (except previously-approved override on Fare Well Files top hero).
+
+If anything in this brief conflicts with current files, this brief wins. Apply only what’s specified—nothing extra.

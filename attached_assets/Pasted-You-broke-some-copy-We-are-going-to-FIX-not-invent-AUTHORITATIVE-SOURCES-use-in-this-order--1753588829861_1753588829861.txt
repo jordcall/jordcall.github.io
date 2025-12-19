@@ -1,0 +1,81 @@
+You broke some copy. We are going to FIX, not invent.
+
+AUTHORITATIVE SOURCES (use in this order):
+1) Replit version history: restore the exact text (“copy”) from the commit immediately BEFORE the last v2 changes.
+2) If version history is unavailable, use any file named websitev1.zip or similar in the project root. Unzip to a temp folder and copy the exact text from those HTML files.
+3) If neither exists, STOP and output a clear list of pages you could not restore. Do not write placeholder text.
+
+GLOBAL RULES
+- Do NOT invent or paraphrase copy. Restore the exact wording, punctuation, italics, and links from v1.
+- Keep all v2 structural/CSS improvements EXCEPT where the instructions below say to revert.
+- Never hide items with CSS (no nth-child display:none, no max-height clipping).
+- When unsure, DO NOTHING and report.
+
+TASKS
+
+1) RESTORE ORIGINAL COPY (EVERY PAGE)
+- For ALL HTML pages, replace body text with the exact v1 text. This includes: index.html (Welcome), writing.html, music.html, lemonbird.html, solo.html, bylines.html, bio.html, now.html, photos.html, podcasts.html, contact.html, kicks.html, wall.html, subscribe.html, gypsy-jazz.html (and any others present).
+- Keep headings hierarchy and anchors, but ensure the wording matches v1.
+- Keep image placeholders we added, unless they conflict with real images you find in v1; if conflict, prefer the real v1 images and delete the placeholder.
+
+2) BYLINES: SHOW ALL + RESTORE CATEGORIES
+- Bring back ALL byline entries and the same CATEGORY GROUPINGS and order used in v1 (e.g., the exact section headings and which items appear under each).
+- Use the new card layout for each item, BUT group them under the v1 category headings.
+- Ensure no CSS limits the number of visible items. Remove any rule that hides items (e.g., :nth-child or max-height).
+- If a byline item had no thumbnail in v1, render the card without an image rather than using a placeholder.
+- Keep external links, dates, and publication names exactly as v1.
+
+3) FOOTER: REMOVE TAGLINE. USE MAIN MENU ONLY.
+- Remove the “Making things that help people fare well — …” tagline and the big subscribe button.
+- Footer should simply list the main menu links, same order as the top menu, no extras:
+  Writing, Music, Bylines, Photos, Now, Bio, Contact, Subscribe, This Site.
+- “This Site” must link to /index.html#about-site (no separate page).
+- Keep © YEAR Jordan Call.
+
+4) WRITING PAGE: COPY + BUTTONS FOR TWO SUBCATEGORIES
+- Use v1 text for the Writing page.
+- Below the text, add two large, clean buttons (not a “New here?” box):
+  - “Substack” → link to the Substack page you used in v1 (or /subscribe.html if that’s how v1 linked).
+  - “Bylines” → /bylines.html
+- Style: simple solid buttons with gentle radius, readable size, and clear hover/focus. No shadows needed.
+- Remove the prior “New here?” CTA box entirely.
+
+5) MUSIC PAGE: COPY + BUTTONS FOR THREE SUBCATEGORIES
+- Use v1 text for the Music page.
+- Below the text, add three buttons (same style as Writing):
+  - “Gypsy Jazz” → link to the v1 target page for this category (if a dedicated page exists, use it; otherwise use the page that best matched in v1, e.g., /gypsy-jazz.html or the relevant section).
+  - “Lemonbird” → /lemonbird.html
+  - “Solo Project” → /solo.html
+- Remove “Solo guitar,” “Kicks,” “Hire me / collaborate,” and “Wall Project” buttons/links that were added in v2.
+
+6) NAV MENU BEHAVIOR AND LOOK
+- Restore the visual style so “Writing” and “Music” look like the other menu items (no oversized label with little arrow).
+- Behavior: Hover opens the dropdown; Click navigates to the parent page (Writing → /writing.html, Music → /music.html).
+- Accessibility: keep keyboard access—focus/arrow keys should open the submenu. Clicking the label still navigates.
+- Remove the separate chevron button if it was added. Hover/focus CSS plus JS focus handling is fine.
+
+7) LEMONBIRD PAGE
+- Restore the exact v1 copy and the Spotify embed (same track/playlist/album, same iframe attributes).
+- Ensure the embed is responsive: width:100%, max-width of container, and a reasonable height (use the v1 height if present).
+
+8) SOLO PROJECT PAGE
+- Restore the exact v1 copy and Spotify (or other) embed exactly as in v1, responsive as above.
+
+9) WELCOME PAGE TYPOGRAPHY
+- Make all body paragraph text on the Welcome page one consistent font size (use the v1 size). Remove any v2-specific larger paragraph sizes there.
+- Keep headings sized appropriately but do not mix enlarged paragraph styles within the body.
+
+10) JUSTIFICATION
+- Keep paragraph justification IF it does not change line breaks in a way that alters the v1 copy. If justification causes awkward rivers on mobile, allow ragged-right on small screens. Do not alter the actual text content.
+
+11) QA & CLEANUP
+- Confirm every “This Site” link points to /index.html#about-site.
+- Confirm Bylines: every item from v1 appears, under the same category headings, and is clickable.
+- Confirm Writing and Music have only the specified buttons and no “New here?” box.
+- Confirm Lemonbird and Solo pages match v1 copy and embeds.
+- Confirm footer shows only the main menu links + © YEAR.
+- Confirm no console errors.
+
+AT THE END, PRINT:
+- A checklist showing each task 1–11 with PASS/FAIL.
+- If any page’s v1 copy was not found, list the page and STOPPED changes you avoided instead of inventing text. 

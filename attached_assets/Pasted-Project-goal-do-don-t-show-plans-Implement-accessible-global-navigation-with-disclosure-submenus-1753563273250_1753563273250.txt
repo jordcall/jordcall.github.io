@@ -1,0 +1,174 @@
+Project goal (do, don’t show plans):
+Implement accessible global navigation with disclosure submenus; remove the “Hi, I’m Jordan” intro box everywhere; normalize typography to a single variable font; and make the header reusable across pages via an injected partial. Then run a QA pass with keyboard, touch, and hover.
+
+0) Repository context
+This is a static site served by a tiny Python HTTP server. Keep that.
+
+All edits must be idempotent and applied across every HTML page in the project.
+
+1) Remove the intro box
+Find the element that contains copy beginning “Hi, I’m Jordan”.
+
+Delete the HTML block entirely on every page (do not hide).
+
+Remove any CSS rules and JS listeners that targeted it.
+
+After removal, ensure the first focusable element on each page is the Skip to content link.
+
+2) Reusable header partial
+Create partials/header.html containing:
+
+A Skip to content link pointing to #main.
+
+Brand link: “Jordan Call” → /index.html.
+
+A hamburger button (aria-expanded, aria-controls) to toggle the nav on mobile.
+
+A <nav aria-label="Primary" id="primary-nav"> with four top-level groups:
+
+About → children: Bio (/bio.html), Now (/now.html), This Site (/this-site.html).
+
+Writing → Substack (/blog.html), Bylines (/bylines.html).
+
+Music → Gypsy Jazz (/gypsy-jazz.html), Lemonbird (/lemonbird.html), Solo Project (/solo.html).
+
+Other → Podcasts (/podcasts.html), Photos (/photos.html), Contact (/contact.html).
+
+3) Inject the header on every page
+Add a small script (e.g., assets/js/inject-header.js) that, on DOMContentLoaded, fetches /partials/header.html and inserts it as the first child of <body>.
+
+After injection, call an initializer (e.g., initNav()) that wires up interactions.
+
+Include <script src="/assets/js/inject-header.js" defer></script> and <script src="/assets/js/nav.js" defer></script> before </body> on every page.
+
+4) Disclosure-submenu navigation (accessibility requirements)
+Implement behavior in assets/js/nav.js:
+
+Structure
+
+Each top-level group contains a button with aria-expanded="false" and aria-controls pointing to its submenu <ul hidden>.
+
+Keyboard
+
+Enter/Space on a top button toggles its submenu.
+
+Arrow Down on a top button opens its submenu and focuses the first item.
+
+Arrow Up/Down moves between submenu items.
+
+Esc closes the current submenu and returns focus to its button.
+
+Tab order: Skip link → brand → top buttons → submenu items (when open) → rest of page.
+
+Mutual exclusion
+
+Opening one submenu closes the others.
+
+Click outside
+
+Clicking outside the nav closes all submenus.
+
+Mobile
+
+The hamburger toggles the whole nav visibility. When opening, focus the first top-level button. When closing, close all submenus and return focus to the hamburger.
+
+Desktop hover enhancement
+
+On pointer devices ((hover: hover)), hovering a top-level group opens its submenu.
+
+On leaving the group, close after ~180 ms unless the pointer or keyboard focus is still inside (grace period to satisfy “hoverable/persistent”).
+
+Hover is an enhancement; click/tap/keyboard must work identically.
+
+5) Styling & layout
+Edit assets/css/styles.css (or equivalent) to:
+
+Typography
+
+Use one variable family site‑wide: Inter Variable for headings and text.
+
+Load via Google Fonts for now with display=swap. Add preconnect tags.
+
+Set a system‑UI fallback stack.
+
+Body: weight around 450, line-height ~1.6. Headings: 700.
+
+Implement a fluid type scale using clamp() so sizes adapt between mobile and desktop.
+
+Skip link
+
+Absolutely positioned off-screen; becomes visible on :focus, with clear outline and sufficient contrast.
+
+Header
+
+Sticky at top, light border-bottom, high z-index.
+
+Brand left; hamburger right on mobile.
+
+Desktop: horizontal top-level list with adequate spacing (~2rem gap).
+
+Submenus: positioned dropdown panels with padding, rounded corners, subtle shadow. Links have generous hit targets.
+
+Mobile breakpoint
+
+Collapse to hamburger at ≤768px.
+
+Inside the mobile panel, keep the same disclosure pattern; submenus stack vertically (no absolute positioning).
+
+Focus visibility
+
+Use a visible outline (outline or box-shadow) for links, buttons, and submenu items; ensure WCAG contrast.
+
+6) Normalize the “BIO” line
+Find the line that reads like “Here, you can get my BIO.”
+
+Ensure it inherits the site’s default font-family and is not switching to a different face or unintended size.
+
+If it should be paragraph text, make it a <p> and remove stray classes that change font family or weight.
+
+7) Cross‑page wiring
+Ensure every HTML page now:
+
+Includes the two JS files (inject-header.js, nav.js).
+
+Uses the same stylesheet with the updated typography and nav styles.
+
+Has a top-level <main id="main">…</main> target for the Skip link.
+
+8) QA checklist (must pass before you stop)
+Keyboard‑only
+
+Tab focuses Skip link first; Enter moves to #main.
+
+From brand, tab to each top button; Enter/Space toggles; Arrow Down enters submenu; Esc returns to button.
+
+Tabbing away closes submenus. Clicking outside closes submenus.
+
+Hover behavior (desktop)
+
+Hover opens submenu; pointer can move into submenu without closing.
+
+Leaving the group closes it after a short delay unless focus/pointer remains inside.
+
+Mobile
+
+Hamburger toggles nav; focus moves appropriately; disclosures work the same as desktop.
+
+Scrolling the page does not trap focus in the header.
+
+Typography
+
+Only one family is used; headings/text weights look consistent; the “BIO” line matches the intended style.
+
+Regression
+
+No console errors; no 404s for the new partial or scripts.
+
+Pages still validate and render under the Python static server.
+
+9) Deliverables
+List all files you created or modified.
+
+Summarize how you met the a11y requirements and WCAG 1.4.13 (dismissible, hoverable, persistent).
+
+Provide a short note on how to later self‑host Inter Variable and replace the Google Fonts import.

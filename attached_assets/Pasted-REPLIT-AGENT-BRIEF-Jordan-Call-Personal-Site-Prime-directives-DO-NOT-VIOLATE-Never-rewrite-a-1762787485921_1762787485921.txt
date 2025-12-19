@@ -1,0 +1,658 @@
+REPLIT AGENT BRIEF — Jordan Call Personal Site
+
+Prime directives (DO NOT VIOLATE):
+
+
+Never rewrite any of Jordan’s copy unless a line is explicitly quoted to edit.
+
+
+Respect the page-level image policy exactly as specified below. Only apply the single, explicit override for Fare Well Files.
+
+
+Preserve the minimalist, single-column design. One global stylesheet.
+
+
+Keep versioning/cache-busting, service-worker kill, and image case checks intact.
+
+
+
+A) Pre-flight
+
+
+Confirm the project has these (do not delete or neuter):
+
+
+assets/data/version.json and assets/js/version.js
+
+
+assets/js/inject-header.js, assets/js/nav.js, assets/js/main.js, assets/js/kill-sw.js
+
+
+Build scripts: scripts/stamp-version.js, scripts/rewrite-asset-urls.js, scripts/check-images.js
+
+
+
+
+Confirm every <link rel="stylesheet"> and <script src="..."> in .html files has ?v=<version> appended. Confirm all runtime fetch() calls also use ?v=<version> and { cache: 'no-store' }.
+
+
+Do not change any filenames’ case. If you must fix a broken image, fix the reference to match the file’s exact case.
+
+
+
+B) Now Page: Current + Collapsible Archive
+B1) Files to create/update
+
+
+now.html (update)
+
+
+now-archive.html (new)
+
+
+now/ directory (new) for dated snapshots like now/2025-11-10.html
+
+
+assets/js/now-archive.js (new — accordion/lightbox-free)
+
+
+assets/css/styles.css (minor additions only; do not break existing)
+
+
+B2) UX/Behavior (no copy changes)
+
+
+In now.html:
+
+
+Keep the current Now full-text at the top with a visible date label: Updated YYYY-MM-DD.
+
+
+Below it, add an Archive section that lists past Now entries (reverse chronological), each as a collapsed accordion:
+
+
+Header shows: date + a one-line preview (e.g., first bullet or a short label if present).
+
+
+“Show details” toggle reveals the full text of that past entry.
+
+
+Each archived entry has an anchor id like id="now-2025-11-10".
+
+
+Add “Expand all” / “Collapse all” controls at the archive section header.
+
+
+
+
+Progressive enhancement: If JS is disabled, show the archive list as simple links to the dated snapshot pages (see B3). With JS on, show accordions and still keep the permalinks visible as a small “Permalink” link for each entry.
+
+
+
+
+In assets/js/now-archive.js:
+
+
+Implement vanilla-JS accordion behavior (keyboard accessible: Enter/Space toggle; Esc closes if open; arrow keys move focus between headers).
+
+
+Implement “Expand all / Collapse all”.
+
+
+On page load, expand none by default.
+
+
+
+
+In now-archive.html:
+
+
+Minimal page listing all snapshots (reverse chronological) as plain links to /now/YYYY-MM-DD.html, grouped by year. No page-level image. Text-first list.
+
+
+
+
+In assets/css/styles.css:
+
+
+Add minimal styles for accordion toggles and focus states. Keep it subtle; do not change site typography system.
+
+
+
+
+B3) Snapshot workflow (simple & reliable)
+
+
+Create scripts/snapshot-now.js (new). Behavior:
+
+
+Read current Now content from now.html (the block marked <!-- CURRENT-NOW-START --> ... <!-- CURRENT-NOW-END --> — add these markers).
+
+
+Create a dated snapshot file: now/YYYY-MM-DD.html that contains the full text of the current Now (no archive list).
+
+
+Update now-archive.html by inserting a link to the new snapshot at the top of its list.
+
+
+In now.html, leave current content in place (Jordan will replace it with new text manually or via prompt). Do not modify any copy during snapshot; the script only duplicates.
+
+
+
+
+Add a package.json script: "snapshot:now": "node scripts/snapshot-now.js".
+
+
+Usage note (for Jordan, do not embed copy):
+
+
+Before writing a new Now, run npm run snapshot:now to archive the previous one.
+
+
+Then update now.html with the new Now text and date.
+
+
+
+
+
+C) Formatting: Justify Now and Bio only
+C1) assets/css/styles.css
+
+
+Add a scoped rule that only applies to the main content of now.html and bio.html:
+
+
+E.g., target a container class you add to those two pages (e.g., .page--justify on the main content wrapper) and set text-align: justify; hyphens: auto;
+
+
+
+
+Do not apply justification site-wide. Do not alter line lengths, font sizes, or global margins.
+
+
+C2) now.html and bio.html
+
+
+Add .page--justify to the main content container. Do not wrap or reflow copy.
+
+
+
+D) Essays by Topic (Lightweight Tag Filter)
+D1) Data
+
+
+Extend assets/data/farewellfiles.json to support a tags array on each post (e.g., ["parenting", "philosophy"]).
+
+
+Create a new file assets/data/essay-tags.json (new) where Jordan can map slugs/URLs to tags. Example schema:
+{
+  "/p/principled-thinkers-are-doomed-to": ["philosophy"],
+  "/p/taking-the-pathless-traveled-by": ["personal essay", "faith"]
+}
+
+
+
+Update scripts/fetch-substack-rss.js to:
+
+
+Rebuild assets/data/farewellfiles.json from the RSS.
+
+
+Merge in tags from assets/data/essay-tags.json by slug/path.
+
+
+Do not alter titles, excerpts, or URLs.
+
+
+
+
+D2) UI (writing.html or blog.html, whichever lists essays)
+
+
+Add a minimal tag filter control above the list: checkboxes or pill buttons for:
+parenting, philosophy, humor, creativity/writing, personal essay, faith
+
+
+Default behavior: no filter applied → shows full chronological list.
+
+
+With JS disabled: show full list; hide the control via noscript.
+
+
+With JS enabled: clicking tags filters the visible list client-side. Do not re-sort; keep chronological order.
+
+
+Implement the filter in a new small file assets/js/essays-filter.js (new). Vanilla JS only.
+
+
+
+E) Fare Well Files (Essays) — Policy Override: Top Hero Allowed
+
+Exception (explicitly approved by owner): Add a Top hero image under the page title on the Fare Well Files page.
+
+E1) blog.html (or the page titled “Fare Well Files”)
+
+
+Insert a Top page-level image container between the H1 and the first paragraph/list. Use the same figure.page-image.top structure used elsewhere.
+
+
+Put a placeholder <img> with alt="" and loading="lazy" and a clear comment <!-- OWNER: replace src with your chosen hero image; keep alt="" (decorative) -->.
+
+
+Do not add or change any copy.
+
+
+
+F) “Robert Willes” → Link
+
+
+Find occurrences of the exact text Robert Willes and wrap just that text in:
+
+
+<a href="https://www.robertwilles.com/about" target="_blank" rel="noopener">Robert Willes</a>
+
+
+
+
+Do not change surrounding punctuation, spacing, italics, or wording. Only link the name.
+
+
+
+G) Kicks Page — Hide/Quarantine
+
+
+If kicks.html exists:
+
+
+Remove any nav links to it (should already be none).
+
+
+Move kicks.html into a new folder /hidden/ (create if needed) as hidden/kicks.html.
+
+
+In hidden/kicks.html, ensure there are no page-level images and add <meta name="robots" content="noindex"> in the <head>.
+
+
+
+
+Do not delete content.
+
+
+
+H) Photos Page — Modern Lightbox + Larger Thumbs
+H1) Files
+
+
+photos.html (update)
+
+
+assets/js/photos-lightbox.js (new)
+
+
+assets/css/styles.css (small additions only)
+
+
+H2) Behavior
+
+
+Keep the grid (three columns), but increase thumbnail size moderately (keep loading="lazy").
+
+
+Clicking a thumbnail:
+
+
+Opens a vanilla-JS lightbox modal (centered overlay).
+
+
+Supports keyboard: Esc to close, ←/→ to navigate prev/next.
+
+
+Click outside or on a close button also dismisses.
+
+
+Add meaningful focus management (return focus to the thumbnail on close).
+
+
+
+
+H3) Progressive enhancement
+
+
+Without JS: thumbs open the full image in a new tab (current behavior).
+
+
+With JS: prevent default and open the modal.
+
+
+
+Do not introduce any external libraries.
+
+
+I) Jazz Bat Studios — New Page (Hidden)
+
+
+Create jazz-bat-studios.html in root with a minimal scaffold:
+
+
+H1: “Jazz Bat Studios”
+
+
+Placeholder body (no copy edits)
+
+
+No page-level image
+
+
+<meta name="robots" content="noindex">
+
+
+
+
+Do not add to nav yet. Do not add any images.
+
+
+
+J) Podcasts — Add Allie Canton (parallel to Kaschuta)
+
+
+In the Podcasts page, add a second entry parallel to the existing Alex Kaschuta entry:
+
+
+Title: “Practically on Purpose — The Statusless Life: Jordan Call on Fatherhood, Faith and Life Beyond Gold Stars”
+
+
+Link target (canonical): https://alliecanton.substack.com/p/the-statusless-life-jordan-call-on (open in new tab)
+
+
+Keep the exact same styling/structure as the Kaschuta block.
+
+
+Do not add summary text unless the page already shows summaries for podcasts. If summaries are present, use the episode’s own title only; no copy invention.
+(Canonical episode URL confirmed on Allie’s Substack.) alliecanton.substack.com
+
+
+
+
+
+K) Contact Form — Restore
+
+
+Search for a previously hidden contact form:
+
+
+If present but commented/hidden: unhide it exactly as before. Do not alter labels/placeholder text.
+
+
+If missing: create a minimal, static-friendly form:
+
+
+Fields: Name, Email, Message
+
+
+Hidden honeypot field (e.g., website) with CSS to hide; reject if filled.
+
+
+Action: leave as a TODO placeholder for the owner’s provider (e.g., Formspree). Do not insert 3rd-party scripts without instruction.
+
+
+No copy changes.
+
+
+
+
+
+
+
+L) Substack Sync — Add New Essays Since Last Listed
+L1) Behavior (no manual link editing)
+
+
+Update scripts/fetch-substack-rss.js to:
+
+
+Pull the latest posts from The Fare Well Files (https://farewellfiles.substack.com/ feed).
+
+
+Rebuild assets/data/farewellfiles.json (title, date, URL, excerpt, slug).
+
+
+Merge tags using assets/data/essay-tags.json (see D1).
+
+
+
+
+Do not mutate titles or excerpts pulled from Substack.
+
+
+After fetching, diff against the existing JSON and produce a console list:
+
+
+“NEW posts found since last publish:” followed by titles + dates + URLs.
+
+
+
+
+Stop and do not deploy those to the live list until the owner confirms. (You can stage them into the JSON; the page will read from JSON—owner approval governs publish.)
+
+
+(You may need to add CORS-free RSS fetch using Node and parse; use existing script patterns in /scripts.)
+(Source for the publication: The Fare Well Files by Jordan Call.) farewellfiles.substack.com
+
+M) Timeline (Hidden) & “Things You Could Hire Me For” (Hidden)
+
+
+Create two new root pages:
+
+
+timeline.html — H1 “Timeline” + placeholder body.
+
+
+hire-me.html — H1 “Things You Could Hire Me For” + placeholder body.
+
+
+
+
+Add <meta name="robots" content="noindex"> to both.
+
+
+Do not add either to nav. No images.
+
+
+
+N) Image Policy — Enforce Globally (No Surprises)
+
+
+Verify all pages follow this page-level image placement (decorative images must be alt="" and loading="lazy"):
+
+
+Index: Top and Bottom
+
+
+Bio: Bottom only
+
+
+Now: Bottom only
+
+
+Writing (overview): Top only
+
+
+Essays / Blog (Fare Well Files): Bottom only, PLUS the explicit Top hero override in Section E (this page only)
+
+
+Bylines: No page-level image
+
+
+Music: Top only
+
+
+Lemonbird: Top and Bottom
+
+
+Gypsy Jazz: Top only
+
+
+Solo project: Top only
+
+
+YouTube: Bottom only
+
+
+Photos: No page-level image (gallery tiles remain)
+
+
+Podcasts: No page-level image
+
+
+Subscribe/Contact: Top only
+
+
+
+
+Remove any hero/figure wrappers from pages that should have none.
+
+
+Do not add heroes to pages not listed as allowed.
+
+
+
+O) Deployment & Validation Checklist (Agent must execute)
+
+
+Run:
+
+
+node scripts/stamp-version.js
+
+
+node scripts/rewrite-asset-urls.js
+
+
+node scripts/check-images.js  ← must pass
+
+
+
+
+For the Now workflow:
+
+
+If archiving the current Now for the first time, run: npm run snapshot:now
+
+
+
+
+Build complete. Deploy.
+
+
+Post-deploy manual checks (agent performs, reports back):
+
+
+Hard refresh Safari and Chrome; confirm no stale nav and no broken images.
+
+
+now.html: current Now visible full-text, Archive below with collapsed accordions, “Expand/Collapse all” works; deep link #now-YYYY-MM-DD jumps to the entry and expands it.
+
+
+blog.html (Fare Well Files): Top hero placeholder present under H1 (override), plus the usual bottom image; essays list renders; tag filter controls present and functional (with JS), and full list visible (without JS).
+
+
+photos.html: thumbnails larger; lightbox opens with keyboard navigation.
+
+
+podcasts.html: second entry present for Allie Canton; link opens the canonical episode page in new tab.
+
+
+contact page: Contact form visible and functional (honeypot present). If action placeholder left, confirm form submits to nowhere (owner will supply endpoint later).
+
+
+Hidden pages (timeline.html, hire-me.html, jazz-bat-studios.html, hidden/kicks.html) are accessible directly but not linked, and have <meta name="robots" content="noindex">.
+
+
+
+
+
+P) Absolutely Do Not
+
+
+Do not rewrite or “improve” any copy.
+
+
+Do not introduce new libraries or frameworks.
+
+
+Do not touch typography scale, column width, or global spacing.
+
+
+Do not add service workers.
+
+
+Do not remove versioning or cache-busting.
+
+
+Do not change the approved image policy (except the one override specified).
+
+
+Do not reorder nav or “Other” without explicit instruction.
+
+
+
+Q) Owner’s Quick-Use Cheatsheet (for after merge)
+
+(Agent: include this as a CHEATSHEET.md in project root.)
+
+
+
+Update Now:
+
+
+npm run snapshot:now (archives current to /now/YYYY-MM-DD.html and updates now-archive.html)
+
+
+Edit now.html with new text + date label
+
+
+
+
+Add photo(s):
+
+
+Drop images into the photos directory (keep lowercase).
+
+
+Add tiles to photos.html grid (thumb → full). Lightbox works automatically.
+
+
+
+
+Refresh Essays (Substack):
+
+
+node scripts/fetch-substack-rss.js → rebuilds assets/data/farewellfiles.json
+
+
+(Optional) Tag posts via assets/data/essay-tags.json
+
+
+Commit + deploy
+
+
+
+
+Edit copy anywhere:
+
+
+Open the page and edit text exactly. Don’t change wrappers/classes unless instructed.
+
+
+
+
+Deploy:
+
+
+Run the three build scripts (stamp-version, rewrite-asset-urls, check-images) → deploy.
+
+
+
+
+
+If anything in this brief conflicts with existing files, this brief wins. Apply only what’s specified, nothing more.

@@ -1,0 +1,125 @@
+Replit Agent Brief — Enforce Image Key (Remove Extras Only)
+
+Do not rewrite any user copy.
+Do not change any <img> that is allowed by the key below.
+Remove only the page-level image blocks that are not allowed.
+If a kept image 404s because of case/path mismatch, correct the src to match the actual file on disk. Do not substitute a different image.
+
+0) Master key (source of truth)
+
+Place page-level images only as follows:
+
+Index (index.html): Top image and Bottom image
+
+Bio (bio.html): Bottom image
+
+Now (now.html): Bottom image
+
+Writing / Overview (writing.html): Top image
+
+Essays / Blog (blog.html): Bottom image
+
+Bylines (bylines.html): No page image
+
+Music (music.html): Top image
+
+Lemonbird (lemonbird.html): Top image and Bottom image
+
+Gypsy Jazz (gypsy-jazz.html): Top image
+
+Solo Project (solo.html): Top image
+
+YouTube (youtube.html): Bottom image
+
+Photos (photos.html): No page image (gallery tiles inside the body stay)
+
+Podcasts (podcasts.html): No page image
+
+Subscribe/Contact (subscribe.html): Top image
+
+Definitions
+
+Top = the single page-level image block located between the H1 and the first paragraph.
+
+Bottom = the single page-level image block located after the main text (last paragraph/content block) and before the footer.
+
+“Page-level image block” refers to wrappers like <figure class="page-image …">…</figure> or <div class="page-image …">…</div> that contain a hero/section image. It does not include inline gallery tiles or images inside lists/cards.
+
+1) Remove only the disallowed blocks
+
+For each file listed above:
+
+Identify any page-level image wrapper(s):
+selectors commonly used in this site are .page-image.top and .page-image.bottom. Also search for any <img> block immediately following the H1 (Top) or immediately before the footer (Bottom) wrapped in a dedicated figure/div.
+
+Apply the key strictly:
+
+If the key says No page image (Bylines, Photos, Podcasts):
+Delete all page-level image wrappers and their <img> from that page. Leave normal body content (e.g., Photos gallery grid) untouched.
+
+If the key allows Top only:
+Keep the Top wrapper, delete any Bottom wrapper.
+
+If the key allows Bottom only:
+Keep the Bottom wrapper, delete any Top wrapper.
+
+If the key allows Top & Bottom:
+Keep exactly one Top and one Bottom wrapper; delete any extras if multiples were added.
+
+Never move images between positions; just remove the ones that are not allowed.
+
+After removals, there must be no empty placeholder boxes. If a wrapper is empty after deleting an <img>, remove the wrapper too.
+
+2) Preserve all allowed images exactly as placed
+
+Do not change src, filenames, order, attributes, or surrounding markup of kept images.
+
+Exception for broken images only:
+If a kept image returns 404 due to filename case or path mismatch (e.g., Photo66.jpg vs photo66.jpg), update src to the exact on-disk filename. Do not swap to a different photo.
+
+3) Quick validation (read-only; no changes beyond the above)
+
+Run these checks before deploy to prevent Safari’s “no picture” icon:
+
+Verify that every remaining page-level <img src="assets/images/..."> exists with exact case.
+If you already have scripts/check-images.js, run it. Otherwise, a quick inline check is fine:
+
+# List the actual files
+ls -la assets/images/ > /tmp/img-list.txt
+
+# Report any image paths referenced in HTML that don't exist (case-sensitive)
+grep -Rho 'assets/images/[A-Za-z0-9._/-]\+' *.html | sort -u > /tmp/img-refs.txt
+while read -r p; do
+  if [ ! -f "$p" ]; then echo "MISSING: $p"; fi
+done < /tmp/img-refs.txt
+
+
+If any kept image is reported missing, fix only the path/case to match the existing file (do not substitute).
+
+If any removed page still references a page-level image, remove that markup.
+
+4) Cache-busting (keep as-is)
+
+Keep your existing versioned asset URLs (?v=…) and no-store fetches so that removals appear immediately after deploy. Do not touch any of Jordan’s copy or the chosen image files.
+
+5) Final spot checks (must pass)
+
+Index shows one Top and one Bottom image; nothing else changed.
+
+Bio / Now show only Bottom images.
+
+Writing shows only a Top image.
+
+Essays shows only a Bottom image (no Top).
+
+Bylines / Photos / Podcasts show no page-level image blocks; Photos gallery tiles remain.
+
+Music shows only a Top image.
+
+Lemonbird shows both Top and Bottom images.
+
+Gypsy Jazz / Solo / Subscribe show only Top images.
+
+YouTube shows only a Bottom image.
+
+Loading any of the above in Safari shows no broken-image icon (Network tab: all kept image requests return 200).

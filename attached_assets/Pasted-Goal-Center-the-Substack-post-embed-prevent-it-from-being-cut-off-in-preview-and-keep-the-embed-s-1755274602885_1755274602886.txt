@@ -1,0 +1,65 @@
+Goal: Center the Substack post embed, prevent it from being cut off in preview, and keep the embed script loaded only once.
+
+Tasks:
+
+Ensure single embed script
+
+In podcasts.html, make sure there is exactly one Substack embed script on the page:
+
+<script async id="substack-embed" src="https://substack.com/embedjs/embed.js"></script>
+
+
+If there are multiple Substack embed <script> tags anywhere on the page, remove duplicates so only one remains (ideally just before </body>).
+
+Add robust CSS for centering + no clipping
+
+Open assets/css/styles.css and append these rules:
+
+/* --- Substack embed: center and prevent clipping --- */
+.substack-post-embed {
+  display: grid;               /* centers nicely without width math */
+  place-items: center;
+  margin: 2rem 0;
+  overflow: visible;           /* don't clip the auto-resized iframe */
+}
+
+/* Substack injects an iframe; make it responsive and not clipped */
+.substack-post-embed iframe {
+  display: block;
+  width: min(720px, 100%);     /* sensible max width */
+  max-width: 100%;
+  border: 0;
+  /* Fallback height in case preview sandbox blocks auto-resize */
+  min-height: 360px;
+}
+
+/* If any container is hiding overflow, allow visibility in this section */
+.content, .container {
+  overflow: visible;
+}
+
+
+Important: If any existing rule sets overflow:hidden or a fixed height on .content, .container, or .substack-post-embed, remove or override it so the iframe can grow.
+
+Add accessible fallback text (no-JS + screen readers)
+
+In podcasts.html, ensure the anchor inside .substack-post-embed has readable text:
+
+<div class="substack-post-embed">
+  <a data-post-link href="https://www.alexkaschuta.com/p/jordan-call-traditional-values-modern">
+    Listen to this episode on Substack
+  </a>
+</div>
+
+
+Do not add any inline width/height styles to the anchor; let the script replace it.
+
+Verification steps
+
+Run the site in Replit. Check the embed inside the Replit preview; if height still looks short, it should still be fully visible thanks to min-height:360px.
+
+Open the running preview in a new browser tab/window (not the Replit split-pane). Confirm the iframe auto-resizes taller (the Substack script uses postMessage; some IDE previews block this).
+
+Confirm the embed is horizontally centered at all viewport sizes.
+
+Do not rewrite unrelated CSS or markup. Only make the changes above.

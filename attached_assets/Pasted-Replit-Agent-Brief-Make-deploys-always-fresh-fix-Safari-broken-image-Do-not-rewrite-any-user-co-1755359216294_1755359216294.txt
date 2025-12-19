@@ -1,0 +1,74 @@
+Replit Agent Brief — Make deploys always fresh + fix Safari broken image
+
+Do not rewrite any user copy.
+Keep all existing design. Only adjust build steps, asset URLs, and image references.
+
+A) Always ship fresh assets on every deploy
+
+Goal: every deploy generates a new build version and appends it to all CSS/JS and any runtime fetches, so browsers/CDNs can’t serve the old files.
+
+Ensure the build step runs before deploy
+
+In Replit’s Deploy settings (or package.json), set the build command to:
+
+node scripts/stamp-version.js && \
+node scripts/rewrite-asset-urls.js && \
+node scripts/fetch-substack-archive.js && \
+node scripts/fetch-youtube-rss.js
+
+
+(If you’re using the YouTube API version, swap fetch-youtube-rss.js for fetch-youtube-api.js.)
+
+Force runtime fetches to bypass cache
+
+In any JS that does fetch('/partials/header.html') or fetch('/assets/data/*.json'):
+
+Append ?v=<build version> (from assets/data/version.json) and pass { cache: 'no-store' }.
+
+You already have assets/js/version.js; make sure all fetchers call it and include the ?v= token.
+
+One-time CDN purge after this deploy
+
+Purge any CDN/edge cache attached to jordan-call.com once. After versioning is in place, you shouldn’t need to do this again.
+
+Verification step (automated)
+
+After deploy, request https://jordan-call.com/blog.html and confirm in the HTML that all <link rel="stylesheet" …> and <script src="…"> have a ?v= token matching the current assets/data/version.json.
+
+If any page is missing ?v=, fail the deploy and print which file still references an unversioned asset.
+
+B) Fix the “no picture” icon on Safari (YouTube page top image)
+
+Likely cause: the chosen image filename doesn’t exist on the server (404), the case doesn’t match (e.g., photo7.jpg vs Photo7.JPG), or the assignment picked a number you don’t have.
+
+Add a quick integrity check before assigning images
+
+Create scripts/check-images.js that:
+
+Scans all .html files for <img src="assets/images/...">.
+
+Verifies each referenced file exists on disk with exact case.
+
+Prints any missing paths and fails the build if any are missing.
+
+Harden the image selection logic you added earlier
+
+For all non-index pages that auto-assign photoN.*:
+
+Enumerate files that actually exist matching photo(\d+)\.(jpg|jpeg|png|webp) (case-sensitive), sort by N.
+
+Start at photo3, then ascend, skipping any gaps (e.g., if photo5 doesn’t exist, use photo6).
+
+Assign one distinct photo per page, no repeats.
+
+If you run out of photos, stop and fail the build with a clear message rather than inserting a broken path.
+
+Safari sanity check
+
+After deploy, open DevTools → Network (Safari or Chrome) on /youtube.html, filter by “img”:
+
+Confirm the page’s top image request returns 200 (not 404).
+
+If it’s 404, the checker in step B1 should already be failing the build—keep that failure in place.
+
+(All images remain decorative: alt="" and loading="lazy".)

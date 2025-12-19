@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photos — Jordan Call</title>
+  <meta name="description" content="Jordan Call's photos." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jordancall.com/photos.html" />
+  <meta property="og:title" content="Photos — Jordan Call" />
+  <meta property="og:description" content="Jordan Call's photos." />
+  <meta property="og:image" content="https://jordancall.com/assets/images/web/top-photo.webp" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://jordancall.com/photos.html" />
+  <meta property="twitter:title" content="Photos — Jordan Call" />
+  <meta property="twitter:description" content="Jordan Call's photos." />
+  <meta property="twitter:image" content="https://jordancall.com/assets/images/web/top-photo.webp" />
+
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+
+  <!-- Fonts & site CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=2025-08-16T15%3A13%3A33.166Z" />
+
+  <!-- Page styles -->
+  <style>
+    .photos-intro{ max-width:700px; margin:0 auto 28px; }
+
+    /* Base layout = single-column grid so images show even if JS fails */
+    #photoWrap{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:20px;
+    }
+
+    /* JS adds .is-masonry to switch to multicol masonry */
+    #photoWrap.is-masonry{
+      display:block;
+      column-gap:20px;
+      column-count:1;
+    }
+    @media (min-width:720px){ #photoWrap.is-masonry{ column-count:2; } }
+    @media (min-width:1100px){ #photoWrap.is-masonry{ column-count:3; } }
+
+    .photo-item{
+      display:block;
+      margin:0 0 20px;
+      break-inside:avoid;
+      -webkit-column-break-inside:avoid;
+      page-break-inside:avoid;
+    }
+    .photo-img{
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:10px;
+      background:#f3f4f6;
+    }
+
+    @media (prefers-reduced-motion:no-preference){
+      .photo-img{
+        transition:transform .15s ease, box-shadow .15s ease;
+      }
+      .photo-img:hover{
+        transform:translateY(-2px);
+        box-shadow:0 10px 24px rgba(0,0,0,.08);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <div class="container">
+      <h1>Photos</h1>
+
+      <p class="photos-intro">
+        When I was a kid, my dad gave me his Canon AE‑1, which he used for yearbook committee in high school. I’m not a very technical photographer but I love trying to capture moments, and I love the warmth, grain, and artifacts of analog photography. Here are some of my favorites from my rolls through the years.
+      </p>
+
+      <!-- Base HTML: shows even without JS -->
+      <div id="photoWrap" aria-live="polite">
+        <a class="photo-item" href="/assets/images/web/photo1.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo1.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo2.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo2.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo3.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo3.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo4.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo4.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo5.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo5.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo6.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo6.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo7.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo7.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo8.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo8.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo9.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo9.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo10.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo10.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo11.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo11.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo12.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo12.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo13.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo13.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo14.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo14.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo15.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo15.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo16.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo16.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo17.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo17.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo18.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo18.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo19.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo19.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo20.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo20.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo21.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo21.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo22.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo22.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo23.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo23.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo24.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo24.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo25.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo25.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo26.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo26.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo27.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo27.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo288.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo28.webp" alt="" loading="lazy" decoding="async">
+        </a> <a class="photo-item" href="/assets/images/web/photo29.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo29.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo30.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo30.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo31.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo31.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo32.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo32.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo33.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo33.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo34.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo34.webp" alt="" loading="lazy" decoding="async">
+        </a> <a class="photo-item" href="/assets/images/web/photo35.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo35.webp" alt="" loading="lazy" decoding="async">
+        </a> <a class="photo-item" href="/assets/images/web/photo36.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo36.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo37.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo37.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo38.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo38.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo39.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo39.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo40.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo40.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo41.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo41.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo42.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo42.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo43.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo43.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo44.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo44.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo45.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo45.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo46.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo46.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo47.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo47.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo48.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo48.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo49.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo49.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo50.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo50.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo51.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo51.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo52.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo52.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo53.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo53.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo54.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo54.webp" alt="" loading="lazy" decoding="async">
+        </a> 
+        <a class="photo-item" href="/assets/images/web/photo55.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo55.webp" alt="" loading="lazy" decoding="async">
+        </a> 
+        <a class="photo-item" href="/assets/images/web/photo56.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo56.webp" alt="" loading="lazy" decoding="async">
+        </a> 
+        <a class="photo-item" href="/assets/images/web/photo57.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo57.webp" alt="" loading="lazy" decoding="async">
+        </a> 
+        <a class="photo-item" href="/assets/images/web/photo58.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo58.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo59.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo59.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo60.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo60.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo61.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo61.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo62.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo62.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo63.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo63.webp" alt="" loading="lazy" decoding="async">
+        </a> 
+        <a class="photo-item" href="/assets/images/web/photo64.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo64.webp" alt="" loading="lazy" decoding="async">
+        </a> 
+        <a class="photo-item" href="/assets/images/web/photo65.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo65.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <a class="photo-item" href="/assets/images/web/photo66.webp" target="_blank" rel="noopener">
+          <img class="photo-img" src="/assets/images/web/photo66.webp" alt="" loading="lazy" decoding="async">
+        </a>
+
+        
+      </div>
+
+
+    </div>
+  </main>
+
+<footer>
+  <div class="container">
+    <p>&copy; <span id="current-year"></span> Jordan Call · <a href="https://farewellfiles.substack.com/" target="_blank" rel="noopener">Substack</a></p>
+  </div>
+</footer>
+
+  <script src="/assets/js/version.js?v=inline" defer></script>
+        <script src="/assets/js/inject-header.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+  <script src="/assets/js/nav.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+  <script src="/assets/js/photos-lightbox.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+
+  <!-- Enable masonry after first image paints; log missing files -->
+  <script>
+    const wrap = document.getElementById('photoWrap');
+    const first = wrap.querySelector('img');
+
+    function enableMasonry(){ wrap.classList.add('is-masonry'); }
+    if (first) {
+      if (first.complete) enableMasonry();
+      else first.addEventListener('load', enableMasonry, { once:true });
+    }
+
+    wrap.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', () => console.warn('Missing photo:', img.src), { once:true });
+    });
+  </script>
+<script src="/assets/js/kill-sw.js?v=sw-off" defer></script>
+</body>
+</html>

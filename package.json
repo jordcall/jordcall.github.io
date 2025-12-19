@@ -1,0 +1,12 @@
+{
+  "name": "jordan-call-website",
+  "version": "1.0.0",
+  "description": "Jordan Call's personal website",
+  "scripts": {
+    "prebuild": "node scripts/stamp-version.js && node scripts/fetch-substack-archive.js && node scripts/fetch-youtube-rss.js",
+    "build": "node scripts/rewrite-asset-urls.js",
+    "snapshot:now": "node scripts/snapshot-now.js"
+  },
+  "keywords": ["static-site", "personal-website"],
+  "author": "Jordan Call"
+}

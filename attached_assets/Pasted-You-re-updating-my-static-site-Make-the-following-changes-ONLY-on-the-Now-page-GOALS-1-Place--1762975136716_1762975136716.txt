@@ -1,0 +1,116 @@
+You’re updating my static site. Make the following changes ONLY on the Now page.
+
+GOALS
+1) Place the page’s “footer image” immediately after the CURRENT Now installment content (symbolic end), not at the absolute bottom.
+2) Render the Archive as full text entries (no accordion/JS), each separated by a thin rule.
+3) Add my 2025-07-26 installment EXACTLY as provided below.
+4) Remove or disable the accordion UI and its JS on this page so there’s no “Expand” button and no broken behavior.
+
+FILES TO EDIT
+- now.html (primary)
+- site/global layout or include that injects a bottom-of-page image (only if it’s auto-injected on all pages)
+- CSS file (add tiny styles). Common names in this repo include: `assets/css/site.css` or `assets/css/styles.css`. Use whichever exists.
+
+DETAILED STEPS
+
+A) Update `now.html`
+1. Find the section that contains the CURRENT Now entry (the visible, most recent one). Immediately AFTER that block, insert the page’s footer image block (whatever HTML we already use for the bottom/hero image), so the image visually ends the current entry. Add an HTML comment marker just above it:
+   `<!-- CURRENT-NOW: symbolic end image -->`.
+
+2. If the “bottom image” is currently injected at the very end of `now.html` (or via a global include in the layout), make sure it does NOT appear again at the absolute bottom of this page. Either:
+   - Remove the bottom-of-page image on `now.html`, OR
+   - Add a guard flag on this page so the layout/include skips injecting it (e.g., a page variable like `no_bottom_image: true` and a corresponding conditional in the layout). Use whatever mechanism the codebase already uses.
+
+3. Remove the archive accordion controls and script refs from `now.html`. Specifically:
+   - Delete any “Expand all / Collapse all” buttons or other accordion toggles.
+   - Remove the `<script>` tag that loads `assets/js/now-archive.js` (or similar) from this page.
+   - Remove any empty container like `#archive-list` that existed only for JS population.
+
+4. Replace the archive area with static HTML:
+   - Add a heading `Archive`.
+   - Insert the following HTML for one archived installment (EXACT text preserved). Use this markup structure and classes:
+
+   ```html
+   <hr class="archive-sep">
+   <article class="archive-entry" id="now-2025-07-26">
+     <p class="now-updated"><em>Last updated: July 26, 2025</em></p>
+
+     <section class="now-item">
+       <h3>Build my website</h3>
+       <p>I’m learning how to use AI tools to build my own website, instead of using something like Squarespace. It’s amazing how much it will do for you, and also amazing how much there is still to learn and do.</p>
+     </section>
+
+     <section class="now-item">
+       <h3>The Fare Well Files</h3>
+       <p>This is my current baby. I’m about five months in and still just so energized by the process of writing essays. It takes most of my creative time, and I wish I had a lot more. I try to also be very active on Substack Notes to maintain visibility and make connections with people.</p>
+     </section>
+
+     <section class="now-item">
+       <h3>Produce consistent gypsy jazz content</h3>
+       <p>After a long gestation period, I recently created a full gypsy jazz persona online, under the artist name “Jordan Michael Call.” I’m trying to post performances regularly on Instagram, as well as record/produce/release roughly one single a month. This gives me lots to practice and work on.</p>
+     </section>
+
+     <section class="now-item">
+       <h3>Teaching my daughter to swim</h3>
+       <p>This has been SO fun. My five-year-old is working on earning her “yellow necklace” at the local pool, and she can do half of the requirements. We need to get her treading water next. I try to get her in a pool as much as I can.</p>
+     </section>
+
+     <section class="now-item">
+       <h3>Learning about cars with my son</h3>
+       <p>My three-year-old is obsessed with cars. I’m not mechanically-minded at all, but I love the idea of learning about it someday. I want to rebuild a ’65 Mustang with him, like the one we saw at the gym parking lot the other day. So I had ChatGPT build me a college course in restoring cars. Slightly overwhelming but fascinating stuff.</p>
+     </section>
+
+     <section class="now-item">
+       <h3>Reducing screen time</h3>
+       <p>I installed a widget that narcs on me for how much I’ve looked at my phone, and then I bought a smart watch so I wouldn’t be so reliant on my phone for calls and texts. I’ve cut my phone time down by several hours a day.</p>
+     </section>
+
+     <section class="now-item">
+       <h3>Make Boba Milk drinks</h3>
+       <p>I bought bubbles and huge straws from Amazon and figured out how to make a brown sugar syrup. Just did my first one and it turned out incredible.</p>
+     </section>
+   </article>
+Keep the EXACT punctuation, capitalization, and curly quotes shown above.
+
+B) CSS
+In the main site stylesheet (e.g., assets/css/site.css), add these styles (near other page-specific rules is fine):
+
+css
+Copy code
+/* Now archive presentation */
+.archive-sep { 
+  border: 0; 
+  border-top: 1px solid var(--border, #ddd); 
+  margin: 2rem 0; 
+}
+.archive-entry { 
+  padding-top: .5rem; 
+}
+.archive-entry .now-updated { 
+  margin: 0 0 1rem; 
+  opacity: .8; 
+}
+.now-item { 
+  margin: 1rem 0 1.25rem; 
+}
+.now-item h3 { 
+  margin: 0 0 .25rem; 
+  font-size: 1.125rem; 
+}
+C) Clean up (optional but preferred)
+
+If assets/js/now-archive.js exists only for the accordion, you may delete it and remove any unused import references. Do not break other pages—if any other page imports it, leave the file but make sure now.html does not load it.
+
+D) Verification checklist
+
+On /now, the current Now content displays, THEN the footer image, THEN the “Archive” heading and the July 26, 2025 installment in full text.
+
+No “Expand/Collapse” buttons appear on this page.
+
+No duplicate bottom-of-page image appears after the archive.
+
+CSS renders a thin rule between entries.
+
+HTML validates (no unclosed tags).
+
+Make the above edits and commit.

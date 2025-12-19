@@ -1,0 +1,122 @@
+A) Channel ID resolver (no API key)
+
+Create scripts/resolve-youtube-channel-id.js:
+
+Fetch https://www.youtube.com/@JordanCall (desktop UA).
+
+Parse the HTML for either:
+
+<link rel="alternate" type="application/rss+xml" href="https://www.youtube.com/feeds/videos.xml?channel_id=UC...">, or
+
+a JSON snippet containing "channelId":"UC...".
+
+Output the channelId (e.g., UCxxxxxxxxxxxxxxxxxxxxxx) to stdout.
+(Why: the page source exposes the channel ID; once we have it, the RSS is https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID. 
+chuck.is
+)
+
+B) RSS fetcher (fast path; latest ~15 videos)
+
+Create scripts/fetch-youtube-rss.js:
+
+Run the resolver to get channelId.
+
+GET https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID.
+
+Parse <entry> items → { title, link (from <link href>), date (from <published>) }.
+
+Write to assets/data/youtube.json (newest first).
+
+Note: YouTube’s RSS is limited to the most recent items (~15); this is a platform limit. 
+Google Issue Tracker
+Reddit
+
+C) Full-archive option (requires API key)
+
+If env var YT_API_KEY is present, prefer this path:
+
+Create scripts/fetch-youtube-api.js:
+
+Resolve channelId (same resolver).
+
+Compute uploads playlist ID: replace leading UC with UU (or call channels.list to get contentDetails.relatedPlaylists.uploads). 
+youtube-data-api.readthedocs.io
+Google for Developers
+
+Paginate playlistItems.list with maxResults=50 and pageToken until exhausted; collect all {title, videoId, publishedAt}; link is https://www.youtube.com/watch?v=VIDEO_ID.
+
+Save the full set to assets/data/youtube.json (newest first).
+
+Add brief README comment in the script header: “Set YT_API_KEY (YouTube Data API v3). Enable API in Google Cloud.” 
+Google for Developers
+
+D) Wire the YouTube page
+
+In youtube.html:
+
+Keep the page copy exactly as you wrote.
+
+Add:
+
+<ul id="youtube-list" class="essay-list"></ul>
+<script>
+(async () => {
+  try {
+    const res = await fetch('/assets/data/youtube.json', { cache: 'no-store' });
+    const items = await res.json();
+    const ul = document.getElementById('youtube-list');
+    items.forEach(item => {
+      const d = new Date(item.date || item.publishedAt);
+      const mm = d.getMonth() + 1, dd = d.getDate(), yy = String(d.getFullYear()).slice(-2);
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = item.link || `https://www.youtube.com/watch?v=${item.videoId}`;
+      a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = `${item.title}  –  ${mm}/${dd}/${yy}`;
+      li.appendChild(a); ul.appendChild(li);
+    });
+  } catch {}
+})();
+</script>
+
+
+Reuse the .essay-list CSS from §0 so it matches your Essays list styling.
+
+E) Build hooks
+
+Add a scripts section to package.json (if present):
+
+"resolve:yt": "node scripts/resolve-youtube-channel-id.js"
+
+"fetch:yt": "node scripts/fetch-youtube-rss.js"
+
+"fetch:yt:full": "node scripts/fetch-youtube-api.js"
+
+"prebuild": "node scripts/fetch-substack-archive.js && node scripts/fetch-youtube-rss.js"
+
+If YT_API_KEY exists, switch prebuild to "node scripts/fetch-substack-archive.js && node scripts/fetch-youtube-api.js".
+
+F) One-time run
+
+In the Replit shell:
+
+node scripts/fetch-substack-archive.js
+node scripts/resolve-youtube-channel-id.js   # sanity check logs channelId
+node scripts/fetch-youtube-rss.js            # or: node scripts/fetch-youtube-api.js (if API key set)
+
+
+Confirm assets/data/youtube.json is created and YouTube links render as Title – M/D/YY.
+
+5) Final verification
+
+Essays page: no bullets; small spacing; Title – M/D/YY; list includes all Substack posts (archive pagination already implemented earlier).
+
+Blog intro restored exactly from history.
+
+Header label: Subscribe/Contact (nav + H1 on /subscribe.html).
+
+Gypsy Jazz: first “Jordan Michael Call” is bold.
+
+Each page uses a different decorative image; all have alt="" and loading="lazy".
+
+YouTube page: list shows titles + links; if using RSS, expect ~15 latest; if YT_API_KEY is configured, full archive appears. (Uploads playlist method per YouTube docs.

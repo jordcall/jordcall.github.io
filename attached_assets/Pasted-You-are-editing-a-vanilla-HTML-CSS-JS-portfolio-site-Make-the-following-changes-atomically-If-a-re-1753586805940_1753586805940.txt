@@ -1,0 +1,414 @@
+You are editing a vanilla HTML/CSS/JS portfolio site. Make the following changes atomically. If a referenced file path differs in this repo, FIRST search the project and adjust paths accordingly. Do not remove metadata or change content not specified. Preserve indentation.
+
+TOP-LEVEL GOALS
+1) Route all “This Site” links to the Welcome page anchor; delete the separate This Site page.
+2) Apply the typography compromise: justify long-form text with hyphenation; keep ragged-right for short UI text and revert to ragged on small screens.
+3) Add clearly marked TOP and BOTTOM image placeholders on every content page.
+4) Redesign Bylines as a clean, warm card grid.
+5) Replace Writing and Music page copy as specified and add internal links/CTAs.
+6) Light visual polish: CSS variables, soft shadowed cards, subtle background gradient on large screens.
+7) Footer: replace the big button with a proper secondary-nav footer + subtle Subscribe link.
+8) Nav: “Writing” and “Music” labels should be direct links; add adjacent chevron buttons that toggle their submenus. Update JS for accessibility.
+9) Mobile + desktop QA; no console errors.
+
+----------------------------------------------------------------
+A) REMOVE “THIS SITE” PAGE & RETARGET LINKS
+----------------------------------------------------------------
+- Delete the page that documents the site itself (likely `this-site.html`). If the file name differs, search for “This section will document the philosophy, technology, and design decisions behind this website” to locate and delete.
+- In the header partial (likely `partials/header.html`), change every link that points to `/this-site.html` (or similar) to: `/index.html#about-site`.
+- In ALL pages, search/replace links to `this-site.html` with `/index.html#about-site`.
+
+----------------------------------------------------------------
+B) WELCOME PAGE ANCHOR
+----------------------------------------------------------------
+- In `index.html`, find the `<h2>` with text “What this site is about”. Add `id="about-site"` to that heading. If the wording varies slightly, use the section that explains the site’s purpose.
+
+----------------------------------------------------------------
+C) IMAGE PLACEHOLDERS (ALL CONTENT PAGES)
+----------------------------------------------------------------
+On each of these pages (create if missing), insert two blocks:
+- Immediately after the main `<h1>`: TOP image placeholder
+- Immediately before `<footer>`: BOTTOM image placeholder
+
+Pages: `index.html`, `writing.html`, `music.html`, `bylines.html`, `photos.html`, `contact.html`, `bio.html`, `now.html`, `podcasts.html`, `solo.html`, `lemonbird.html`, `kicks.html`, `wall.html`, `subscribe.html` (and any other main content pages you find).
+
+Insert exactly this markup each time (adjust paths if needed):
+
+<!-- ===== TOP IMAGE PLACEHOLDER (remove or replace) ===== -->
+<figure class="page-image top">
+  <img src="assets/images/placeholder-top.jpg" alt="" loading="lazy" />
+</figure>
+
+<!-- ===== BOTTOM IMAGE PLACEHOLDER (remove or replace) ===== -->
+<figure class="page-image bottom">
+  <img src="assets/images/placeholder-bottom.jpg" alt="" loading="lazy" />
+</figure>
+
+Notes:
+- Use `alt=""` because these are decorative placeholders.
+- If a page already has a hero image and you think the placeholder is redundant, still insert but wrap in an HTML comment block so the user can simply delete it.
+
+----------------------------------------------------------------
+D) BYLINES REDESIGN
+----------------------------------------------------------------
+- Open `bylines.html`. Keep the existing title and any intro/updated text.
+- Replace the current list of links with a card grid:
+
+Wrap items in:
+<ul class="bylines-grid" role="list">
+  <!-- repeat li items -->
+</ul>
+
+Each item should be:
+<li class="byline-card">
+  <a class="byline-link" href="FULL_URL" target="_blank" rel="noopener">
+    <figure class="byline-media">
+      <img src="THUMB_URL" alt="" loading="lazy" />
+    </figure>
+    <div class="byline-body">
+      <h3>Title of the piece</h3>
+      <p class="meta">
+        <span class="pub">Publication Name</span> — 
+        <time datetime="YYYY-MM-DD">Month D, YYYY</time>
+      </p>
+    </div>
+  </a>
+</li>
+
+- Preserve all existing byline items, links, and any available dates/images. If no thumbnail exists, omit the `<figure>` or use a neutral placeholder image in `assets/images/`.
+
+- Keep the “Updated {date}” line and give it class `now-updated`.
+
+----------------------------------------------------------------
+E) WRITING PAGE COPY
+----------------------------------------------------------------
+In `writing.html`, replace the main body content with:
+
+<p>Writing may be what I do best. I built my chops as an English undergrad and then got about a hundred times better in the crucible of my legal career. This involved fun writing exercises like having my work shredded by appellate judges and co-authoring briefs for the Supreme Court in a state of abject terror.</p>
+
+<p>I’ve written for various publications online, which you can explore on my <a href="/bylines.html">Bylines</a> page. My latest project is a Substack publication called <em>The Fare Well Files</em>, which I’m pouring my soul into. If you care to put your ear up to my heart and hear what it’s pumping right now, <a href="/subscribe.html">subscribe here</a>.</p>
+
+Add a small CTA block before the bottom image placeholder:
+
+<div class="cta-note">
+  <p>New here? Read the <a href="/index.html#about-site">purpose of this site</a>, or learn more <a href="/bio.html">about me</a>.</p>
+</div>
+
+----------------------------------------------------------------
+F) MUSIC PAGE COPY
+----------------------------------------------------------------
+In `music.html`, replace the main body content with:
+
+<p>I’ve spent more hours of my life than I care to admit trying to become a musical Swiss army knife. I spent my youth in the classical world, competing in piano competitions and composing for orchestras. Then I branched out into the world of pop and rock and formed a few bands, building chops on drums, guitar, and bass. Then I found a home in gypsy jazz guitar. My dream of recording music led me to a Masters in Music Production program at Berklee (I’m halfway through).</p>
+
+<p>Now, I have various projects across various genres, on both sides of the glass, as it were. Sometimes I produce or mix, sometimes I write songs, sometimes I perform on various instruments. Check out some of my favorite projects below.</p>
+
+After that copy, add an internal links list:
+
+<ul class="inline-links">
+  <li><a href="/solo.html">Solo guitar</a></li>
+  <li><a href="/lemonbird.html">Lemonbird</a></li>
+  <li><a href="/kicks.html">Kicks</a></li>
+  <li><a href="/wall.html">The Wall Project</a></li>
+  <li><a href="/contact.html">Hire me / collaborate</a></li>
+</ul>
+
+----------------------------------------------------------------
+G) HEADER NAV: DIRECT LINKS + CHEVRON TOGGLES
+----------------------------------------------------------------
+In the header partial (likely `partials/header.html`):
+- For the “Writing” and “Music” nav groups, split the current control into:
+  1) A label link `<a class="nav-label-link" href="/writing.html">Writing</a>` (or `/music.html`)
+  2) An adjacent button to toggle the submenu:
+     `<button class="nav-toggle" aria-expanded="false" aria-controls="writing-submenu" aria-label="Toggle Writing submenu"><span class="nav-arrow">▾</span></button>`
+
+- Ensure the submenu has the matching id, e.g. `<ul id="writing-submenu" class="submenu" hidden>...</ul>`
+
+- Do the same for Music.
+
+Update `assets/js/nav.js`:
+- Select `const toggles = document.querySelectorAll('.nav-toggle');`
+- Do NOT toggle on `.nav-label-link` clicks; let those navigate.
+- Clicking a `.nav-toggle`:
+  - Toggle `aria-expanded`.
+  - Show/hide the submenu (`hidden = !expanded`).
+  - Close any other open submenu.
+- Keyboard support:
+  - Space/Enter on toggle opens/closes.
+  - Esc closes an open submenu and returns focus to the toggle.
+  - Keep existing mobile menu logic intact.
+- No console errors.
+
+----------------------------------------------------------------
+H) FOOTER REDESIGN (ALL PAGES)
+----------------------------------------------------------------
+Replace the footer inner HTML with:
+
+<div class="footer-content">
+  <div class="footer-left">
+    <p class="footer-tagline">Making things that help people fare well — in art, faith, and life.</p>
+  </div>
+  <nav class="footer-links" aria-label="Footer">
+    <ul>
+      <li><a href="/writing.html">Writing</a></li>
+      <li><a href="/music.html">Music</a></li>
+      <li><a href="/bylines.html">Bylines</a></li>
+      <li><a href="/photos.html">Photos</a></li>
+      <li><a href="/now.html">Now</a></li>
+      <li><a href="/bio.html">Bio</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/subscribe.html">Subscribe</a></li>
+    </ul>
+  </nav>
+  <div class="footer-copy">
+    <p><a class="footer-subscribe" href="/subscribe.html">Subscribe on Substack</a></p>
+    <p>&copy; <span id="current-year"></span> Jordan Call</p>
+  </div>
+</div>
+
+Preserve the existing script that sets the current year.
+
+----------------------------------------------------------------
+I) CSS: VARIABLES, TYPOGRAPHY, CARDS, GRID, FOOTER
+----------------------------------------------------------------
+Edit `assets/css/styles.css` (or the main stylesheet). Add/adjust:
+
+:root{
+  --bg: #ffffff;
+  --bg-soft: #fafafa;
+  --text: #111827;
+  --muted: #6b7280;
+  --link: #1e40af;
+  --link-hover: #153e75;
+  --card: #ffffff;
+  --shadow: 0 8px 24px rgba(0,0,0,0.06);
+  --radius: 16px;
+}
+
+body{
+  background: var(--bg);
+  color: var(--text);
+  font-optical-sizing: auto;
+}
+
+@media (min-width: 1024px){
+  body{
+    background: linear-gradient(to bottom, var(--bg), var(--bg-soft) 1200px);
+  }
+}
+
+/* Justification compromise: long-form only */
+.content p,
+.container > p,
+.byline-body p,
+.bio-content p,
+.page-content p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+@media (max-width: 640px){
+  .content p,
+  .container > p,
+  .byline-body p,
+  .bio-content p,
+  .page-content p {
+    text-align: start;
+  }
+}
+
+/* Image placeholders */
+.page-image{
+  margin: 1.5rem 0 2rem;
+}
+.page-image img{
+  width: 100%;
+  border-radius: var(--radius);
+  display: block;
+}
+.page-image.bottom{
+  margin-top: 3rem;
+}
+
+/* Inline links list */
+.inline-links{
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  margin: 1rem 0 0;
+}
+
+/* CTA note */
+.cta-note{
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+/* Footer */
+footer{
+  margin-top: 4rem;
+  background: var(--bg);
+  border-top: 1px solid #e5e7eb;
+}
+.footer-content{
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 2rem 0;
+}
+.footer-tagline{
+  color: var(--muted);
+}
+.footer-links ul{
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem 1rem;
+}
+.footer-links a{
+  text-decoration: none;
+  color: var(--link);
+}
+.footer-links a:hover{
+  text-decoration: underline;
+  color: var(--link-hover);
+}
+.footer-copy{
+  text-align: right;
+  color: var(--muted);
+}
+.footer-copy .footer-subscribe{
+  display: inline-block;
+  margin-bottom: .5rem;
+  text-decoration: underline;
+  color: var(--link);
+}
+@media (max-width: 800px){
+  .footer-content{
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .footer-copy{
+    text-align: left;
+  }
+}
+
+/* Bylines grid */
+.bylines-grid{
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.byline-card{
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.byline-link{
+  display: grid;
+  grid-template-rows: auto 1fr;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+}
+.byline-media img{
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+.byline-body{
+  padding: 1rem 1.125rem 1.25rem;
+}
+.byline-body h3{
+  font-size: 1.05rem;
+  line-height: 1.35;
+  margin-bottom: .5rem;
+}
+.byline-body .meta{
+  color: var(--muted);
+  font-size: .9rem;
+}
+.byline-card:focus-within,
+.byline-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+}
+.now-updated{
+  color: var(--muted);
+  margin-bottom: .5rem;
+}
+
+/* Nav tweaks for label links + toggle buttons */
+.nav-label-link{
+  text-decoration: none;
+  color: inherit;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+}
+.nav-toggle{
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: .5rem;
+  border-radius: .5rem;
+}
+.nav-toggle:focus-visible,
+.nav-label-link:focus-visible{
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+.nav-arrow{
+  font-size: .8rem;
+  margin-left: .125rem;
+}
+
+----------------------------------------------------------------
+J) JAVASCRIPT: NAV TOGGLE LOGIC
+----------------------------------------------------------------
+Edit `assets/js/nav.js`:
+- Add selectors:
+  const toggles = document.querySelectorAll('.nav-toggle');
+  const labelLinks = document.querySelectorAll('.nav-label-link');
+
+- Ensure clicking a label link navigates—no submenu toggle.
+
+- For each toggle:
+  - Read its `aria-controls` to find the submenu element by id.
+  - Toggle `aria-expanded` true/false, and `submenu.hidden` accordingly.
+  - Close any other open submenu: set their `aria-expanded=false` and `hidden=true`.
+
+- Keyboard:
+  - Space/Enter on toggle = click behavior.
+  - Esc when a submenu is open closes it and returns focus to the toggle.
+
+- Preserve existing mobile menu behavior and any outside-click to close logic. Ensure no console errors.
+
+----------------------------------------------------------------
+K) QA
+----------------------------------------------------------------
+- Search the project to confirm **no remaining links** to `this-site.html`.
+- Open every page and verify both image placeholders render (top and bottom).
+- Verify Bylines grid layout, hover state, and responsive breakpoints.
+- Verify Writing/Music copy and link lists.
+- Header:
+  - Clicking “Writing” or “Music” label goes to those pages.
+  - Clicking the chevron opens/closes the submenu.
+  - On mobile, menus remain usable; no focus traps broken.
+- Footer shows the expanded link list and © year.
+- Lighthouse/console: no JS errors; acceptable contrast.
+
+END.

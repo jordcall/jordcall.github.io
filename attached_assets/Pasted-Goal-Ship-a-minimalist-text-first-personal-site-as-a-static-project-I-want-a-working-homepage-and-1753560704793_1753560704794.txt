@@ -1,0 +1,175 @@
+Goal: Ship a minimalist, text‑first personal site as a static project. I want a working homepage and 11 stub pages, consistent header/footer, a small floating “context window,” basic SEO/social tags, and mobile responsiveness. No frameworks.
+
+Stack & structure
+
+Static HTML/CSS/JS.
+
+Create folders and files:
+
+/assets/images/ (I will upload top-photo.jpg and bottom-photo.jpg here).
+
+/assets/css/styles.css
+
+/assets/js/main.js
+
+Root pages: index.html, bio.html, now.html, kicks.html, writing.html, music.html, blog.html, podcasts.html, photos.html, contact.html, subscribe.html, wall.html.
+
+Link CSS/JS correctly from all pages. Use relative paths that work on static hosting.
+
+Typography & layout
+
+Body: Inter 400–500, base 18px desktop (16px on narrow), line-height ≈ 1.55.
+
+Headings: Montserrat or Playfair Display, bold.
+
+Max content width: 700px, centered, generous whitespace.
+
+Colors: black text on white; accent dark blue and light blue for links/hover.
+
+Links are underlined; hover lightens color. No buttons for the inline links list.
+
+Images scale fluidly, subtle 8px radius.
+
+Visible :focus-visible outlines.
+
+Homepage content & structure (index.html)
+
+Centered <h1>: Welcome!
+
+Centered top image: /assets/images/top-photo.jpg with descriptive alt.
+
+Centered <h2>: What this site is about
+
+A prose section with the exact copy below.
+
+A styled <ul> whose items contain inline bold, capitalized link text pointing to stub pages.
+
+Final paragraph.
+
+Centered bottom image: /assets/images/bottom-photo.jpg.
+
+Footer with a soft CTA link “Get updates by email” (to /subscribe.html) plus links to Now and Bio.
+
+Floating, dismissible context window (bottom‑right). Copy: “Hi! I’m Jordan. This whole site is an extended About Me. For the short version, see Now or Bio. If you like deep dives, wander.” Include a close button (×). Ensure it doesn’t cover footer CTAs on small screens.
+
+Footer JS fills the current year automatically.
+
+Stub pages
+
+Create each page with same header/footer, fonts, container, and a smaller page‑specific context window.
+
+Each page has a <h1> and a brief intro placeholder explaining what will live there later.
+
+/photos.html: include a simple responsive photo grid component ready for future images.
+
+/blog.html and /subscribe.html: include a centered placeholder <div id="substack-embed"> and comments telling me where to paste a Substack embed later.
+
+/contact.html: include a mailto: link placeholder and room for social links.
+
+/wall.html: explain the guestbook concept; placeholder for a lightweight message list to be implemented later.
+
+SEO & social (at least on index.html; replicate titles/descriptions on others):
+
+<title> pattern: “Page — Jordan Call” (home: “Jordan Call — Welcome”).
+
+<meta name="description">: concise human description of who I am and what the site is.
+
+Open Graph + Twitter card tags; og:image should point to /assets/images/top-photo.jpg.
+
+Add favicon.ico placeholder in /assets/images and link it.
+
+Create robots.txt and sitemap.xml listing all pages.
+
+Accessibility
+
+Use semantic regions (header, main, footer, nav, figure).
+
+Ensure keyboard focus on interactive elements; :focus-visible is clearly styled.
+
+Alt text placeholders for images.
+
+Respect prefers-reduced-motion for any animation on the context window.
+
+Color contrast meets WCAG AA.
+
+Performance & hygiene
+
+Preconnect to Google Fonts and load only used weights.
+
+Keep CSS tidy; no frameworks.
+
+No console errors.
+
+Acceptance checklist (please confirm each in your reply):
+
+Folder/file tree exactly as specified.
+
+All pages load, share the same header/footer, and links between them work.
+
+Homepage shows both images, headings, copy, styled list, footer, and a closeable context window.
+
+Mobile layout is readable; context window doesn’t obscure footer CTAs.
+
+Focus outlines visible; links pass contrast.
+
+robots.txt and sitemap.xml exist and reference all pages.
+
+No console errors.
+
+Homepage copy to insert verbatim (convert the in‑text “Here” items into the list with bold inline links to the indicated pages):
+
+It’s a familiar story: you go to someone’s website, click on “About Me,” eager to learn all about them—only to find a few paltry crumbs of information, hardly enough to be worth the click. Oh, you “have words” in Vulture? You like hiking with your dog in your free time? Come on. Give me more than that! I’m trying to be friends here!
+
+So I’m going to be the change I want to see in the world and give you more than you wanted to know.
+
+This whole site is ultimately an “About Me.” Its primary goal is to help me connect with interesting and like-minded people. Its primary mechanism for doing so is cataloging and contextualizing the projects I like to devote my time to. The first job is to contextualize the site itself.
+
+Here, you can get my BIO.
+
+Here, you can find out about what I’m doing NOW.
+
+Here, you can read about previous KICKS, my term for my obsessions du jour.
+
+My two primary creative practices are WRITING and MUSIC. At these links, you can find out more about each of these.
+
+Here, you can access my BLOG, though I like to think of them as essays because then in my mind I look more like this than like this.
+
+Here, you can browse my PODCAST APPEARANCES.
+
+Here, you can see PHOTOS I’ve taken that I’m fond of. (It’s about as visual as I get.)
+
+Here, you can REACH OUT to me, SIGN UP for content from me, or WRITE ON MY WALL.
+
+There are a lot of reasons to make a personal website: build credibility, sell a product, establish a brand, etc. I’m not not interested in those things. But when I consider my motivations for this, it comes back to my lifetime of experience clicking on other people’s pages. There are so many interesting people in the world doing such interesting things. I’m so curious about them! I always appreciate being afforded a little window into their world. I’m also interested in doing interesting things. So here’s a site for the curious as I try.
+
+List link targets:
+
+BIO → /bio.html
+
+NOW → /now.html
+
+KICKS → /kicks.html
+
+WRITING → /writing.html
+
+MUSIC → /music.html
+
+BLOG → /blog.html
+
+PODCAST APPEARANCES → /podcasts.html
+
+PHOTOS → /photos.html
+
+REACH OUT → /contact.html
+
+SIGN UP → /subscribe.html
+
+WRITE ON MY WALL → /wall.html
+
+Finally: After generating everything, give me:
+
+A short QA report mapped to the Acceptance checklist.
+
+Instructions on where to upload top-photo.jpg and bottom-photo.jpg.
+
+Confirmation that deep links (e.g., /bio.html) will work after deployment on a static host.

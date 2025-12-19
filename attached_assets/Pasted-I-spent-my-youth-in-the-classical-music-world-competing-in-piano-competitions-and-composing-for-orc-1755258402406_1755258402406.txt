@@ -1,0 +1,196 @@
+I spent my youth in the classical music world, competing in piano competitions and composing for orchestras. Then I branched out into the world of pop and rock and formed a few bands, building chops on drums, guitar, and bass. Then I found a home in gypsy jazz guitar. My dream of recording music led me to a Masters in Music Production program at Berklee (I’m halfway through).
+
+Now, I have various projects across various genres, on both sides of the glass, as it were. Sometimes I produce or mix, sometimes I write songs, sometimes I perform on various instruments. Check out some of my favorite projects below.
+
+Replit Agent Instructions — Incremental Changes
+
+Do not rewrite any user copy. Only perform the structural/styling/data tasks below.
+All images are decorative: every <img> tag must have alt="" and loading="lazy".
+Use only images already in /assets/images/. For new slots, pick different images per page (see §E).
+
+A) Essays list (blog.html): styling, date format, and full history
+
+List styling (no bullets, tighter spacing)
+
+In assets/css/styles.css, add/adjust:
+
+.essay-list { list-style: none; padding-left: 0; margin: 0; }
+.essay-list li { margin-bottom: 0.35rem; }
+
+
+Ensure the <ul id="essays-list" class="essay-list"></ul> stays in blog.html.
+
+Title–date format
+
+In the client script that renders /assets/data/farewellfiles.json into #essays-list, change link text to:
+
+Title  –  M/D/YY
+
+
+where the dash is an en dash (U+2013) and there are two spaces on each side.
+
+Implement M/D/YY formatting in JS (no i18n libs). Example:
+
+const d = new Date(item.date || item.pubDate);
+const mm = d.getMonth() + 1;
+const dd = d.getDate();
+const yy = String(d.getFullYear()).slice(-2);
+const dateText = `${mm}/${dd}/${yy}`;
+a.textContent = `${item.title}  –  ${dateText}`;
+
+
+Include ALL Substack posts (older than March 29)
+
+Replace the current RSS-only builder with an archive fetcher that paginates Substack’s archive API at build time:
+
+Create/replace scripts/fetch-substack-archive.js:
+
+Iteratively GET https://farewellfiles.substack.com/api/v1/archive?sort=new&offset=<N> in steps of 12 until an empty array is returned (12 is the page size). Collect all posts; for each, keep {title, canonical_url as link, published_at as date}.
+
+Save to assets/data/farewellfiles.json (array sorted newest→oldest).
+
+Run once now: node scripts/fetch-substack-archive.js
+
+(Optional future) add "prebuild": "node scripts/fetch-substack-archive.js" to package.json.
+
+Rationale: the standard RSS often returns a limited recent subset; the archive endpoint supports full pagination via offset. 
+matthagy.substack.com
+
+Restore the blog page’s intro text if it was removed
+
+If blog.html lost the descriptive paragraph(s), restore the exact text from the last clean commit:
+
+If the project is under git: git log -p -- blog.html → recover only the removed text block.
+
+If not under git: check any local backup in the project; if none exists, do not invent copy—leave the list in place and add an HTML comment <!-- TODO: restore original intro text here (user-provided) -->.
+
+Keep the page title/heading as-is (do not rename beyond prior instructions changing nav “Blog” → “Essays”).
+
+Note: Build-time fetching avoids CORS problems with Substack feeds and is a recommended pattern. 
+Simon Willison’s Weblog
+
+B) “Subscribe/Contact” wording
+
+Nav label & page title
+
+Change the top-nav item from “Subscribe” to “Subscribe/Contact” (same /subscribe.html route).
+
+In subscribe.html, set the visible H1 to “Subscribe/Contact”.
+
+Subscribe/Contact page content (keep copy verbatim)
+
+Prominent link to https://farewellfiles.substack.com/ (new tab).
+
+Below it, include the exact line:
+
+To contact me, reply to a post or DM me on Substack.
+
+Keep one decorative image between heading and text (see §E for image selection).
+
+C) Gypsy Jazz page: first “Jordan Michael Call” bold
+
+In gypsy-jazz.html, wrap the first occurrence of the exact string Jordan Michael Call in <strong>…</strong>. Do not change any other text.
+
+D) Music → Overview page: paste exact copy and center buttons
+
+Replace the overview blurb in music.html (or the writing/music overview file used by your template) with the exact text block I pasted above (verbatim, including curly apostrophes and italics if any).
+
+Ensure the button group beneath is centered (.button-group { justify-content: center; } already added earlier).
+
+E) Decorative images: ensure different images per page
+
+For each page that shows a hero/inline image (Bio bottom, Now bottom, Essays top, Gypsy Jazz top, Lemonbird top, Solo Project top, Subscribe/Contact top), choose a different image from /assets/images/.
+
+Deterministic method:
+
+Build an alphabetical list of files in /assets/images/.
+
+Assign sequential indices per page in the order: bio, now, blog, gypsy-jazz, lemonbird, solo, subscribe → pick [0], [1], [2], [3], [4], [5], [6].
+
+Every <img> must have alt="" and loading="lazy".
+
+F) YouTube page under “Other” + video list
+
+Create page and nav item
+
+Add a new page youtube.html formatted like your other “Other” pages.
+
+Add “YouTube” to the Other dropdown in the header, linking to /youtube.html.
+
+Page copy (verbatim)
+
+Use exactly this text in the main content area:
+
+My first big creative project after leaving the law was starting a YouTube channel. I spent about a year doing everything I could think of: video essays, sketches and memes, song covers, original music, interviews, and so on.
+Then, I tried to narrow down my focus (never a good idea) to one concept: "Learning to Grammy," where I would see if I could go from being an unknown musician to a Grammy winner. I made some very cool progress on this goal, getting accepted to Berklee's Music Production Master's program, learning to record and mix and release my own music, making lots of connections with musicians and even Grammy winners. But ultimately I wasn't able to keep up with (1) trying to establish a music career and (2) trying to make a documentary about it in real time, and I lost steam.
+I hope to pick the series up again someday because I've learned so much about the industry. Even more than that, I'd like to go back to just making random videos with zero connection. It was a good time. But right now I'm happiest writing Substack essays, where the focus is on writing instead of video editing.
+
+Add a link under the copy:
+
+https://www.youtube.com/@JordanCall (open in new tab).
+
+Insert one decorative image between the heading and text (different from the others; see §E).
+
+Build-time YouTube list (like Essays)
+
+Create scripts/fetch-youtube-feed.js that:
+
+Fetches https://www.youtube.com/@JordanCall HTML with a desktop User-Agent.
+
+Extracts the channel_id from a <link rel="alternate" type="application/rss+xml" … channel_id=UC…> in the page source.
+
+Regex hint: /channel_id=([A-Za-z0-9_-]{24})/
+
+If not found, also try searching for "channelId":"UC..."
+
+Constructs the feed URL: https://www.youtube.com/feeds/videos.xml?channel_id=UC...
+
+Fetches the XML and parses entries into { title, link (from <link href>), date (from <published>) }.
+
+Writes assets/data/youtube.json (array, newest first).
+
+If any step fails, write an empty array (don’t block builds).
+
+In youtube.html, add:
+
+<ul id="youtube-list" class="essay-list"></ul>
+<script>
+  (async () => {
+    try {
+      const res = await fetch('/assets/data/youtube.json');
+      const items = await res.json();
+      const ul = document.getElementById('youtube-list');
+      items.forEach(item => {
+        const d = new Date(item.date);
+        const mm = d.getMonth() + 1, dd = d.getDate(), yy = String(d.getFullYear()).slice(-2);
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = item.link; a.target = '_blank'; a.rel = 'noopener';
+        a.textContent = `${item.title}  –  ${mm}/${dd}/${yy}`;
+        li.appendChild(a); ul.appendChild(li);
+      });
+    } catch {}
+  })();
+</script>
+
+
+Apply the same .essay-list CSS (no bullets, tight spacing).
+
+Reference for extracting YouTube RSS via channel_id from page source: 
+chuck.is
+Reddit
+Stack Overflow
+
+G) Final checks
+
+Essays page shows all posts (older than March 29 included) via archive pagination. Titles render as Title – M/D/YY. No bullets, tight spacing.
+
+Nav shows Subscribe/Contact; the page H1 matches; copy is exactly as provided.
+
+Gypsy Jazz: first Jordan Michael Call is bold; no other text changed.
+
+Music overview contains the exact text above; buttons centered.
+
+Each page uses a different image; all images have alt="" and loading="lazy".
+
+blog.html intro text restored from last clean commit if it was removed; otherwise, leave a TODO comment (do not invent copy).

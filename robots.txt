@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://jordancall.com/sitemap.xml
+
+# Additional directives
+Crawl-delay: 1
+
+# Allow all pages for indexing
+Allow: /index.html
+Allow: /bio.html
+Allow: /now.html
+Allow: /kicks.html
+Allow: /writing.html
+Allow: /music.html
+Allow: /blog.html
+Allow: /podcasts.html
+Allow: /photos.html
+Allow: /contact.html
+Allow: /subscribe.html
+Allow: /wall.html
+
+# Allow assets
+Allow: /assets/

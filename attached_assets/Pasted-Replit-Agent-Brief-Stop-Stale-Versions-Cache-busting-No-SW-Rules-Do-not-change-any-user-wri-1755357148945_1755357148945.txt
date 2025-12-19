@@ -1,0 +1,196 @@
+Replit Agent Brief — Stop Stale Versions (Cache-busting & No-SW)
+
+Rules
+• Do not change any user-written copy.
+• Only change wiring (scripts, links, headers) and add small build/util scripts.
+• Keep existing styles and page structure.
+
+0) Summary of what we’ll implement
+
+Global version token generated at build time.
+
+Append ?v=<version> to all CSS/JS includes and any fetch() of partials/data.
+
+Force fetches to use { cache: 'no-store' }.
+
+Remove/unregister any Service Worker and keep it gone.
+
+(Optional if using a Node server) Serve HTML with no-cache headers; leave static assets long-cached.
+
+1) Build-time version stamp
+
+Add: scripts/stamp-version.js (Node, no deps)
+
+Script behavior:
+
+Create an ISO timestamp string (e.g., 2025-08-16T14:03:22Z).
+
+Write JSON to assets/data/version.json with { "version": "<timestamp>" }.
+
+Add to package.json scripts (if present):
+
+{
+  "scripts": {
+    "prebuild": "node scripts/stamp-version.js && node scripts/fetch-substack-archive.js && node scripts/fetch-youtube-rss.js"
+  }
+}
+
+
+If you already use fetch-youtube-api.js (with API key), keep that in prebuild instead of fetch-youtube-rss.js.
+
+One-time run now (in shell):
+
+node scripts/stamp-version.js
+
+2) Auto-append version to all CSS/JS includes in every HTML file
+
+Add: scripts/rewrite-asset-urls.js (Node)
+
+Scan all *.html in the repo (root and subfolders).
+
+For each file, append ?v=<version> (from assets/data/version.json) to:
+
+<link rel="stylesheet" href="...">
+
+<script src="..."></script>
+
+Do not touch external (https) URLs.
+
+If a query string already exists, append &v=<version>.
+
+Skip images (okay to leave them as-is).
+
+Save files in place.
+
+Run after stamping:
+
+node scripts/rewrite-asset-urls.js
+
+
+(This guarantees browsers/CDNs see a new URL on each deploy, so they won’t reuse an old cached asset.)
+
+3) Make partial/data fetches no-cache + versioned
+
+Files to update:
+
+assets/js/inject-header.js (or whichever file fetches /partials/header.html)
+
+Any page scripts that fetch('/assets/data/*.json') (e.g., farewellfiles.json, youtube.json)
+
+Add helper: assets/js/version.js
+
+Contents: a tiny loader that fetches /assets/data/version.json once and exposes a promise:
+
+window.__getBuildVersion = (async () => {
+  try {
+    const res = await fetch('/assets/data/version.json', { cache: 'no-store' });
+    const { version } = await res.json();
+    return version || String(Date.now());
+  } catch {
+    return String(Date.now());
+  }
+})();
+
+
+Use it in fetchers:
+
+Header/partials fetch (example):
+
+(async () => {
+  const v = await window.__getBuildVersion;
+  const res = await fetch(`/partials/header.html?v=${encodeURIComponent(v)}`, { cache: 'no-store' });
+  const html = await res.text();
+  // … inject as you already do
+})();
+
+
+Data fetches (Substack/YT lists, etc.):
+
+(async () => {
+  const v = await window.__getBuildVersion;
+  const res = await fetch(`/assets/data/farewellfiles.json?v=${encodeURIComponent(v)}`, { cache: 'no-store' });
+  // … same for youtube.json, etc.
+})();
+
+
+Include version.js on every page (just before your other scripts):
+
+<script src="/assets/js/version.js?v=inline" defer></script>
+
+
+The ?v=inline here is fine—version.js is tiny and changes rarely.
+
+4) Kill any Service Worker and keep it off
+
+A) Unregister on load (idempotent; safe if none exists)
+Add: assets/js/kill-sw.js
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    regs.forEach(r => r.unregister());
+  }).catch(()=>{});
+}
+
+
+Include on every page (end of <body>):
+
+<script src="/assets/js/kill-sw.js?v=sw-off" defer></script>
+
+
+B) Remove SW registration code
+
+Search the repo for navigator.serviceWorker.register( or register('/service-worker.js'. Delete those lines.
+
+If a service-worker.js file exists, delete it. If you want to keep the file for history, move to /unused/service-worker.js.
+
+5) Optional: set HTTP headers if serving with Node/Express
+
+(Skip if you’re using purely static hosting without a custom server.)
+If you have an Express server:
+
+For HTML routes, send:
+
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: 0
+
+
+For assets (CSS/JS/images), keep long cache (e.g., Cache-Control: public, max-age=31536000, immutable) because we’re versioning their URLs.
+
+Example Express snippet:
+
+app.get(['/', '*.html'], (req, res, next) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  next();
+});
+app.use('/assets', express.static('assets', { maxAge: '365d', immutable: true }));
+
+6) One-time CDN/edge purge
+
+If your custom domain uses a CDN (Cloudflare, etc.), do a one-time purge after this deploy. After that, the versioned URLs prevent repeat issues.
+
+7) Final checks (manually verify once)
+
+Open DevTools → Network tab → Disable cache → Reload.
+
+Confirm <link rel="stylesheet" … ?v=TIMESTAMP> and <script src="…?v=TIMESTAMP"> are present on every page.
+
+In Application → Service Workers, confirm none are active.
+
+In Network, inspect your fetch('/partials/header.html?...') and /assets/data/*.json calls: they include ?v=TIMESTAMP and cache: 'no-store'.
+
+Normal reload (cache enabled): confirm new deploys reflect immediately without hard refresh.
+
+Deployment order (important)
+
+node scripts/stamp-version.js
+
+node scripts/rewrite-asset-urls.js
+
+Build the data JSONs (Substack/YT): npm run prebuild (or the individual scripts you already use)
+
+Deploy
+
+(If applicable) Purge CDN once

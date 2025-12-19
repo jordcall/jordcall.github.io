@@ -1,0 +1,89 @@
+Do not change any user-written copy.
+Use only images from /assets/images/.
+All images must have alt="" and loading="lazy".
+
+1) Essays list readability (spacing + duplicates)
+
+Files:
+
+assets/css/styles.css
+
+blog.html (client render script)
+
+scripts/fetch-substack-archive.js (build-time JSON)
+
+A. Increase vertical space between items
+Update/ensure these rules (replace existing if present):
+
+/* assets/css/styles.css */
+.essay-list { list-style: none; padding-left: 0; margin: 0; }
+.essay-list li { margin-bottom: 0.75rem; } /* was 0.35rem — increase for readability */
+
+
+B. De-duplicate at build step (source of truth)
+In scripts/fetch-substack-archive.js, after collecting posts across offsets and before writing JSON, dedupe by canonical_url:
+
+Create a Set keyed by each item’s link (canonical URL).
+
+Only push the first occurrence of each link into the array.
+
+Sort newest→oldest, then write to assets/data/farewellfiles.json.
+
+C. Defensive de-dupe at render time (belt-and-suspenders)
+In the inline script in blog.html that renders #essays-list, before appending <li> items:
+
+Track a Set of link values.
+
+Skip any item whose link is already seen.
+
+D. Keep date format exactly Title – M/D/YY
+(En dash U+2013, two spaces on each side; already implemented—retain.)
+
+2) Image assignment rule: start at photo3, then ascend (no repeats)
+
+Scope: every page that shows a decorative image except the index page.
+
+Pages to apply (if they contain an image slot):
+bio.html (bottom), now.html (bottom), blog.html (top), gypsy-jazz.html (top), lemonbird.html (top), solo.html (top), subscribe.html (top), plus any other non-index page with a page image slot.
+
+Rule (strict):
+
+Use files named photoN.* in /assets/images/, where N is an integer.
+
+Start at photo3, then photo4, photo5, … assigning the next number for each subsequent page instance.
+
+Do not repeat a photoN.* anywhere.
+
+Accept extensions: .jpg, .jpeg, .png, .webp (use whichever exists).
+
+If multiple extensions exist for the same photoN, pick the first found in the order above.
+
+Do not change the index page’s image.
+
+Keep alt="" and loading="lazy" on every <img>.
+
+Implementation hint: build a list [photo3, photo4, …] by scanning /assets/images/ for basenames matching /^photo(\d+)$/, sort numerically, then walk the target pages in a fixed order (bio → now → blog → gypsy-jazz → lemonbird → solo → subscribe → …) and assign the next available photoN.*.
+
+3) YouTube appears twice in the dropdown → remove duplicate
+
+Files:
+
+partials/header.html (and also check assets/js/inject-header.js if it programmatically injects nav)
+
+Action:
+
+Search for all <a> with visible text YouTube.
+
+There should be exactly one YouTube link under Other → youtube.html.
+
+Remove any duplicate <li> (either in the same dropdown or as a stray top-level item).
+
+Ensure only one YouTube entry remains in the rendered nav.
+
+4) Sanity checks
+
+Essays list: items are visually separated (larger li margin), no duplicates render, date format Title – M/D/YY preserved.
+
+Images: every non-index page image uses a unique photoN.*, starting at photo3 and ascending with no repeats; all images have alt="" + loading="lazy".
+
+Nav: “YouTube” appears once under Other; links correctly to /youtube.html.

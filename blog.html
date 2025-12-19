@@ -1,0 +1,236 @@
+﻿<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Blog — Jordan Call</title>
+        <meta
+            name="description"
+            content="Jordan Call's blog."
+        />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://jordancall.com/blog.html" />
+        <meta property="og:title" content="Blog — Jordan Call" />
+        <meta
+            property="og:description"
+            content="Jordan Call's blog."
+        />
+        <meta
+            property="og:image"
+            content="https://jordancall.com/assets/images/web/top-photo.webp"
+        />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+            property="twitter:url"
+            content="https://jordancall.com/blog.html"
+        />
+        <meta property="twitter:title" content="Blog — Jordan Call" />
+        <meta
+            property="twitter:description"
+            content="Jordan Call's blog."
+        />
+        <meta
+            property="twitter:image"
+            content="https://jordancall.com/assets/images/web/top-photo.webp"
+        />
+
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="/assets/images/favicon.ico"
+        />
+
+        <!-- Preconnect to Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="assets/css/styles.css?v=2025-08-16T15%3A13%3A33.166Z" />
+    </head>
+    <body>
+        <main id="main">
+            <div class="container">
+                <h1>The Fare Well Files</h1>
+                
+                <!-- OWNER: replace src with your chosen hero image; keep alt="" (decorative) -->
+                <figure class="page-image top">
+                  <img src="assets/images/web/placeholder-top.webp" alt="" loading="lazy" />
+                </figure>
+
+                <div class="content">
+                    <p><em>The Fare Well Files</em>, my Substack blog, began as a place to write about how I left my career as a lawyer to become a full-time father and creative. It quickly became a home for any idea that starts trying to consume chunks of my brain.</p>
+                    <p>Now, my stated intention is to make this the least categorizable publication on Substack. So far, I've written about fatherhood, ambition, law, writing, AI, and religion, to name a few. Feel free to browse them by publication date, or filter them by topic.</p>
+                    <p><a href="https://farewellfiles.substack.com/" target="_blank" rel="noopener">Check out the Substack page here</a>.</p>
+                    
+                    <h2>Essays to date</h2>
+                    
+                    <noscript>
+                      <p><em>Filter controls require JavaScript.</em></p>
+                    </noscript>
+                    <div id="essay-tags-filter" class="essay-tags-filter" style="display: none;">
+                      <button type="button" class="tag-filter-btn" data-tag="parenting" aria-pressed="false">parenting</button>
+                      <button type="button" class="tag-filter-btn" data-tag="philosophy" aria-pressed="false">philosophy</button>
+                      <button type="button" class="tag-filter-btn" data-tag="humor" aria-pressed="false">humor</button>
+                      <button type="button" class="tag-filter-btn" data-tag="creativity" aria-pressed="false">creativity</button>
+                      <button type="button" class="tag-filter-btn" data-tag="personal essay" aria-pressed="false">personal essay</button>
+                      <button type="button" class="tag-filter-btn" data-tag="faith" aria-pressed="false">faith</button>
+                      <button type="button" class="tag-filter-btn" data-tag="freewrite" aria-pressed="false">freewrite</button>
+                      <button type="button" class="tag-filter-btn" data-tag="law" aria-pressed="false">law</button>
+                      <button type="button" class="tag-filter-btn" data-tag="ambition/status" aria-pressed="false">ambition/status</button>
+                      <button type="button" class="tag-filter-btn" data-tag="AI" aria-pressed="false">AI</button>
+                      <button type="button" class="tag-filter-btn" data-tag="writing" aria-pressed="false">writing</button>
+                      <button type="button" class="tag-filter-btn" data-tag="music" aria-pressed="false">music</button>
+                      <button type="button" class="tag-filter-btn" data-tag="takes" aria-pressed="false">takes</button>
+                      <button type="button" class="tag-filter-btn" data-tag="review" aria-pressed="false">review</button>
+                      <button type="button" class="tag-filter-btn" data-tag="fiction" aria-pressed="false">fiction</button>
+                      <button type="button" class="tag-filter-btn" data-tag="fitness" aria-pressed="false">fitness</button>
+                    </div>
+                    
+                    <div id="essays-by-year"></div>
+                </div>
+
+                <!-- ===== BOTTOM IMAGE PLACEHOLDER (remove or replace) ===== -->
+                <figure class="page-image bottom">
+                  <img src="assets/images/web/tomdistance.webp" alt="" loading="lazy" />
+                </figure>
+            </div>
+        </main>
+
+<footer>
+  <div class="container">
+    <p>&copy; <span id="current-year"></span> Jordan Call · <a href="https://farewellfiles.substack.com/" target="_blank" rel="noopener">Substack</a></p>
+  </div>
+</footer>
+
+        <script src="/assets/js/version.js?v=inline" defer></script>
+        <script src="/assets/js/inject-header.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+        <script src="/assets/js/nav.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+        <script src="/assets/js/essays-filter.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+        <script src="/assets/js/kill-sw.js?v=sw-off" defer></script>
+<script>
+async function loadEssays() {
+  try {
+    const v = window.__getBuildVersion ? await window.__getBuildVersion : Date.now();
+    const [postsResponse, tagsResponse] = await Promise.all([
+      fetch(`/assets/data/farewellfiles.json?v=${encodeURIComponent(v)}`, { cache: 'no-store' }),
+      fetch(`/assets/data/essay-tags.json?v=${encodeURIComponent(v)}`, { cache: 'no-store' })
+    ]);
+    const posts = await postsResponse.json();
+    const tagsData = await tagsResponse.json();
+    const container = document.getElementById("essays-by-year");
+    const filterContainer = document.getElementById("essay-tags-filter");
+    
+    if (container && posts.length > 0) {
+      // Group posts by year
+      const postsByYear = {};
+      const seenLinks = new Set();
+      
+      posts.forEach(post => {
+        if (seenLinks.has(post.link)) return;
+        seenLinks.add(post.link);
+        
+        const year = post.date.substring(0, 4);
+        if (!postsByYear[year]) postsByYear[year] = [];
+        postsByYear[year].push(post);
+      });
+      
+      // Get sorted years (newest first)
+      const years = Object.keys(postsByYear).sort((a, b) => b.localeCompare(a));
+      
+      // Render each year group
+      years.forEach((year, index) => {
+        const yearSection = document.createElement("div");
+        yearSection.className = "year-section";
+        yearSection.style.display = 'block';
+        yearSection.style.visibility = 'visible';
+        yearSection.style.opacity = '1';
+        
+        const yearHeader = document.createElement("h2");
+        yearHeader.className = "year-header";
+        yearHeader.textContent = year;
+        yearHeader.style.display = 'block';
+        yearHeader.style.visibility = 'visible';
+        
+        const yearList = document.createElement("ul");
+        yearList.className = "essay-list";
+        yearList.style.display = 'block';
+        yearList.style.visibility = 'visible';
+        yearList.style.listStyle = 'none';
+        yearList.style.padding = '0';
+        
+        // Older years (beyond first 2) are collapsed by default
+        const isCollapsed = index >= 2;
+        if (isCollapsed) {
+          yearList.style.display = 'none';
+          yearSection.classList.add('collapsed');
+          yearHeader.style.cursor = 'pointer';
+          yearHeader.setAttribute('role', 'button');
+          yearHeader.setAttribute('aria-expanded', 'false');
+          yearHeader.setAttribute('tabindex', '0');
+          
+          yearHeader.onclick = function() {
+            const collapsed = yearSection.classList.contains('collapsed');
+            if (collapsed) {
+              yearSection.classList.remove('collapsed');
+              yearList.style.display = '';
+              yearHeader.setAttribute('aria-expanded', 'true');
+            } else {
+              yearSection.classList.add('collapsed');
+              yearList.style.display = 'none';
+              yearHeader.setAttribute('aria-expanded', 'false');
+            }
+          };
+        }
+        
+        postsByYear[year].forEach(post => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = post.link;
+          a.target = "_blank";
+          a.rel = "noopener";
+          
+          const d = new Date(post.date);
+          const dateText = `${d.getMonth() + 1}/${d.getDate()}/${String(d.getFullYear()).slice(-2)}`;
+          a.textContent = `${post.title}  –  ${dateText}`;
+          
+          li.appendChild(a);
+          
+          // Match tags from essay-tags.json using URL path
+          const urlPath = post.link.replace('https://farewellfiles.substack.com', '');
+          const tagEntry = tagsData[urlPath];
+          if (tagEntry && tagEntry.tags && tagEntry.tags.length > 0) {
+            li.dataset.tags = tagEntry.tags.join(',');
+          }
+          
+          yearList.appendChild(li);
+        });
+        
+        yearSection.appendChild(yearHeader);
+        yearSection.appendChild(yearList);
+        container.appendChild(yearSection);
+      });
+      
+      if (filterContainer) {
+        filterContainer.style.display = 'flex';
+      }
+    }
+  } catch (error) {
+    console.error("Error loading essays:", error);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadEssays);
+} else {
+  loadEssays();
+}
+</script>
+</body>
+</html>

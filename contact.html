@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Jordan Call</title>
+    <meta name="description" content="Get in touch with Jordan Call.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jordancall.com/contact.html">
+    <meta property="og:title" content="Contact — Jordan Call">
+    <meta property="og:description" content="Get in touch with Jordan Call.">
+    <meta property="og:image" content="https://jordancall.com/assets/images/web/top-photo.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jordancall.com/contact.html">
+    <meta property="twitter:title" content="Contact — Jordan Call">
+    <meta property="twitter:description" content="Get in touch with Jordan Call.">
+    <meta property="twitter:image" content="https://jordancall.com/assets/images/web/top-photo.webp">
+
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/styles.css?v=2025-08-16T15%3A13%3A33.166Z">
+</head>
+<body>
+    <main id="main">
+        <div class="container">
+            <h1>Contact</h1>
+            
+            <!-- ===== TOP IMAGE PLACEHOLDER (remove or replace) ===== -->
+            <figure class="page-image top">
+              <img src="assets/images/web/photo1.webp" alt="" loading="lazy" />
+            </figure>
+            
+            <div class="content">
+                <p>If anything on this site connects with you, I'd love to hear from you and get to know you! Fill out the form below if you'd like to get in touch:</p>
+                
+                <!-- OWNER: Replace with your Formspree endpoint: https://formspree.io/f/XXXXYYYY -->
+                <form id="contactForm" action="https://formspree.io/f/mgvzkbkl" method="POST" style="max-width: 600px; margin: 2rem 0;">
+                  <div style="margin-bottom: 1rem;">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Name *</label>
+                    <input id="name" name="name" type="text" required style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.375rem; font-family: inherit; font-size: 1rem;">
+                  </div>
+                  
+                  <div style="margin-bottom: 1rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email *</label>
+                    <input id="email" name="email" type="email" required style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.375rem; font-family: inherit; font-size: 1rem;">
+                  </div>
+                  
+                  <div style="margin-bottom: 1rem;">
+                    <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Message *</label>
+                    <textarea id="message" name="message" required rows="5" style="width: 100%; padding: 0.625rem; border: 1px solid #d1d5db; border-radius: 0.375rem; font-family: inherit; font-size: 1rem; resize: vertical;"></textarea>
+                  </div>
+                  
+                  <!-- Honeypot field -->
+                  <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <label for="website">Leave this field empty</label>
+                    <input id="website" type="text" name="website" tabindex="-1" autocomplete="off">
+                  </div>
+                  
+                  <div id="formMessages" style="margin-bottom: 1rem; display: none;"></div>
+                  
+                  <button type="submit" id="submitBtn" style="background: var(--link); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.375rem; font-weight: 500; cursor: pointer; font-size: 1rem;">Send Message</button>
+                </form>
+                
+                <script>
+                  (function() {
+                    const form = document.getElementById('contactForm');
+                    const honeypot = document.getElementById('website');
+                    const messages = document.getElementById('formMessages');
+                    const submitBtn = document.getElementById('submitBtn');
+                    
+                    if (!form) return;
+                    
+                    form.addEventListener('submit', function(e) {
+                      // Honeypot check
+                      if (honeypot && honeypot.value !== '') {
+                        e.preventDefault();
+                        return false;
+                      }
+                      
+                      // If no JS support or endpoint not configured, let it submit normally
+                      if (!window.fetch || form.action.includes('mgvzkbkl')) {
+                        return true;
+                      }
+                      
+                      e.preventDefault();
+                      
+                      submitBtn.disabled = true;
+                      submitBtn.textContent = 'Sending...';
+                      
+                      const formData = new FormData(form);
+                      
+                      fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                          'Accept': 'application/json'
+                        }
+                      })
+                      .then(function(response) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Message';
+                        
+                        if (response.ok) {
+                          messages.style.display = 'block';
+                          messages.style.padding = '1rem';
+                          messages.style.borderRadius = '0.375rem';
+                          messages.style.backgroundColor = '#d1fae5';
+                          messages.style.color = '#065f46';
+                          messages.innerHTML = '✓ Message sent successfully! I\'ll get back to you soon.';
+                          form.reset();
+                        } else {
+                          throw new Error('Form submission failed');
+                        }
+                      })
+                      .catch(function(error) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Message';
+                        
+                        messages.style.display = 'block';
+                        messages.style.padding = '1rem';
+                        messages.style.borderRadius = '0.375rem';
+                        messages.style.backgroundColor = '#fee2e2';
+                        messages.style.color = '#991b1b';
+                        messages.innerHTML = '✗ There was a problem sending your message. Please try again.';
+                      });
+                    });
+                  })();
+                </script>
+                
+                
+            </div>
+
+        </div>
+    </main>
+
+<footer>
+  <div class="container">
+    <p>&copy; <span id="current-year"></span> Jordan Call · <a href="https://farewellfiles.substack.com/" target="_blank" rel="noopener">Substack</a></p>
+  </div>
+</footer>
+
+
+
+    <script src="/assets/js/version.js?v=inline" defer></script>
+        <script src="/assets/js/inject-header.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+    <script src="/assets/js/nav.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
+<script src="/assets/js/kill-sw.js?v=sw-off" defer></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+.local/
+.replit
+__pycache__/
+*.pyc
+.DS_Store

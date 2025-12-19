@@ -1,0 +1,38 @@
+Patch ONLY the Lemonbird page.
+
+1) Locate the file:
+- Prefer `TextPort/lemonbird.html`.
+- If not found, search the project for a file whose <title> or <h1> includes “Lemonbird”. Use that file.
+- Do NOT touch any other file.
+
+2) Do NOT change the header, nav, or footer. Keep page title and <h1> as “Lemonbird”.
+
+3) In the main content container (often <div class="content">), replace the body copy with EXACTLY this HTML, in this order:
+
+<p><strong>Lemonbird</strong> is my pop production project with producer and cellist Robert Willes (Tampico Lasting Love, Donovan Taylor). A Lemonbird track usually starts as a beat on Robert’s hard drive, which he sends across the country to me for melody and lyrics. Then we volley it back and forth trying to out-escalate each other until alchemy occurs.</p>
+
+<p>Our sound has been hard to pin down. (If you can name a comp, please tell me because the algorithm has been bullying me for one.) We pull from our classical background and jazz experience, divergent pop interests, hip-hop, and soul. I sometimes call us “ELO with 808s,” since most of our stuff is built around a full string orchestra and a nasty beat.</p>
+
+<p>Of all the projects I’ve worked on, I think Lemonbird is the most magical. So check it out for a glimpse into two odd and restless musical minds.</p>
+
+<p>Follow along on
+  <a href="https://open.spotify.com/artist/2N9qcZiBLiF6s0h5Mz2T3P" target="_blank" rel="noopener">Spotify</a>
+  or
+  <a href="https://www.instagram.com/lemonbirdband/" target="_blank" rel="noopener">Instagram</a>.
+</p>
+
+<iframe
+  style="border-radius:12px"
+  src="https://open.spotify.com/embed/artist/2N9qcZiBLiF6s0h5Mz2T3P?utm_source=generator"
+  width="100%" height="352" frameborder="0" loading="lazy"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  title="Lemonbird on Spotify"></iframe>
+
+4) Placement rules:
+- If a TOP image placeholder exists, keep it ABOVE the first paragraph.
+- If a BOTTOM image placeholder exists, keep it BELOW the iframe.
+- Do NOT insert any new placeholders on this page.
+
+5) Make no other changes. No invented or modified wording.
+
+When finished, print exactly: Lemonbird page updated ✔

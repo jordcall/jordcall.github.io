@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Jordan Call</title>
+  <meta name="description" content="Reach out to Jordan Call — this form emails me without exposing my address." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jordancall.com/contact.html" />
+  <meta property="og:title" content="Contact — Jordan Call" />
+  <meta property="og:description" content="Send me a message. The form emails me without exposing my address." />
+  <meta property="og:image" content="https://jordancall.com/assets/images/web/top-photo.webp" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://jordancall.com/contact.html" />
+  <meta property="twitter:title" content="Contact — Jordan Call" />
+  <meta property="twitter:description" content="Send me a message. The form emails me without exposing my address." />
+  <meta property="twitter:image" content="https://jordancall.com/assets/images/web/top-photo.webp" />
+
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+
+  <style>
+    .contact-intro{
+      max-width:700px;
+      margin:0 auto 28px;
+    }
+
+    .form-note{
+      max-width:700px;
+      margin:-8px auto 24px;
+      color:#6b7280;
+      font-size:.95rem;
+    }
+
+    /* Single-column form, always */
+    .contact-form{
+      max-width:700px;
+      margin:0 auto 56px;
+      display:grid;
+      gap:18px;
+    }
+
+    .contact-form label{
+      font-weight:500;
+      display:block;
+      margin:0 0 6px;
+    }
+
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea{
+      width:100%;
+      padding:12px 14px;
+      border:1px solid #d1d5db;
+      border-radius:10px;
+      font:inherit;
+      line-height:1.5;
+      background:#fff;
+    }
+
+    /* Bigger email field */
+    .contact-form input[type="email"]{
+      min-height:56px;
+      font-size:1.05rem;
+      padding:14px 16px;
+    }
+
+    /* Scrollable message box */
+    .contact-form textarea{
+      min-height:200px;
+      max-height:420px;
+      overflow:auto;
+      resize:vertical;
+      line-height:1.55;
+    }
+
+    .help{
+      margin-top:6px;
+      color:#6b7280;
+      font-size:.9rem;
+    }
+
+    .contact-form button{
+      justify-self:start;
+      border:none;
+      border-radius:999px;
+      padding:12px 22px;
+      font-weight:600;
+      cursor:pointer;
+      background:#0f3a63;
+      color:#fff;
+    }
+    .contact-form button:hover{ background:#185287; }
+    .contact-form button:focus-visible{ outline:3px solid #93c5fd; outline-offset:2px; }
+
+    .hidden{ display:none !important; }
+
+    .success, .error{
+      max-width:700px;
+      margin:24px auto;
+      padding:16px;
+      border-radius:12px;
+      border:1px solid;
+    }
+    .success{ border-color:#a7f3d0; background:#ecfdf5; }
+    .error{ border-color:#fecaca; background:#fef2f2; }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <div class="container">
+      <h1>Contact</h1>
+
+      <!-- ===== TOP IMAGE PLACEHOLDER (remove or replace) ===== -->
+      <figure class="page-image top">
+        <img src="assets/images/web/placeholder-top.webp" alt="" loading="lazy" />
+      </figure>
+
+      <p class="contact-intro">
+        I’d love to hear from you!
+      </p>
+
+      <p class="form-note">Fields marked * are required.</p>
+
+      <!-- Replace the action URL with your Formspree endpoint -->
+      <form id="contactForm" class="contact-form" action="https://formspree.io/f/mgvzkbkl" method="POST" novalidate>
+        <div>
+          <label for="name">Name *</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+        </div>
+
+        <div>
+          <label for="email">Email *</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+          <p class="help">I’ll only use this to reply.</p>
+        </div>
+
+        <div>
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" />
+        </div>
+
+        <div>
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+
+        <!-- Honeypot (spam trap) -->
+        <div aria-hidden="true" class="hidden">
+          <label for="website">Leave this field empty</label>
+          <input id="website" type="text" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <input type="hidden" name="_subject" value="New message from jordancall.com" />
+
+        <button type="submit">Send message</button>
+      </form>
+
+      <div id="formSuccess" class="success hidden" role="status">
+        Thanks! Your message is on its way.
+      </div>
+      <div id="formError" class="error hidden" role="alert">
+        Sorry—something went wrong. Please try again, or email me directly.
+      </div>
+
+      <!-- ===== BOTTOM IMAGE PLACEHOLDER (remove or replace) ===== -->
+      <figure class="page-image bottom">
+        <img src="assets/images/web/placeholder-bottom.webp" alt="" loading="lazy" />
+      </figure>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <ul>
+            <li><a href="/writing.html">Writing</a></li>
+            <li><a href="/music.html">Music</a></li>
+            <li><a href="/bylines.html">Bylines</a></li>
+            <li><a href="/photos.html">Photos</a></li>
+                  <li><a href="/index.html#about-site">This Site</a></li>
+            <li><a href="/now.html">Now</a></li>
+            <li><a href="/bio.html">Bio</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/subscribe.html">Subscribe</a></li>
+          <li><a href="/index.html#about-site">This Site</a></li>
+                  </ul>
+        </nav>
+        <div class="footer-copy">
+          
+          <p>&copy; <span id="current-year"></span> Jordan Call</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/inject-header.js" defer></script>
+  <script src="/assets/js/nav.js" defer></script>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const okEl = document.getElementById('formSuccess');
+    const errEl = document.getElementById('formError');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      okEl.classList.add('hidden');
+      errEl.classList.add('hidden');
+
+      // Honeypot check
+      const hp = form.querySelector('input[name="website"]');
+      if (hp && hp.value) {
+        okEl.classList.remove('hidden'); form.reset(); return;
+      }
+
+      try {
+        const resp = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+
+        if (resp.ok) {
+          okEl.classList.remove('hidden');
+          form.reset();
+        } else {
+          errEl.classList.remove('hidden');
+        }
+      } catch (err) {
+        errEl.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

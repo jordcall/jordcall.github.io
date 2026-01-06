@@ -28,6 +28,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="assets/css/styles.css?v=2025-08-16T15%3A13%3A33.166Z">
+    <style>
+        .djenius-screenshot-strip {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 14px;
+            align-items: flex-start;
+            overflow-x: auto;
+            padding: 10px 2px;
+            scroll-snap-type: x mandatory;
+        }
+        .djenius-screenshot-strip a {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            display: inline-block;
+        }
+        .djenius-screenshot-strip img {
+            height: 200px;
+            width: auto;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.10);
+            background: #fff;
+            display: block;
+        }
+        .djenius-screenshot-strip a:hover img {
+            transform: translateY(-2px);
+            transition: transform 150ms ease, opacity 150ms ease;
+            opacity: 0.95;
+        }
+    </style>
 </head>
 <body>
     <main id="main">
@@ -59,10 +88,23 @@
                 </ol>
 
                 <h2>Screenshots</h2>
-                <div class="photo-grid">
-                    <img src="assets/images/djenius/djenius-1.webp" alt="Djenius practice tracker overview screen" loading="lazy" />
-                    <img src="assets/images/djenius/djenius-2.webp" alt="Djenius practice session details with categories and notes" loading="lazy" />
-                    <img src="assets/images/djenius/djenius-3.webp" alt="Djenius history view showing logged practice sessions" loading="lazy" />
+                <p>Click any screenshot to view full size.</p>
+                <div class="djenius-screenshot-strip">
+                    <a href="/assets/images/web/djenius-practice.webp" target="_blank" rel="noopener">
+                        <img src="/assets/images/web/djenius-practice.webp" alt="Djenius practice screen with timer, categories, and session summary" loading="lazy" />
+                    </a>
+                    <a href="/assets/images/web/djenius-stats.webp" target="_blank" rel="noopener">
+                        <img src="/assets/images/web/djenius-stats.webp" alt="Djenius stats dashboard showing practice totals and streaks" loading="lazy" />
+                    </a>
+                    <a href="/assets/images/web/djenius-library.webp" target="_blank" rel="noopener">
+                        <img src="/assets/images/web/djenius-library.webp" alt="Djenius library view listing tunes and practice items" loading="lazy" />
+                    </a>
+                    <a href="/assets/images/web/djenius-item.webp" target="_blank" rel="noopener">
+                        <img src="/assets/images/web/djenius-item.webp" alt="Djenius item detail screen with notes and practice targets" loading="lazy" />
+                    </a>
+                    <a href="/assets/images/web/djenius-log.webp" target="_blank" rel="noopener">
+                        <img src="/assets/images/web/djenius-log.webp" alt="Djenius practice log showing recent sessions by date" loading="lazy" />
+                    </a>
                 </div>
             </div>
 

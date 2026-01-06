@@ -33,28 +33,127 @@
             display: flex;
             flex-wrap: nowrap;
             gap: 14px;
-            align-items: flex-start;
+            align-items: center;
             overflow-x: auto;
             padding: 10px 2px;
             scroll-snap-type: x mandatory;
         }
-        .djenius-screenshot-strip a {
+        .djenius-screenshot-strip button {
             flex: 0 0 auto;
             scroll-snap-align: start;
             display: inline-block;
+            border: none;
+            background: transparent;
+            padding: 0;
+            cursor: zoom-in;
         }
         .djenius-screenshot-strip img {
-            height: 200px;
+            height: clamp(140px, 18vw, 220px);
             width: auto;
             border-radius: 10px;
             border: 1px solid rgba(0, 0, 0, 0.10);
             background: #fff;
             display: block;
+            transition: transform 150ms ease, opacity 150ms ease, box-shadow 150ms ease;
         }
-        .djenius-screenshot-strip a:hover img {
+        .djenius-screenshot-strip button:hover img {
             transform: translateY(-2px);
-            transition: transform 150ms ease, opacity 150ms ease;
             opacity: 0.95;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+        .djenius-screenshot-strip button:focus-visible img {
+            outline: 2px solid rgba(0, 0, 0, 0.25);
+            outline-offset: 3px;
+        }
+        body.djenius-lightbox-open {
+            overflow: hidden;
+        }
+        .djenius-lightbox {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 2000;
+        }
+        .djenius-lightbox.is-open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .djenius-lightbox-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .djenius-lightbox-panel {
+            position: relative;
+            z-index: 1;
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 58px 16px;
+            max-width: min(92vw, 980px);
+            max-height: 90vh;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .djenius-lightbox-image {
+            max-width: 100%;
+            max-height: 72vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+        .djenius-lightbox-caption {
+            margin: 0;
+            font-size: 0.95rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        .djenius-lightbox-close,
+        .djenius-lightbox-prev,
+        .djenius-lightbox-next {
+            position: absolute;
+            border: none;
+            background: rgba(255, 255, 255, 0.92);
+            color: #111;
+            border-radius: 999px;
+            cursor: pointer;
+            padding: 8px 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+        .djenius-lightbox-close {
+            top: 12px;
+            right: 12px;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+        .djenius-lightbox-prev,
+        .djenius-lightbox-next {
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.95rem;
+        }
+        .djenius-lightbox-prev {
+            left: 12px;
+        }
+        .djenius-lightbox-next {
+            right: 12px;
+        }
+        @media (max-width: 640px) {
+            .djenius-lightbox-panel {
+                padding: 18px 46px 14px;
+            }
+            .djenius-lightbox-prev,
+            .djenius-lightbox-next {
+                padding: 6px 10px;
+            }
         }
     </style>
 </head>
@@ -90,21 +189,18 @@
                 <h2>Screenshots</h2>
                 <p>Click any screenshot to view full size.</p>
                 <div class="djenius-screenshot-strip">
-                    <a href="/assets/images/web/djenius-practice.webp" target="_blank" rel="noopener">
-                        <img src="/assets/images/web/djenius-practice.webp" alt="Djenius practice screen with timer, categories, and session summary" loading="lazy" />
-                    </a>
-                    <a href="/assets/images/web/djenius-stats.webp" target="_blank" rel="noopener">
-                        <img src="/assets/images/web/djenius-stats.webp" alt="Djenius stats dashboard showing practice totals and streaks" loading="lazy" />
-                    </a>
-                    <a href="/assets/images/web/djenius-library.webp" target="_blank" rel="noopener">
-                        <img src="/assets/images/web/djenius-library.webp" alt="Djenius library view listing tunes and practice items" loading="lazy" />
-                    </a>
-                    <a href="/assets/images/web/djenius-item.webp" target="_blank" rel="noopener">
-                        <img src="/assets/images/web/djenius-item.webp" alt="Djenius item detail screen with notes and practice targets" loading="lazy" />
-                    </a>
-                    <a href="/assets/images/web/djenius-log.webp" target="_blank" rel="noopener">
-                        <img src="/assets/images/web/djenius-log.webp" alt="Djenius practice log showing recent sessions by date" loading="lazy" />
-                    </a>
+                    <button type="button" data-index="0" aria-label="Open practice screenshot">
+                        <img src="/assets/images/web/djenius-practice.webp" alt="Practice screen with timer and save button" loading="lazy" />
+                    </button>
+                    <button type="button" data-index="1" aria-label="Open stats screenshot">
+                        <img src="/assets/images/web/djenius-stats.webp" alt="Stats screen with charts and breakdown" loading="lazy" />
+                    </button>
+                    <button type="button" data-index="2" aria-label="Open library screenshot">
+                        <img src="/assets/images/web/djenius-library.webp" alt="Library screen showing items and filters" loading="lazy" />
+                    </button>
+                    <button type="button" data-index="3" aria-label="Open log screenshot">
+                        <img src="/assets/images/web/djenius-log.webp" alt="Log screen listing recent practice entries" loading="lazy" />
+                    </button>
                 </div>
             </div>
 
@@ -118,11 +214,142 @@
   </div>
 </footer>
 
+    <div class="djenius-lightbox" aria-hidden="true">
+        <div class="djenius-lightbox-backdrop" aria-label="Close screenshot viewer"></div>
+        <div class="djenius-lightbox-panel" role="dialog" aria-modal="true" aria-label="Djenius screenshots">
+            <button class="djenius-lightbox-close" type="button" aria-label="Close">&times;</button>
+            <button class="djenius-lightbox-prev" type="button" aria-label="Previous screenshot">Prev</button>
+            <img class="djenius-lightbox-image" src="" alt="" />
+            <button class="djenius-lightbox-next" type="button" aria-label="Next screenshot">Next</button>
+            <p class="djenius-lightbox-caption"></p>
+        </div>
+    </div>
+
 
 
     <script src="/assets/js/version.js?v=inline" defer></script>
         <script src="/assets/js/inject-header.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
     <script src="/assets/js/nav.js?v=2025-08-16T15%3A13%3A33.166Z" defer></script>
 <script src="/assets/js/kill-sw.js?v=sw-off" defer></script>
+    <script>
+        (() => {
+            const screenshots = [
+                {
+                    src: "/assets/images/web/djenius-practice.webp",
+                    alt: "Practice screen with timer and save button",
+                    label: "Practice"
+                },
+                {
+                    src: "/assets/images/web/djenius-stats.webp",
+                    alt: "Stats screen with charts and breakdown",
+                    label: "Stats"
+                },
+                {
+                    src: "/assets/images/web/djenius-library.webp",
+                    alt: "Library screen showing items and filters",
+                    label: "Library"
+                },
+                {
+                    src: "/assets/images/web/djenius-log.webp",
+                    alt: "Log screen listing recent practice entries",
+                    label: "Log"
+                }
+            ];
+
+            const strip = document.querySelector(".djenius-screenshot-strip");
+            const lightbox = document.querySelector(".djenius-lightbox");
+            if (!strip || !lightbox) {
+                return;
+            }
+
+            const image = lightbox.querySelector(".djenius-lightbox-image");
+            const caption = lightbox.querySelector(".djenius-lightbox-caption");
+            const closeButton = lightbox.querySelector(".djenius-lightbox-close");
+            const prevButton = lightbox.querySelector(".djenius-lightbox-prev");
+            const nextButton = lightbox.querySelector(".djenius-lightbox-next");
+            const backdrop = lightbox.querySelector(".djenius-lightbox-backdrop");
+            let currentIndex = 0;
+            let touchStartX = 0;
+
+            const updateModal = (index) => {
+                const total = screenshots.length;
+                currentIndex = (index + total) % total;
+                const shot = screenshots[currentIndex];
+                image.src = shot.src;
+                image.alt = shot.alt;
+                caption.textContent = shot.label;
+            };
+
+            const openModal = (index) => {
+                updateModal(index);
+                lightbox.classList.add("is-open");
+                lightbox.setAttribute("aria-hidden", "false");
+                document.body.classList.add("djenius-lightbox-open");
+            };
+
+            const closeModal = () => {
+                lightbox.classList.remove("is-open");
+                lightbox.setAttribute("aria-hidden", "true");
+                document.body.classList.remove("djenius-lightbox-open");
+            };
+
+            const next = () => updateModal(currentIndex + 1);
+            const prev = () => updateModal(currentIndex - 1);
+
+            strip.querySelectorAll("button[data-index]").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const index = Number(button.getAttribute("data-index")) || 0;
+                    openModal(index);
+                });
+            });
+
+            closeButton.addEventListener("click", closeModal);
+            backdrop.addEventListener("click", closeModal);
+            nextButton.addEventListener("click", next);
+            prevButton.addEventListener("click", prev);
+
+            document.addEventListener("keydown", (event) => {
+                if (!lightbox.classList.contains("is-open")) {
+                    return;
+                }
+                if (event.key === "Escape") {
+                    event.preventDefault();
+                    closeModal();
+                    return;
+                }
+                if (event.key === "ArrowRight") {
+                    event.preventDefault();
+                    next();
+                }
+                if (event.key === "ArrowLeft") {
+                    event.preventDefault();
+                    prev();
+                }
+            });
+
+            lightbox.addEventListener("touchstart", (event) => {
+                if (!lightbox.classList.contains("is-open")) {
+                    return;
+                }
+                touchStartX = event.changedTouches[0].clientX;
+            }, { passive: true });
+
+            lightbox.addEventListener("touchend", (event) => {
+                if (!lightbox.classList.contains("is-open")) {
+                    return;
+                }
+                const touchEndX = event.changedTouches[0].clientX;
+                const delta = touchEndX - touchStartX;
+                if (Math.abs(delta) < 40) {
+                    return;
+                }
+                if (delta < 0) {
+                    next();
+                } else {
+                    prev();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

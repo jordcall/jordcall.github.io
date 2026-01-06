@@ -32,11 +32,14 @@
         .djenius-screenshot-strip {
             display: flex;
             flex-wrap: nowrap;
-            gap: 14px;
-            align-items: center;
+            gap: 18px;
+            align-items: flex-start;
+            justify-content: center;
             overflow-x: auto;
-            padding: 10px 2px;
-            scroll-snap-type: x mandatory;
+            padding: 12px 0;
+            max-width: 980px;
+            margin: 0 auto;
+            width: 100%;
         }
         .djenius-screenshot-strip button {
             flex: 0 0 auto;
@@ -48,13 +51,19 @@
             cursor: zoom-in;
         }
         .djenius-screenshot-strip img {
-            height: clamp(140px, 18vw, 220px);
+            height: clamp(160px, 18vw, 240px);
             width: auto;
             border-radius: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.10);
+            border: 1px solid rgba(0, 0, 0, 0.12);
             background: #fff;
             display: block;
             transition: transform 150ms ease, opacity 150ms ease, box-shadow 150ms ease;
+        }
+        @media (min-width: 900px) {
+            .djenius-screenshot-strip {
+                overflow-x: visible;
+                justify-content: space-between;
+            }
         }
         .djenius-screenshot-strip button:hover img {
             transform: translateY(-2px);

@@ -1,9 +1,8 @@
+# Substack blocks GitHub-hosted runners (403); use local scheduled job instead.
 name: Update Substack data
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 6 * * *"
 
 permissions:
   contents: write

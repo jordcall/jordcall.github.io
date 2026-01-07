@@ -51,12 +51,13 @@
             cursor: zoom-in;
         }
         .djenius-screenshot-strip img {
-            height: clamp(160px, 18vw, 240px);
+            height: clamp(180px, 19vw, 260px);
             width: auto;
             border-radius: 10px;
             border: 1px solid rgba(0, 0, 0, 0.12);
             background: #fff;
             display: block;
+            cursor: zoom-in;
             transition: transform 150ms ease, opacity 150ms ease, box-shadow 150ms ease;
         }
         @media (min-width: 900px) {
@@ -179,11 +180,12 @@
                 <div class="button-group">
                     <a href="https://github.com/jordcall/jordcall.github.io/releases/download/djenius-v0.1.0/Djenius.apk" class="nav-button-link" target="_blank" rel="noopener">Download Djenius.apk (Android)</a>
                 </div>
+                <p>Feedback: <a href="/contact.html">contact me</a></p>
 
                 <h2>Details</h2>
                 <ul>
                     <li><strong>Version:</strong> v0.1.0-beta</li>
-                    <li><strong>SHA-256:</strong> 0b492e64cad3c736871360bf46d768c49d40ad2656485f66e4e72bf4ac79cc25</li>
+                    <li><strong>SHA-256:</strong> <code style="word-break: break-all;">0b492e64cad3c736871360bf46d768c49d40ad2656485f66e4e72bf4ac79cc25</code></li>
                     <li><strong>Release notes:</strong> <a href="https://github.com/jordcall/jordcall.github.io/releases/tag/djenius-v0.1.0" target="_blank" rel="noopener">djenius-v0.1.0</a></li>
                 </ul>
 
@@ -196,7 +198,7 @@
                 </ol>
 
                 <h2>Screenshots</h2>
-                <p>Click any screenshot to view full size.</p>
+                <p>Click any screenshot to view full size. (On mobile, swipe/scroll.)</p>
                 <div class="djenius-screenshot-strip">
                     <button type="button" data-index="0" aria-label="Open practice screenshot">
                         <img src="/assets/images/web/djenius-practice.webp" alt="Practice screen with timer and save button" loading="lazy" />

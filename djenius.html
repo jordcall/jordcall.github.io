@@ -59,6 +59,22 @@
             opacity: 0.95;
             transition: transform 150ms ease, opacity 150ms ease;
         }
+        .djenius-sha summary {
+            cursor: pointer;
+            list-style: none;
+        }
+        .djenius-sha summary::-webkit-details-marker {
+            display: none;
+        }
+        .djenius-sha-hint {
+            font-weight: normal;
+            opacity: 0.6;
+            margin-left: 6px;
+        }
+        .djenius-sha code {
+            display: block;
+            margin-top: 8px;
+        }
         body.djenius-lightbox-open {
             overflow: hidden;
         }
@@ -174,7 +190,12 @@
                 <h2>Details</h2>
                 <ul>
                     <li><strong>Version:</strong> v0.1.0-beta</li>
-                    <li><strong>SHA-256:</strong> <code style="word-break: break-all;">0b492e64cad3c736871360bf46d768c49d40ad2656485f66e4e72bf4ac79cc25</code></li>
+                    <li>
+                        <details class="djenius-sha">
+                            <summary><strong>File fingerprint (SHA-256):</strong> <span class="djenius-sha-hint">Click to view</span></summary>
+                            <code style="word-break: break-all;">0b492e64cad3c736871360bf46d768c49d40ad2656485f66e4e72bf4ac79cc25</code>
+                        </details>
+                    </li>
                     <li><strong>Release notes:</strong> <a href="https://github.com/jordcall/jordcall.github.io/releases/tag/djenius-v0.1.0" target="_blank" rel="noopener">djenius-v0.1.0</a></li>
                 </ul>
 

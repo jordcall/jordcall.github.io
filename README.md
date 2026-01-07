@@ -15,6 +15,17 @@ Typical workflow:
 
 If you’re making a bigger change, use a branch + pull request.
 
+## Common commands
+
+### Update the Now page
+1) Archive current Now + reset template:
+   node scripts/archive-now.js
+2) Edit now.html (CURRENT section)
+3) Preview locally:
+   python -m http.server 8000
+   then open http://localhost:8000/now.html
+
+
 All content © Jordan Call unless otherwise noted.
 
 ## Local preview

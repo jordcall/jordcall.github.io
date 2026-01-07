@@ -1,8 +1,13 @@
 // Inject header partial into every page
 document.addEventListener('DOMContentLoaded', async function() {
+    debugLog('header_inject_start', { path: location.pathname });
     try {
         const v = await window.__getBuildVersion;
+        debugLog('fetch_start', { name: 'header', path: '/partials/header.html' });
+        debugTime('fetch_header');
         const response = await fetch(`/partials/header.html?v=${encodeURIComponent(v)}`, { cache: 'no-store' });
+        debugTimeEnd('fetch_header');
+        debugLog('fetch_end', { name: 'header', status: response.status });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -23,6 +28,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (typeof initNav === 'function') {
             initNav();
         }
+        debugLog('header_inject_done', { navInit: typeof initNav === 'function' });
         
         // Set current year in footer
         const yearElement = document.getElementById('current-year');
@@ -31,6 +37,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
         
     } catch (error) {
-        console.error('Failed to load header:', error);
+        debugError('header_inject_error', { message: error.message });
     }
 });

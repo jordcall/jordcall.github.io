@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setCurrentYear();
     handleReducedMotion();
     
-    console.log('Jordan Call website initialized successfully');
+    debugLog('site_initialized', { path: location.pathname });
 });
 
 /**
@@ -38,12 +38,14 @@ function initializeContextWindow() {
     
     // Handle close button click
     closeButton.addEventListener('click', function() {
+        debugLog('context_closed', { reason: 'button' });
         closeContextWindow(contextWindow);
     });
     
     // Handle escape key to close context window
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && !contextWindow.classList.contains('hidden')) {
+            debugLog('context_closed', { reason: 'escape' });
             closeContextWindow(contextWindow);
         }
     });

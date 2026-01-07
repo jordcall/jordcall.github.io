@@ -31,49 +31,33 @@
     <style>
         .djenius-screenshot-strip {
             display: flex;
-            flex-wrap: nowrap;
             gap: 18px;
-            align-items: flex-start;
             justify-content: center;
+            align-items: flex-start;
+            flex-wrap: nowrap;
             overflow-x: auto;
             padding: 12px 0;
-            max-width: 980px;
+            max-width: 760px;
             margin: 0 auto;
-            width: 100%;
+            -webkit-overflow-scrolling: touch;
         }
-        .djenius-screenshot-strip button {
+        .djenius-screenshot-strip a {
             flex: 0 0 auto;
-            scroll-snap-align: start;
             display: inline-block;
-            border: none;
-            background: transparent;
-            padding: 0;
-            cursor: zoom-in;
         }
         .djenius-screenshot-strip img {
-            height: clamp(180px, 19vw, 260px);
+            height: 230px;
             width: auto;
+            display: block;
             border-radius: 10px;
             border: 1px solid rgba(0, 0, 0, 0.12);
             background: #fff;
-            display: block;
             cursor: zoom-in;
-            transition: transform 150ms ease, opacity 150ms ease, box-shadow 150ms ease;
         }
-        @media (min-width: 900px) {
-            .djenius-screenshot-strip {
-                overflow-x: visible;
-                justify-content: space-between;
-            }
-        }
-        .djenius-screenshot-strip button:hover img {
+        .djenius-screenshot-strip a:hover img {
             transform: translateY(-2px);
             opacity: 0.95;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        }
-        .djenius-screenshot-strip button:focus-visible img {
-            outline: 2px solid rgba(0, 0, 0, 0.25);
-            outline-offset: 3px;
+            transition: transform 150ms ease, opacity 150ms ease;
         }
         body.djenius-lightbox-open {
             overflow: hidden;
@@ -200,18 +184,18 @@
                 <h2>Screenshots</h2>
                 <p>Click any screenshot to view full size. (On mobile, swipe/scroll.)</p>
                 <div class="djenius-screenshot-strip">
-                    <button type="button" data-index="0" aria-label="Open practice screenshot">
+                    <a href="/assets/images/web/djenius-practice.webp" data-index="0" aria-label="Open practice screenshot">
                         <img src="/assets/images/web/djenius-practice.webp" alt="Practice screen with timer and save button" loading="lazy" />
-                    </button>
-                    <button type="button" data-index="1" aria-label="Open stats screenshot">
+                    </a>
+                    <a href="/assets/images/web/djenius-stats.webp" data-index="1" aria-label="Open stats screenshot">
                         <img src="/assets/images/web/djenius-stats.webp" alt="Stats screen with charts and breakdown" loading="lazy" />
-                    </button>
-                    <button type="button" data-index="2" aria-label="Open library screenshot">
+                    </a>
+                    <a href="/assets/images/web/djenius-library.webp" data-index="2" aria-label="Open library screenshot">
                         <img src="/assets/images/web/djenius-library.webp" alt="Library screen showing items and filters" loading="lazy" />
-                    </button>
-                    <button type="button" data-index="3" aria-label="Open log screenshot">
+                    </a>
+                    <a href="/assets/images/web/djenius-log.webp" data-index="3" aria-label="Open log screenshot">
                         <img src="/assets/images/web/djenius-log.webp" alt="Log screen listing recent practice entries" loading="lazy" />
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -307,9 +291,10 @@
             const next = () => updateModal(currentIndex + 1);
             const prev = () => updateModal(currentIndex - 1);
 
-            strip.querySelectorAll("button[data-index]").forEach((button) => {
-                button.addEventListener("click", () => {
-                    const index = Number(button.getAttribute("data-index")) || 0;
+            strip.querySelectorAll("a[data-index]").forEach((link) => {
+                link.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    const index = Number(link.getAttribute("data-index")) || 0;
                     openModal(index);
                 });
             });

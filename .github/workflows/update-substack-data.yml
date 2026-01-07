@@ -1,0 +1,30 @@
+name: Update Substack data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-substack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: node scripts/fetch-substack-archive.js
+      - name: Commit and push if data changed
+        run: |
+          if git status --porcelain assets/data/farewellfiles.json assets/data/essay-tags.json | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/data/farewellfiles.json assets/data/essay-tags.json
+            git commit -m "Update Substack data"
+            git push
+          else
+            echo "No data changes"
+          fi

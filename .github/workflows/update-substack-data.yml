@@ -11,6 +11,8 @@ permissions:
 jobs:
   update-substack:
     runs-on: ubuntu-latest
+    env:
+      SUBSTACK_UA: "Mozilla/5.0 (compatible; jordcall-site-bot/1.0; +https://jordan-call.com)"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

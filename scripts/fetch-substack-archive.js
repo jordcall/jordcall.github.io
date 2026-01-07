@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
@@ -11,6 +10,7 @@ if (!fs.existsSync(dataDir)) {
 
 const archiveBaseUrl = 'https://farewellfiles.substack.com/api/v1/archive?sort=new&offset=';
 const pageSize = 12;
+const retryStatuses = new Set([403, 429, 500, 502, 503, 504]);
 
 function logEvent(name, details) {
     if (details) {
@@ -20,26 +20,62 @@ function logEvent(name, details) {
     console.log(name);
 }
 
-function fetchJSON(url) {
-    return new Promise((resolve, reject) => {
-        https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; SubstackFetcher/1.0)' } }, (res) => {
-            if (res.statusCode && res.statusCode >= 400) {
-                reject(new Error(`HTTP ${res.statusCode}`));
-                res.resume();
-                return;
-            }
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-            let data = '';
-            res.on('data', chunk => data += chunk);
-            res.on('end', () => {
-                try {
-                    resolve(JSON.parse(data));
-                } catch (err) {
-                    reject(err);
-                }
-            });
-        }).on('error', reject);
-    });
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getHeaders() {
+    return {
+        'User-Agent': process.env.SUBSTACK_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36',
+        'Accept': 'application/json,text/plain,*/*',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': 'https://farewellfiles.substack.com/',
+        'Origin': 'https://farewellfiles.substack.com'
+    };
+}
+
+function getBackoffDelay(attempt) {
+    const base = Math.min(16000, 1000 * (2 ** (attempt - 1)));
+    return base + randomInt(100, 400);
+}
+
+async function fetchJson(url, context) {
+    const headers = getHeaders();
+    const maxAttempts = 5;
+    const contextData = context && typeof context === 'object' ? context : {};
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+        let response;
+        try {
+            response = await fetch(url, { headers });
+        } catch (error) {
+            logEvent('substack_fetch_page', { ...contextData, attempt, status: 'network_error' });
+            if (attempt === maxAttempts) {
+                throw error;
+            }
+            await delay(getBackoffDelay(attempt));
+            continue;
+        }
+
+        const status = response.status;
+        logEvent('substack_fetch_page', { ...contextData, attempt, status });
+
+        if (response.ok) {
+            return response.json();
+        }
+
+        if (!retryStatuses.has(status) || attempt === maxAttempts) {
+            throw new Error(`HTTP ${status}`);
+        }
+
+        await delay(getBackoffDelay(attempt));
+    }
+
+    throw new Error('Failed to fetch Substack data');
 }
 
 function normalizeLink(link) {
@@ -95,9 +131,7 @@ async function fetchAllPosts() {
 
     while (true) {
         const url = `${archiveBaseUrl}${offset}`;
-        logEvent('substack_fetch_page', { page, offset });
-
-        const response = await fetchJSON(url);
+        const response = await fetchJson(url, { page, offset });
         const posts = Array.isArray(response?.posts) ? response.posts : response;
 
         if (!Array.isArray(posts)) {
@@ -127,7 +161,7 @@ async function fetchAllPosts() {
 
         offset += pageSize;
         page += 1;
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await delay(randomInt(400, 900));
     }
 
     logEvent('substack_fetch_end', { count: allPosts.length });

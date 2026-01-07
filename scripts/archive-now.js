@@ -110,6 +110,22 @@ function formatArchiveDate(match) {
     return `${year}-${paddedMonth}-${paddedDay}`;
 }
 
+function formatDisplayDate(isoDate) {
+    const parts = isoDate.split('-').map(Number);
+    if (parts.length !== 3) {
+        throw new Error('Invalid archive date format');
+    }
+    const date = new Date(parts[0], parts[1] - 1, parts[2]);
+    if (Number.isNaN(date.getTime())) {
+        throw new Error('Invalid archive date value');
+    }
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+}
+
 function formatUpdatedLine(date) {
     const monthNames = [
         'January', 'February', 'March', 'April', 'May', 'June',
@@ -121,12 +137,12 @@ function formatUpdatedLine(date) {
     return `Updated ${monthName} ${day}, ${year}`;
 }
 
-function buildArchiveEntry(dateString, bodyContent, indent, newline) {
+function buildArchiveEntry(dateString, displayDate, bodyContent, indent, newline) {
     const bodyIndent = `${indent}  `;
     const body = bodyContent ? indentLines(bodyContent, bodyIndent, newline) : '';
     const lines = [
         `${indent}<section class="now-archive-entry" id="now-${dateString}">`,
-        `${indent}  <div class="now-archive-date">${dateString} update</div>`
+        `${indent}  <div class="now-archive-date">${displayDate}</div>`
     ];
     if (body) {
         lines.push(body);
@@ -142,12 +158,12 @@ function buildCurrentTemplate(indent, newline) {
     return [
         `${indent}<p class="now-updated"><em>${updatedLine}</em></p>`,
         '',
-        `${indent}<details class="now-item" open>`,
-        `${indent}  <summary>Replace with current focus</summary>`,
+        `${indent}<div class="now-item-current">`,
+        `${indent}  <h3 class="now-item-title">Replace with current focus</h3>`,
         `${indent}  <div class="now-item-body">`,
         `${indent}    <p>Write the new update here.</p>`,
         `${indent}  </div>`,
-        `${indent}</details>`
+        `${indent}</div>`
     ].join(newline);
 }
 
@@ -166,6 +182,7 @@ function main() {
         }
 
         const archiveDate = formatArchiveDate(updatedMatch);
+        const displayDate = formatDisplayDate(archiveDate);
         logEvent('now_archive_parsed_date', { date: archiveDate });
 
         const currentWithoutUpdated = currentBlockInfo.block.replace(
@@ -173,12 +190,14 @@ function main() {
             ''
         ).trim();
         const dedentedCurrent = dedent(trimEmptyLines(currentWithoutUpdated, newline))
-            .replace(/(<details\b[^>]*?)\sopen(\s*=\s*("[^"]*"|'[^']*'|[^\s>]+))?/gi, '$1');
+            .replace(/<div\s+class=["']now-item-current["']>/gi, '<details class=\"now-item\">')
+            .replace(/<h[23]\s+class=["']now-item-title["']>([\s\S]*?)<\/h[23]>/gi, '<summary>$1</summary>')
+            .replace(/<\/div>\s*<\/div>/gi, '</div></details>');
 
         const archiveIndent = getIndent(content, archiveBlockInfo.startIndex, newline);
         const currentIndent = getIndent(content, currentBlockInfo.startIndex, newline);
 
-        const archiveEntry = buildArchiveEntry(archiveDate, dedentedCurrent, archiveIndent, newline);
+        const archiveEntry = buildArchiveEntry(archiveDate, displayDate, dedentedCurrent, archiveIndent, newline);
         const existingArchiveBlock = trimEmptyLines(archiveBlockInfo.block, newline);
         const newArchiveBlock = existingArchiveBlock
             ? [archiveEntry, existingArchiveBlock].join(`${newline}${newline}`)

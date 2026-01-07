@@ -122,19 +122,17 @@ function formatUpdatedLine(date) {
 }
 
 function buildArchiveEntry(dateString, bodyContent, indent, newline) {
-    const bodyIndent = `${indent}    `;
+    const bodyIndent = `${indent}  `;
     const body = bodyContent ? indentLines(bodyContent, bodyIndent, newline) : '';
     const lines = [
-        `${indent}<details class="now-archive-entry" id="now-${dateString}">`,
-        `${indent}  <summary>${dateString} update</summary>`,
-        `${indent}  <div class="now-archive-body">`
+        `${indent}<section class="now-archive-entry" id="now-${dateString}">`,
+        `${indent}  <div class="now-archive-date">${dateString} update</div>`
     ];
     if (body) {
         lines.push(body);
     }
     lines.push(
-        `${indent}  </div>`,
-        `${indent}</details>`
+        `${indent}</section>`
     );
     return lines.join(newline);
 }
@@ -144,7 +142,7 @@ function buildCurrentTemplate(indent, newline) {
     return [
         `${indent}<p class="now-updated"><em>${updatedLine}</em></p>`,
         '',
-        `${indent}<details class="now-item">`,
+        `${indent}<details class="now-item" open>`,
         `${indent}  <summary>Replace with current focus</summary>`,
         `${indent}  <div class="now-item-body">`,
         `${indent}    <p>Write the new update here.</p>`,
@@ -174,7 +172,8 @@ function main() {
             /<p[^>]*class=["']now-updated["'][^>]*>[\s\S]*?<\/p>\s*/i,
             ''
         ).trim();
-        const dedentedCurrent = dedent(trimEmptyLines(currentWithoutUpdated, newline));
+        const dedentedCurrent = dedent(trimEmptyLines(currentWithoutUpdated, newline))
+            .replace(/(<details\b[^>]*?)\sopen(\s*=\s*("[^"]*"|'[^']*'|[^\s>]+))?/gi, '$1');
 
         const archiveIndent = getIndent(content, archiveBlockInfo.startIndex, newline);
         const currentIndent = getIndent(content, currentBlockInfo.startIndex, newline);

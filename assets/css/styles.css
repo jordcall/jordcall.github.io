@@ -1210,13 +1210,52 @@ footer{
 .now-item { 
   margin: 1rem 0 1.25rem; 
 }
-.now-item h3 { 
-  margin: 0 0 .25rem; 
+.now-item summary,
+.now-archive-entry summary { 
+  margin: 0; 
   font-size: 1.125rem; 
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.now-item summary:focus-visible,
+.now-archive-entry summary:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+.now-item summary::-webkit-details-marker,
+.now-archive-entry summary::-webkit-details-marker {
+  display: none;
+}
+.now-item summary::before,
+.now-archive-entry summary::before {
+  content: '▸';
+  font-size: 0.8rem;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+.now-item[open] summary::before,
+.now-archive-entry[open] summary::before {
+  transform: rotate(90deg);
+}
+.now-item-body,
+.now-archive-body {
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+}
+.now-archive-entry {
+  margin: 1.25rem 0;
+}
+.now-archive-body .now-item {
+  margin-top: 0.75rem;
 }
 
 /* Now archive entries: no card chrome */
-.now-archive-section .archive-entry{
+.now-archive-section .archive-entry,
+.now-archive-section .now-archive-entry{
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
@@ -1226,7 +1265,8 @@ footer{
 }
 
 /* In case a generic "entry" card rule targets descendants */
-.now-archive-section .archive-entry * {
+.now-archive-section .archive-entry *,
+.now-archive-section .now-archive-entry * {
   box-shadow: none !important;
   background: transparent !important;
 }

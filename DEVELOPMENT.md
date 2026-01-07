@@ -24,3 +24,14 @@ Task Scheduler setup (checklist):
 Notes:
 - Git credentials must already work for non-interactive push.
 - Logs are appended to `_local_logs/substack-update.log`.
+
+## Now page archive workflow
+The current and archived items are collapsible via `<details>` and are closed by default.
+
+Steps:
+1. Run the archive script:
+```
+node scripts/archive-now.js
+```
+2. Edit the current section in `now.html`.
+3. Commit and push.

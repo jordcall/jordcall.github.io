@@ -25,7 +25,8 @@
     "title": "Hang out with me in my pajamas",
     "date": "2025-10-31",
     "tags": [
-      "freewrite"
+      "freewrite",
+      "personal essay"
     ]
   },
   "/p/im-pretty-sure-theres-such-a-thing": {
@@ -86,7 +87,8 @@
     "title": "For Eurydice Lives: Latter-day Saints have some interesting answers for common objections to Christianity",
     "date": "2025-08-13",
     "tags": [
-      "faith"
+      "faith",
+      "explainer"
     ]
   },
   "/p/in-your-search-for-truth-dont-forget": {
@@ -94,7 +96,8 @@
     "date": "2025-08-11",
     "tags": [
       "philosophy",
-      "writing"
+      "writing",
+      "explainer"
     ]
   },
   "/p/let-the-backlog-go": {
@@ -108,7 +111,8 @@
     "title": "So what's it been like having a third baby?",
     "date": "2025-07-17",
     "tags": [
-      "parenthood"
+      "parenthood",
+      "personal essay"
     ]
   },
   "/p/you-cant-reduce-agency-to-computer": {
@@ -117,7 +121,8 @@
     "tags": [
       "AI",
       "faith",
-      "philosophy"
+      "philosophy",
+      "explainer"
     ]
   },
   "/p/a-follow-up-about-poking-expectations": {
@@ -140,7 +145,9 @@
     "title": "Best* of Substack this week** - link roundup and commentary",
     "date": "2025-06-26",
     "tags": [
-      "review"
+      "review",
+      "internet",
+      "writing"
     ]
   },
   "/p/my-most-shameful-opinion": {
@@ -155,7 +162,9 @@
     "title": "Do you love Jesus Christ? Are you sure?",
     "date": "2025-06-14",
     "tags": [
-      "faith"
+      "faith",
+      "relationships",
+      "personal essay"
     ]
   },
   "/p/i-slacked-off-in-law-school-which": {
@@ -181,7 +190,8 @@
     "date": "2025-06-02",
     "tags": [
       "AI",
-      "philosophy"
+      "philosophy",
+      "internet"
     ]
   },
   "/p/i-hate-substack-notes-i-love-substack": {
@@ -189,7 +199,8 @@
     "date": "2025-05-28",
     "tags": [
       "writing",
-      "takes"
+      "takes",
+      "internet"
     ]
   },
   "/p/theres-only-one-thing-left-on-my": {
@@ -213,21 +224,24 @@
     "title": "Writers, stop using AI too much—but please, also stop using it not enough",
     "date": "2025-04-25",
     "tags": [
-      "AI"
+      "AI",
+      "explainer"
     ]
   },
   "/p/the-ai-commandments": {
     "title": "The AI Commandments",
     "date": "2025-04-14",
     "tags": [
-      "AI"
+      "AI",
+      "explainer"
     ]
   },
   "/p/law-taught-me-professional-writing": {
     "title": "Law taught me professional writing is a team sport. Now, AI can be your team.",
     "date": "2025-04-04",
     "tags": [
-      "AI"
+      "AI",
+      "explainer"
     ]
   },
   "/p/jesus-wants-me-for-a-lawyer": {
@@ -324,7 +338,8 @@
     "tags": [
       "humor",
       "takes",
-      "parenthood"
+      "parenthood",
+      "relationships"
     ]
   },
   "/p/why-cant-i-bring-myself-to-text-people": {
@@ -332,7 +347,9 @@
     "date": "2025-11-14",
     "tags": [
       "personal essay",
-      "philosophy"
+      "philosophy",
+      "internet",
+      "relationships"
     ]
   },
   "/p/to-build-a-home-online": {
@@ -342,7 +359,8 @@
       "writing",
       "creativity",
       "philosophy",
-      "AI"
+      "AI",
+      "internet"
     ]
   },
   "/p/when-i-finished-instagram": {
@@ -351,7 +369,8 @@
     "tags": [
       "takes",
       "philosophy",
-      "personal essay"
+      "personal essay",
+      "internet"
     ]
   },
   "/p/every-sitcom-has-a-jerry-a-george": {
@@ -376,7 +395,8 @@
     "date": "2026-02-06",
     "tags": [
       "humor",
-      "writing"
+      "writing",
+      "internet"
     ]
   },
   "/p/conversations-with-a-baby-by-a-stay": {
@@ -394,7 +414,8 @@
     "tags": [
       "writing",
       "creativity",
-      "personal essay"
+      "personal essay",
+      "internet"
     ]
   },
   "/p/stop-listening-to-podcasts-and-call": {
@@ -402,7 +423,8 @@
     "date": "2026-02-18",
     "tags": [
       "takes",
-      "personal essay"
+      "personal essay",
+      "relationships"
     ]
   },
   "/p/can-you-tell-if-someone-is-lying": {
@@ -517,7 +539,8 @@
       "writing",
       "personal essay",
       "humor",
-      "creativity"
+      "creativity",
+      "relationships"
     ]
   },
   "/p/if-youve-ever-felt-guilty-for-not": {
@@ -543,7 +566,8 @@
       "AI",
       "humor",
       "takes",
-      "writing"
+      "writing",
+      "internet"
     ]
   }
 }

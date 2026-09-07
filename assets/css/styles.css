@@ -825,6 +825,22 @@ footer{
   min-height: 360px;
 }
 
+.podcast-card-entry {
+  max-width: 100%;
+  margin: 2.5rem 0;
+}
+
+.podcast-card-entry .substack-post-embed {
+  margin-bottom: 0.75rem;
+}
+
+.podcast-title-note {
+  margin: 0.75rem 0 1rem;
+  color: var(--text);
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
 /* If any container is hiding overflow, allow visibility in this section */
 .content, .container {
   overflow: visible;

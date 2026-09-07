@@ -9,3 +9,5 @@ Thumbs.db
 *.apk
 *.aab
 _local_logs/
+/photo-originals/
+/photos-originals/

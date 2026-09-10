@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#faf8f2">
+    <title>Light Street Trio — Baltimore Jazz</title>
+    <meta name="description" content="Light Street Trio is a jazz group in Baltimore, Maryland: Jordan Call on guitar, Kai Knorr on bass, and Jon Tigert on drums.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Light Street Trio — Baltimore Jazz">
+    <meta property="og:description" content="Jordan Call, guitar. Kai Knorr, bass. Jon Tigert, drums. A jazz trio in Baltimore, Maryland.">
+    <meta property="og:url" content="https://jordan-call.com/light-street-trio/">
+    <link rel="canonical" href="https://jordan-call.com/light-street-trio/">
+    <link rel="preload" href="/assets/fonts/light-street-trio/archivo-black-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/light-street-trio.css">
+    <script src="/assets/js/light-street-trio.js" defer></script>
+</head>
+<body class="lst-page">
+    <main class="lst-main">
+        <section class="lst-band" aria-labelledby="band-title">
+            <h1 class="lst-title" id="band-title">
+                <span class="lst-red">Light</span>
+                <span class="lst-green">Street</span>
+                <span class="lst-blue">Trio</span>
+            </h1>
+
+            <div class="lst-musicians">
+                <figure class="lst-musician lst-red">
+                    <img
+                        src="/assets/images/web/light-street-trio/kai-knorr-340.webp"
+                        srcset="/assets/images/web/light-street-trio/kai-knorr-320.webp 320w, /assets/images/web/light-street-trio/kai-knorr-340.webp 340w"
+                        sizes="(max-width: 699px) 250px, (max-width: 1199px) 27vw, 300px"
+                        width="340" height="340"
+                        alt="Kai Knorr playing upright bass."
+                        fetchpriority="high" decoding="async">
+                    <figcaption>
+                        <h2>Kai Knorr</h2>
+                        <p>Bass</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="lst-musician lst-green">
+                    <img
+                        src="/assets/images/web/light-street-trio/jordan-call-580.webp"
+                        srcset="/assets/images/web/light-street-trio/jordan-call-320.webp 320w, /assets/images/web/light-street-trio/jordan-call-580.webp 580w"
+                        sizes="(max-width: 699px) 250px, (max-width: 1199px) 27vw, 300px"
+                        width="580" height="580"
+                        alt="Jordan Call seated with his guitar."
+                        decoding="async">
+                    <figcaption>
+                        <h2>Jordan Call</h2>
+                        <p>Guitar</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="lst-musician lst-blue">
+                    <img
+                        src="/assets/images/web/light-street-trio/jon-tigert-390.webp"
+                        srcset="/assets/images/web/light-street-trio/jon-tigert-320.webp 320w, /assets/images/web/light-street-trio/jon-tigert-390.webp 390w"
+                        sizes="(max-width: 699px) 250px, (max-width: 1199px) 27vw, 300px"
+                        width="390" height="390"
+                        alt="Jon Tigert smiling during a performance."
+                        decoding="async">
+                    <figcaption>
+                        <h2>Jon Tigert</h2>
+                        <p>Drums</p>
+                    </figcaption>
+                </figure>
+            </div>
+
+            <!-- Three placeholder sentences, as requested. Replace only with supplied copy. -->
+            <p class="lst-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </section>
+
+        <section class="lst-rehearsal" aria-label="Rehearsal video">
+            <div class="lst-video" id="rehearsal-video">
+                <button class="lst-load-video" type="button" aria-controls="rehearsal-player" aria-expanded="false" hidden>Load rehearsal video</button>
+                <div class="lst-player" id="rehearsal-player" hidden></div>
+                <template id="rehearsal-embed">
+                    <iframe
+                        src="https://www.instagram.com/p/Dcy6YfcCWx5/embed/"
+                        title="Light Street Trio — rehearsal video on Instagram"
+                        width="400" height="710"
+                        allow="encrypted-media; fullscreen; picture-in-picture"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
+                </template>
+            </div>
+            <p class="lst-instagram-link"><a href="https://www.instagram.com/p/Dcy6YfcCWx5/" target="_blank" rel="noopener noreferrer">Watch on Instagram<span class="lst-sr-only"> (opens in a new tab)</span></a></p>
+        </section>
+
+        <footer class="lst-contact" aria-labelledby="booking-title">
+            <h2 class="lst-section-title" id="booking-title">Booking &amp; inquiries</h2>
+            <form class="lst-booking-form" action="https://formspree.io/f/mgvzkbkl" method="POST">
+                <div class="lst-form-row">
+                    <div class="lst-field">
+                        <label for="booking-name">Name <span aria-hidden="true">*</span></label>
+                        <input id="booking-name" name="name" type="text" autocomplete="name" required>
+                    </div>
+                    <div class="lst-field">
+                        <label for="booking-email">Email <span aria-hidden="true">*</span></label>
+                        <input id="booking-email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                </div>
+                <div class="lst-field">
+                    <label for="booking-message">Message <span aria-hidden="true">*</span></label>
+                    <textarea id="booking-message" name="message" rows="4" required></textarea>
+                </div>
+                <div hidden aria-hidden="true">
+                    <label for="booking-website">Leave this field empty</label>
+                    <input id="booking-website" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+                </div>
+                <button class="lst-submit" type="submit">Send message</button>
+            </form>
+        </footer>
+    </main>
+</body>
+</html>

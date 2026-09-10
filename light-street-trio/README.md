@@ -25,8 +25,8 @@ the embed blocked. No Instagram media or thumbnail is stored in this repository.
 
 Styles: `assets/css/light-street-trio.css`, scoped beneath `.lst-page`.
 Script: `assets/js/light-street-trio.js`, used only for the video embed.
-Fonts: locally hosted Anton for the band title and Barlow Condensed Medium at
-22px for the instrument labels. Licenses and source notes are in
+Fonts: locally hosted Anton for the band title and musician names, with Barlow
+Condensed Medium at 22px for the instrument labels. Licenses and source notes are in
 `assets/fonts/light-street-trio/`. Local comparison samples for Oswald Regular
 and Libre Baskerville Italic are in the ignored
 `.local/light-street-trio-preview/instrument-font-options.html` file.

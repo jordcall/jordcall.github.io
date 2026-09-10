@@ -1,7 +1,7 @@
 The page uses two locally hosted fonts, both distributed under the SIL Open
 Font License 1.1. The corresponding license files include their copyright notices.
 
-## Anton — band title
+## Anton — band title and musician names
 
 - License: `anton-OFL.txt`
 - Upstream: https://github.com/google/fonts/tree/main/ofl/anton

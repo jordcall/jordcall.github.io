@@ -25,8 +25,11 @@ the embed blocked. No Instagram media or thumbnail is stored in this repository.
 
 Styles: `assets/css/light-street-trio.css`, scoped beneath `.lst-page`.
 Script: `assets/js/light-street-trio.js`, used only for the video embed.
-Font: locally hosted Archivo Black, with its license and source notes in
-`assets/fonts/light-street-trio/`.
+Fonts: locally hosted Anton for the band title and Barlow Condensed Medium at
+22px for the instrument labels. Licenses and source notes are in
+`assets/fonts/light-street-trio/`. Local comparison samples for Oswald Regular
+and Libre Baskerville Italic are in the ignored
+`.local/light-street-trio-preview/instrument-font-options.html` file.
 
 Original photos were left unchanged at
 `C:/Users/Jordan Call/Desktop/Guitar Trio/website assets/`, and copied to the
@@ -39,13 +42,27 @@ Square crops in original-image pixels (left, top, width, height):
 
 | Original | Crop |
 | --- | --- |
-| jordan call.jpg | 220, 102, 580, 580 |
-| kai knorr.png | 0, 42, 340, 340 |
-| jon tigert.jpg | 0, 32, 390, 390 |
+| jordan call.jpg | 145, 40, 720, 720 |
+| kai knorr.png | 0, 35, 392, 392 |
+| jon tigert.jpg | 0, 0, 647, 647 |
 
 Derivatives use WebP quality 86. The album cover is only a design reference and
 is not included on the page. The small supplied bassist and drummer photos limit
-sharpness on high-density displays.
+sharpness on high-density displays. The wider crops show more of the instruments;
+Jon's derivative now uses his whole supplied photograph, including the original
+flag overlay, which is grayscale along with the rest of the image.
+
+## Palette
+
+The owner's supplied colors are used exactly: red `#C04652`, green `#A3BF50`,
+and blue `#15ACD1`. The background remains `#faf8f2`. Instrument labels, other
+supporting text, and keyboard focus outlines use near-black `#24251f`.
+
+On this cream background, the green and blue have contrast ratios of approximately
+1.95:1 and 2.52:1, below the WCAG AA text thresholds. They were retained to honor
+the owner's request not to deviate significantly from these hexes. The musician
+names in those colors therefore have a known contrast limitation; automated
+accessibility checks report it. Red is approximately 4.66:1.
 
 ## Verification
 

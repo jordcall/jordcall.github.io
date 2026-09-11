@@ -143,13 +143,23 @@
 }
 
 .lst-page .lst-description {
-    max-width: 620px;
+    max-width: 800px;
     margin: 88px auto 0;
     font-family: Georgia, "Times New Roman", serif;
     font-size: 19px;
     line-height: 1.7;
-    text-align: center;
+    text-align: justify;
+    text-align-last: left;
+    hyphens: auto;
     text-wrap: pretty;
+}
+
+.lst-page .lst-description p {
+    margin: 0;
+}
+
+.lst-page .lst-description p + p {
+    margin-top: 1em;
 }
 
 .lst-page .lst-rehearsal {
@@ -324,7 +334,8 @@
     }
 
     .lst-page .lst-description {
-        max-width: 440px;
+        width: 100%;
+        max-width: none;
         margin-top: 60px;
         font-size: 18px;
         line-height: 1.65;

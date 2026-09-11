@@ -2,15 +2,16 @@
 
 Standalone static page at `/light-street-trio/`. Serve the repository root with
 any static HTTP server, then open that path. No build step or runtime package
-dependencies are required. This page is intentionally absent from the existing
-site navigation and does not load the shared site stylesheet or header scripts.
+dependencies are required. The Music page links here using its existing project
+button style. This page does not load the shared site stylesheet or header scripts.
+GitHub Pages publishes this folder from the repository root when `main` is pushed.
 
 ## Content
 
 - Desktop, left to right: Kai Knorr — bass; Jordan Call — guitar; Jon Tigert — drums.
 - Mobile, top to bottom: Jordan Call, Kai Knorr, Jon Tigert.
-- The three lorem ipsum sentences are intentional placeholders requested by the
-  owner. Replace the `.lst-description` paragraph when final wording is supplied.
+- The owner's description and booking invitation are inside `.lst-description`,
+  with shared width, typography, and justified alignment.
 - Rehearsal: https://www.instagram.com/p/Dcy6YfcCWx5/
 - Booking: the same native HTML form destination as `contact.html`,
   `https://formspree.io/f/mgvzkbkl`. The owner's follow-up request for this form

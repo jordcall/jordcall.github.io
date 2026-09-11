@@ -175,23 +175,6 @@
     text-transform: uppercase;
 }
 
-.lst-page .lst-load-video {
-    max-width: 100%;
-    padding: 14px 25px;
-    border: 1px solid var(--lst-ink);
-    border-radius: 0;
-    background: transparent;
-    color: var(--lst-ink);
-    font: inherit;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.lst-page .lst-load-video:hover {
-    background: var(--lst-ink);
-    color: var(--lst-paper);
-}
-
 .lst-page .lst-player {
     width: min(100%, 400px);
     margin-inline: auto;

@@ -78,17 +78,15 @@
 
         <section class="lst-rehearsal" aria-label="Rehearsal video">
             <div class="lst-video" id="rehearsal-video">
-                <button class="lst-load-video" type="button" aria-controls="rehearsal-player" aria-expanded="false" hidden>Load rehearsal video</button>
-                <div class="lst-player" id="rehearsal-player" hidden></div>
-                <template id="rehearsal-embed">
+                <div class="lst-player" id="rehearsal-player">
                     <iframe
                         src="https://www.instagram.com/p/Dcy6YfcCWx5/embed/"
                         title="Light Street Trio — rehearsal video on Instagram"
                         width="400" height="710"
-                        allow="encrypted-media; fullscreen; picture-in-picture"
+                        allow="autoplay 'none'; encrypted-media; fullscreen; picture-in-picture"
                         referrerpolicy="strict-origin-when-cross-origin"
                         allowfullscreen></iframe>
-                </template>
+                </div>
             </div>
             <p class="lst-instagram-link"><a href="https://www.instagram.com/p/Dcy6YfcCWx5/" target="_blank" rel="noopener noreferrer">Watch on Instagram<span class="lst-sr-only"> (opens in a new tab)</span></a></p>
         </section>

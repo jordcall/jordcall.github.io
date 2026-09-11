@@ -18,8 +18,8 @@ GitHub Pages publishes this folder from the repository root when `main` is pushe
   superseded the original brief's email-link-only contact section. Formspree
   handles delivery and the confirmation page. The form works without JavaScript.
 
-The Instagram frame loads only after selecting **Load rehearsal video** and does
-not autoplay. Its verified origin and frame source are checked before accepting
+The Instagram frame loads immediately when the page opens, with autoplay disabled
+by the iframe permissions policy. Its origin and frame source are checked before accepting
 height updates. The direct Instagram link also works with JavaScript disabled or
 the embed blocked. No Instagram media or thumbnail is stored in this repository.
 

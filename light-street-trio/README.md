@@ -7,7 +7,8 @@ site navigation and does not load the shared site stylesheet or header scripts.
 
 ## Content
 
-- Left to right: Kai Knorr — bass; Jordan Call — guitar; Jon Tigert — drums.
+- Desktop, left to right: Kai Knorr — bass; Jordan Call — guitar; Jon Tigert — drums.
+- Mobile, top to bottom: Jordan Call, Kai Knorr, Jon Tigert.
 - The three lorem ipsum sentences are intentional placeholders requested by the
   owner. Replace the `.lst-description` paragraph when final wording is supplied.
 - Rehearsal: https://www.instagram.com/p/Dcy6YfcCWx5/

@@ -303,6 +303,10 @@
         gap: 44px;
     }
 
+    .lst-page .lst-musician-jordan {
+        order: -1;
+    }
+
     .lst-page .lst-musician img {
         width: min(100%, 230px);
     }

@@ -144,7 +144,7 @@
 
 .lst-page .lst-description {
     max-width: 800px;
-    margin: 88px auto 0;
+    margin: 44px auto 0;
     font-family: Georgia, "Times New Roman", serif;
     font-size: 19px;
     line-height: 1.7;
@@ -162,11 +162,6 @@
     margin-top: 1em;
 }
 
-.lst-page .lst-rehearsal {
-    padding-block: 76px 80px;
-    text-align: center;
-}
-
 .lst-page .lst-section-title {
     margin: 0;
     font-size: 12px;
@@ -176,24 +171,21 @@
 }
 
 .lst-page .lst-player {
-    width: min(100%, 400px);
-    margin-inline: auto;
+    width: min(100%, 800px);
+    margin: 64px auto 0;
 }
 
 .lst-page .lst-player iframe {
     display: block;
     width: 100%;
-    height: 710px;
+    height: auto;
+    aspect-ratio: 16 / 9;
     border: 0;
-    background: #fff;
-}
-
-.lst-page .lst-instagram-link {
-    margin: 18px 0 0;
-    font-size: 13px;
+    background: #000;
 }
 
 .lst-page .lst-contact {
+    margin-top: 72px;
     padding-block: 44px 52px;
     border-top: 1px solid var(--lst-ink);
     text-align: center;
@@ -258,18 +250,6 @@
     color: var(--lst-ink);
 }
 
-.lst-page .lst-sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
-}
-
 @media (max-width: 699px) {
     .lst-page .lst-main {
         width: calc(100% - 40px);
@@ -319,16 +299,17 @@
     .lst-page .lst-description {
         width: 100%;
         max-width: none;
-        margin-top: 60px;
+        margin-top: 32px;
         font-size: 18px;
         line-height: 1.65;
     }
 
-    .lst-page .lst-rehearsal {
-        padding-block: 56px 60px;
+    .lst-page .lst-player {
+        margin-top: 48px;
     }
 
     .lst-page .lst-contact {
+        margin-top: 48px;
         padding-block: 36px 37px;
     }
 

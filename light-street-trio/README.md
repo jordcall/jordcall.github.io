@@ -12,21 +12,21 @@ GitHub Pages publishes this folder from the repository root when `main` is pushe
 - Mobile, top to bottom: Jordan Call, Kai Knorr, Jon Tigert.
 - The owner's description and booking invitation are inside `.lst-description`,
   with shared width, typography, and justified alignment.
-- Rehearsal: https://www.instagram.com/p/Dcy6YfcCWx5/
+- Video: https://www.youtube.com/watch?v=RNUquPTvG00, immediately after the musician
+  portraits and before the description.
 - Booking: the same native HTML form destination as `contact.html`,
   `https://formspree.io/f/mgvzkbkl`. The owner's follow-up request for this form
   superseded the original brief's email-link-only contact section. Formspree
   handles delivery and the confirmation page. The form works without JavaScript.
 
-The Instagram frame loads immediately when the page opens, with autoplay disabled
-by the iframe permissions policy. Its origin and frame source are checked before accepting
-height updates. The direct Instagram link also works with JavaScript disabled or
-the embed blocked. No Instagram media or thumbnail is stored in this repository.
+The privacy-enhanced YouTube frame loads immediately without a load button or
+page JavaScript. It uses a responsive 16:9 aspect ratio, up to the description's
+800px width, with normal playback controls and fullscreen enabled. Autoplay is off.
 
 ## Assets
 
 Styles: `assets/css/light-street-trio.css`, scoped beneath `.lst-page`.
-Script: `assets/js/light-street-trio.js`, used only for the video embed.
+No page script is required for the video embed.
 Fonts: locally hosted Anton for the band title and musician names, with Barlow
 Condensed Medium at 22px for the instrument labels. Licenses and source notes are in
 `assets/fonts/light-street-trio/`. Local comparison samples for Oswald Regular
@@ -73,5 +73,6 @@ from 320px to 1440px, including both sides of the layout breakpoint. Checks cove
 image loading, title and portrait layout, overflow, keyboard focus, and automated
 WCAG AA accessibility rules. The existing image-integrity check also passes.
 The Formspree POST was intercepted locally to check fields and validation;
-no test message was sent. Instagram embedding was checked with the actual post
-and with its request blocked. Its availability remains controlled by Instagram.
+no test message was sent. The YouTube layout was checked at desktop and phone
+widths, including immediate iframe loading without JavaScript. Video availability
+remains controlled by YouTube.

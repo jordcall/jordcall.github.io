@@ -68,6 +68,27 @@
                 </figure>
             </div>
 
+            <div class="lst-navigation">
+                <p class="lst-tagline">Baltimore <span aria-hidden="true">·</span> Weddings, events &amp; live venues</p>
+                <nav class="lst-nav" aria-label="Trio page navigation">
+                    <a href="#about">About</a>
+                    <span class="lst-nav-divider" aria-hidden="true">·</span>
+                    <a class="lst-book-link" href="#booking">Book now</a>
+                    <span class="lst-nav-divider" aria-hidden="true">·</span>
+                    <a class="lst-instagram" href="https://www.instagram.com/lightstreettrio/"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="Light Street Trio on Instagram (opens in a new tab)"
+                       title="Follow Light Street Trio on Instagram">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false">
+                            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+                        </svg>
+                    </a>
+                </nav>
+            </div>
+
             <div class="lst-player">
                 <iframe
                     src="https://www.youtube-nocookie.com/embed/RNUquPTvG00"
@@ -77,25 +98,19 @@
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen></iframe>
             </div>
-<div style="text-align: center; margin: 1.5rem 0 2rem;">
-    <a href="https://www.instagram.com/YOUR_HANDLE/"
-       target="_blank"
-       rel="noopener noreferrer"
-       style="display: inline-block; padding: 0.65rem 1.2rem;
-              border: 1px solid #292820; border-radius: 3px;
-              color: #292820; font: inherit; font-size: 0.95rem;
-              text-decoration: none;">
-        Follow us on Instagram ↗
-    </a>
-</div>
-            <p class="lst-description">Remember when jazz was good? Trick question—it's still good. But wasn't there something magical about that classic jazz? The kind your Granddad put on his turntable to woo your Nana. The jazz from back when the dolls were satin, the trains were A, and the dolphin streets were green. It bopped, it bounced, and most of all, it <i>swung</i>.
-            <br><br>The Light Street Trio brings that swingin' ethos to the Greater Baltimore Area for what, all things considered, is a very reasonable fee. The combo draws inspiration from Barney Kessel, Count Basie, and Django Reinhardt, using a classic minimalist jazz formula—guitar, bass, drums—to give you everything you need to swing and nothing you don't.
-            <br><br>Comprising three of Baltimore's finest swing musicians in an Avenger's-style team up, Light Street Trio will make you say: "Hey Daddy-O, who ARE those cats blowing over choruses on their axes up on that stage?" The world may never know (if the world ignores the names listed on this website). But one thing's for certain: When Light Street Trio is playing a tune, the world is going to be tapping its big old toe.
-            <br><br>Book the Light Street Trio for your event below.</p>
+
+            <section class="lst-about" id="about" aria-labelledby="about-title">
+                <h2 class="lst-section-title" id="about-title">About</h2>
+                <p class="lst-description">Remember when jazz was good? Trick question—it's still good. But wasn't there something magical about that classic jazz? The kind your Granddad put on his turntable to woo your Nana. The jazz from back when the dolls were satin, the trains were A, and the dolphin streets were green. It bopped, it bounced, and most of all, it <i>swung</i>.
+                <br><br>The Light Street Trio brings that swingin' ethos to the Greater Baltimore Area for what, all things considered, is a very reasonable fee. The combo draws inspiration from Barney Kessel, Count Basie, and Django Reinhardt, using a classic minimalist jazz formula—guitar, bass, drums—to give you everything you need to swing and nothing you don't.
+                <br><br>Comprising three of Baltimore's finest swing musicians in an Avenger's-style team up, Light Street Trio will make you say: "Hey Daddy-O, who ARE those cats blowing over choruses on their axes up on that stage?" The world may never know (if the world ignores the names listed on this website). But one thing's for certain: When Light Street Trio is playing a tune, the world is going to be tapping its big old toe.
+                <br><br>Book the Light Street Trio for your event below.</p>
+            </section>
         </section>
 
-        <footer class="lst-contact" aria-labelledby="booking-title">
+        <footer class="lst-contact" id="booking" aria-labelledby="booking-title">
             <h2 class="lst-section-title" id="booking-title">Booking &amp; inquiries</h2>
+            <p class="lst-booking-details">Available for weddings, private &amp; corporate events, restaurants, concerts, and swing dances.</p>
             <form class="lst-booking-form" action="https://formspree.io/f/mgvzkbkl" method="POST">
                 <div class="lst-form-row">
                     <div class="lst-field">
@@ -105,6 +120,16 @@
                     <div class="lst-field">
                         <label for="booking-email">Email <span aria-hidden="true">*</span></label>
                         <input id="booking-email" name="email" type="email" autocomplete="email" required>
+                    </div>
+                </div>
+                <div class="lst-form-row">
+                    <div class="lst-field">
+                        <label for="booking-date">Event date <span class="lst-optional">(optional)</span></label>
+                        <input id="booking-date" name="event_date" type="date">
+                    </div>
+                    <div class="lst-field">
+                        <label for="booking-location">Venue / location <span class="lst-optional">(optional)</span></label>
+                        <input id="booking-location" name="venue_location" type="text">
                     </div>
                 </div>
                 <div class="lst-field">
@@ -118,10 +143,8 @@
                 <button class="lst-submit" type="submit">Send message</button>
             </form>
         </footer>
-                <p style="text-align: center; margin: 3rem 0 1rem; font-size: 0.8rem;">
-            <a href="/" style="color: #666; text-decoration: underline;">
-                &larr; Back to jordan-call.com
-            </a>
+        <p class="lst-home-link">
+            <a href="/">&larr; Back to jordan-call.com</a>
         </p>
     </main>
 </body>

@@ -142,77 +142,9 @@
     text-transform: uppercase;
 }
 
-.lst-page .lst-navigation {
-    margin: 36px auto 0;
-    text-align: center;
-}
-
-.lst-page .lst-tagline {
-    margin: 0;
-    color: #57594e;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.lst-page .lst-tagline span {
-    padding-inline: 0.3em;
-}
-
-.lst-page .lst-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 8px;
-    font-size: 15px;
-}
-
-.lst-page .lst-nav a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    padding: 6px;
-    text-decoration: none;
-}
-
-.lst-page .lst-nav a:hover {
-    text-decoration: underline;
-}
-
-.lst-page .lst-book-link {
-    font-weight: 700;
-}
-
-.lst-page .lst-nav-divider {
-    color: #737469;
-}
-
-.lst-page .lst-instagram {
-    min-width: 44px;
-}
-
-.lst-page .lst-instagram:hover {
-    color: var(--lst-red);
-}
-
-.lst-page .lst-instagram svg {
-    display: block;
-}
-
-.lst-page .lst-about {
-    max-width: 800px;
-    margin: 44px auto 0;
-    scroll-margin-top: 24px;
-}
-
-.lst-page .lst-about > .lst-section-title {
-    text-align: center;
-}
-
 .lst-page .lst-description {
     max-width: 800px;
-    margin: 18px auto 0;
+    margin: 44px auto 0;
     font-family: Georgia, "Times New Roman", serif;
     font-size: 19px;
     line-height: 1.7;
@@ -243,10 +175,6 @@
     margin: 64px auto 0;
 }
 
-.lst-page .lst-navigation + .lst-player {
-    margin-top: 28px;
-}
-
 .lst-page .lst-player iframe {
     display: block;
     width: 100%;
@@ -261,14 +189,6 @@
     padding-block: 44px 52px;
     border-top: 1px solid var(--lst-ink);
     text-align: center;
-    scroll-margin-top: 24px;
-}
-
-.lst-page .lst-booking-details {
-    max-width: 600px;
-    margin: 16px auto 0;
-    font-size: 14px;
-    line-height: 1.65;
 }
 
 .lst-page .lst-booking-form {
@@ -294,15 +214,10 @@
     font-size: 13px;
 }
 
-.lst-page .lst-optional {
-    color: #57594e;
-}
-
 .lst-page .lst-field input,
 .lst-page .lst-field textarea {
     display: block;
     width: 100%;
-    min-width: 0;
     min-height: 46px;
     padding: 10px 12px;
     border: 1px solid #8b8b80;
@@ -333,17 +248,6 @@
 .lst-page .lst-submit:hover {
     background: var(--lst-paper);
     color: var(--lst-ink);
-}
-
-.lst-page .lst-home-link {
-    margin: 3rem 0 1rem;
-    font-size: 0.8rem;
-    text-align: center;
-}
-
-.lst-page .lst-home-link a {
-    color: #666;
-    text-decoration: underline;
 }
 
 @media (max-width: 699px) {
@@ -392,34 +296,16 @@
         margin-top: 4px;
     }
 
-    .lst-page .lst-navigation {
-        margin-top: 32px;
-    }
-
-    .lst-page .lst-tagline {
-        max-width: 320px;
-        margin-inline: auto;
-        font-size: 13px;
-    }
-
-    .lst-page .lst-about {
-        margin-top: 32px;
-    }
-
     .lst-page .lst-description {
         width: 100%;
         max-width: none;
-        margin-top: 18px;
+        margin-top: 32px;
         font-size: 18px;
         line-height: 1.65;
     }
 
     .lst-page .lst-player {
         margin-top: 48px;
-    }
-
-    .lst-page .lst-navigation + .lst-player {
-        margin-top: 24px;
     }
 
     .lst-page .lst-contact {

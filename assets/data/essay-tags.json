@@ -167,7 +167,7 @@
     ]
   },
   "/p/i-slacked-off-in-law-school-which": {
-    "title": "I slacked off in law school. Which is why I got good grades",
+    "title": "The secret to law school success? Slacking off (kinda)",
     "date": "2025-06-13",
     "tags": [
       "takes",
@@ -657,6 +657,11 @@
   "/p/introducing-featherai-the-only-ai": {
     "title": "Introducing FeatherAI, the only AI that solves your problems by not working at all",
     "date": "2026-10-15",
+    "tags": []
+  },
+  "/p/the-central-tension": {
+    "title": "The central tension",
+    "date": "2026-10-19",
     "tags": []
   }
 }
